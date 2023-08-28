@@ -30,7 +30,8 @@ CodeIgniter 4 Spark for VSCode editor.
 
 ## Other Repositories
 
-- Moodle Pack [VSCode Moodle Spark](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-moodle-spark)
+- [CodeIgniter4 Snippets for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-snippets)
+- [CodeIgniter4 Spark for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
 
 ## Community
 

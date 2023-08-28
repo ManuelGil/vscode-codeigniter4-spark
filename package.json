@@ -2,7 +2,7 @@
   "name": "vscode-codeigniter4-spark",
   "displayName": "Codeigniter 4 Spark",
   "description": "CodeIgniter4 Spark for Visual Studio Code",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
@@ -17,27 +17,19 @@
     "Other"
   ],
   "keywords": [
-    "autocomplete",
-    "autocomplete-functionality",
     "codeigniter",
     "codeigniter4",
     "commands",
-    "grammars",
-    "grammars-utility",
     "php",
-    "snippets",
-    "snippets-collection",
-    "snippets-collections",
-    "snippets-library",
-    "snippets-plugin"
+    "spark"
   ],
-  "homepage": "https://github.com/ManuelGil/vscode-codeigniter4-snippets",
+  "homepage": "https://github.com/ManuelGil/vscode-codeigniter4-spark",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ManuelGil/vscode-codeigniter4-snippets"
+    "url": "https://github.com/ManuelGil/vscode-codeigniter4-spark"
   },
   "bugs": {
-    "url": "https://github.com/ManuelGil/vscode-codeigniter4-snippets/issues"
+    "url": "https://github.com/ManuelGil/vscode-codeigniter4-spark/issues"
   },
   "activationEvents": [
     "onCommand:spark.file.command",
