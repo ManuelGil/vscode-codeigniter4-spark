@@ -25,6 +25,7 @@ CodeIgniter 4 Spark for VSCode editor.
 | Spark: Make Language | spark.file.language | Make a new Language |
 | Spark: Make Migration | spark.file.migration | Make a new Migration |
 | Spark: Make Model | spark.file.model | Make a new Model |
+| Spark: Make Resource | spark.file.resource | Make a new Resource |
 | Spark: Make Seeder | spark.file.seeder | Make a new Seeder |
 | Spark: Make Validation | spark.file.validation | Make a new Validation |
 
@@ -49,4 +50,4 @@ See also the list of [contributors](https://github.com/ManuelGil/vscode-codeigni
 
 ## License
 
-Mustache Spark is licensed under the MIT License - see the [MIT License](https://opensource.org/licenses/MIT) for details.
+Codeigniter 4 Spark for VSCode is licensed under the MIT License - see the [MIT License](https://opensource.org/licenses/MIT) for details.

@@ -1,6 +1,6 @@
 import save from './functions';
 
-let content = `<?php
+const content = `<?php
 
 namespace App\\Controllers;
 

@@ -1,18 +1,17 @@
 import save from './functions';
 
-let content = `<?php
+const content = `<?php
 
 `;
 
 let value: string = '';
 let name: string = '';
 let filename: string = '';
-let body: string = '';
 
 const helper = async (vscode: any, fs: any, path: any) => {
   value = await vscode.window.showInputBox({
-    prompt: 'Helper same',
-    placeHolder: 'Helper same',
+    prompt: 'Helper name',
+    placeHolder: 'Helper name',
     validateInput: (text: string) => {
       if (!/^[a-zA-Z]\w+$/.test(text)) {
         return 'Invalid format!';

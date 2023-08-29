@@ -1,6 +1,6 @@
 import save from './functions';
 
-let content = `<?php
+const content = `<?php
 
 return [];
 
@@ -23,8 +23,6 @@ const language = async (vscode: any, fs: any, path: any) => {
     },
   });
 
-  folder = folder.endsWith('/') ? folder : folder + '/';
-
   value = await vscode.window.showInputBox({
     prompt: 'File name',
     placeHolder: 'File name',
@@ -36,6 +34,7 @@ const language = async (vscode: any, fs: any, path: any) => {
   });
 
   name = value.charAt(0).toUpperCase() + value.replace(/\s/g, '').slice(1);
+  folder = folder.endsWith('/') ? folder : folder + '/';
   filename = '/app/Language/' + folder + name + '.php';
 
   body = content.replace('{className}', name);

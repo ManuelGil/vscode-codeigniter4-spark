@@ -11,6 +11,7 @@ import helper from './commands/helper';
 import language from './commands/language';
 import migration from './commands/migration';
 import model from './commands/model';
+import resource from './commands/resource';
 import seeder from './commands/seeder';
 import validation from './commands/validation';
 
@@ -42,6 +43,9 @@ export function activate(context: vscode.ExtensionContext) {
   const sparkFileModel = vscode.commands.registerCommand('spark.file.model', () => {
     model(vscode, fs, path);
   });
+  const sparkFileResource = vscode.commands.registerCommand('spark.file.resource', () => {
+    resource(vscode, fs, path);
+  });
   const sparkFileSeeder = vscode.commands.registerCommand('spark.file.seeder', () => {
     seeder(vscode, fs, path);
   });
@@ -58,6 +62,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(sparkFileLanguage);
   context.subscriptions.push(sparkFileMigration);
   context.subscriptions.push(sparkFileModel);
+  context.subscriptions.push(sparkFileResource);
   context.subscriptions.push(sparkFileSeeder);
   context.subscriptions.push(sparkFileValidation);
 }
