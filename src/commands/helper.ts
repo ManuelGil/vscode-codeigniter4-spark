@@ -4,22 +4,24 @@ const content = `<?php
 
 `;
 
-let value: string = '';
 let name: string = '';
 let filename: string = '';
 
 const helper = async (vscode: any, fs: any, path: any) => {
-  value = await vscode.window.showInputBox({
+  name = await vscode.window.showInputBox({
     prompt: 'Helper name',
-    placeHolder: 'Helper name',
+    placeHolder: 'E.g. custom_mailer, media...',
     validateInput: (text: string) => {
-      if (!/^[a-zA-Z]\w+$/.test(text)) {
-        return 'Invalid format!';
+      if (!/^[a-z][a-z_]{2,}$/.test(text)) {
+        return 'Invalid format! 3 or more characters (lower-case letters or underscores)';
       }
     },
   });
 
-  name = value.replace(/\s/g, '_').toLowerCase();
+  if (name.length === 0) {
+    return;
+  }
+
   filename = '/app/Helpers/' + name + '_helper.php';
 
   save(vscode, fs, path, filename, content);

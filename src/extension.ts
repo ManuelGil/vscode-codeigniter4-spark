@@ -9,6 +9,7 @@ import entity from './commands/entity';
 import filter from './commands/filter';
 import helper from './commands/helper';
 import language from './commands/language';
+import { migrate, migrateRefresh, migrateRollback } from './commands/migrate';
 import migration from './commands/migration';
 import model from './commands/model';
 import resource from './commands/resource';
@@ -52,6 +53,15 @@ export function activate(context: vscode.ExtensionContext) {
   const sparkFileValidation = vscode.commands.registerCommand('spark.file.validation', () => {
     validation(vscode, fs, path);
   });
+  const sparkTerminalMigrate = vscode.commands.registerCommand('spark.terminal.migrate', () => {
+    migrate(vscode);
+  });
+  const sparkTerminalMigrateRefresh = vscode.commands.registerCommand('spark.terminal.migrate.refresh', () => {
+    migrateRefresh(vscode);
+  });
+  const sparkTerminalMigrateRollback = vscode.commands.registerCommand('spark.terminal.migrate.rollback', () => {
+    migrateRollback(vscode);
+  });
 
   context.subscriptions.push(sparkFileCommand);
   context.subscriptions.push(sparkFileConfig);
@@ -65,6 +75,9 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(sparkFileResource);
   context.subscriptions.push(sparkFileSeeder);
   context.subscriptions.push(sparkFileValidation);
+  context.subscriptions.push(sparkTerminalMigrate);
+  context.subscriptions.push(sparkTerminalMigrateRefresh);
+  context.subscriptions.push(sparkTerminalMigrateRollback);
 }
 
 export function deactivate() {}

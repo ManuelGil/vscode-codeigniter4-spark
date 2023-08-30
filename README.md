@@ -16,18 +16,21 @@ CodeIgniter 4 Spark for VSCode editor.
 
 | Title | Command | Purpose |
 | --- | --- | --- |
-| Spark: Make Command | spark.file.command | Make a new Command |
-| Spark: Make Config | spark.file.config | Make a new Config |
-| Spark: Make Controller | spark.file.controller | Make a new Controller |
-| Spark: Make Entity | spark.file.entity | Make a new Entity |
-| Spark: Make Filter | spark.file.filter | Make a new Filter |
-| Spark: Make Helper | spark.file.helper | Make a new Helper |
-| Spark: Make Language | spark.file.language | Make a new Language |
-| Spark: Make Migration | spark.file.migration | Make a new Migration |
-| Spark: Make Model | spark.file.model | Make a new Model |
-| Spark: Make Resource | spark.file.resource | Make a new Resource |
-| Spark: Make Seeder | spark.file.seeder | Make a new Seeder |
-| Spark: Make Validation | spark.file.validation | Make a new Validation |
+| Spark: Make Command | spark.file.command | Generates a new spark command |
+| Spark: Make Config | spark.file.config | Generates a new config file |
+| Spark: Make Controller | spark.file.controller | Generates a new controller file |
+| Spark: Make Entity | spark.file.entity | Generates a new entity file |
+| Spark: Make Filter | spark.file.filter | Generates a new filter file |
+| Spark: Make Helper | spark.file.helper | Generates a new helper file |
+| Spark: Make Language | spark.file.language | Generates a new language file |
+| Spark: Make Migration | spark.file.migration | Generates a new migration file |
+| Spark: Make Model | spark.file.model | Generates a new model file |
+| Spark: Make Resource | spark.file.resource | Generates a new resource file |
+| Spark: Make Seeder | spark.file.seeder | Generates a new seeder file |
+| Spark: Make Validation | spark.file.validation | Generates a new validation file |
+| Spark: Migrate | spark.terminal.migrate | Locates and runs all new migrations against the database. |
+| Spark: Migrate Refresh | spark.terminal.migrate.refresh | Refreshes the database state by first rolling back all migrations, and then migrating all |
+| Spark: Migrate Rollback | spark.terminal.migrate.rollback | Run the "down" method for all migrations |
 
 ## Other Repositories
 

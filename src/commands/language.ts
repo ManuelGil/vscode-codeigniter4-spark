@@ -7,7 +7,6 @@ return [];
 `;
 
 let folder: string = '';
-let value: string = '';
 let name: string = '';
 let filename: string = '';
 let body: string = '';
@@ -15,25 +14,28 @@ let body: string = '';
 const language = async (vscode: any, fs: any, path: any) => {
   folder = await vscode.window.showInputBox({
     prompt: 'Folder name',
-    placeHolder: 'Folder name',
+    placeHolder: 'Name without path delimeter. E.g. en, fr-CA, zh-cn...',
     validateInput: (text: string) => {
-      if (!/^[a-zA-Z]\w+$/.test(text)) {
+      if (!/^\w+$/.test(text)) {
         return 'Invalid format!';
       }
     },
   });
 
-  value = await vscode.window.showInputBox({
+  name = await vscode.window.showInputBox({
     prompt: 'File name',
-    placeHolder: 'File name',
+    placeHolder: 'Name without extension. E.g. Validation, Profile...',
     validateInput: (text: string) => {
-      if (!/^[a-zA-Z]\w+$/.test(text)) {
-        return 'Invalid format!';
+      if (!/^[A-Za-z]{3,}$/.test(text)) {
+        return 'Invalid format! 3 or more characters (only letters)';
       }
     },
   });
 
-  name = value.charAt(0).toUpperCase() + value.replace(/\s/g, '').slice(1);
+  if (name.length === 0) {
+    return;
+  }
+
   folder = folder.endsWith('/') ? folder : folder + '/';
   filename = '/app/Language/' + folder + name + '.php';
 

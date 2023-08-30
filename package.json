@@ -2,7 +2,7 @@
   "name": "vscode-codeigniter4-spark",
   "displayName": "Codeigniter 4 Spark",
   "description": "CodeIgniter4 Spark for Visual Studio Code",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
@@ -95,6 +95,18 @@
       {
         "command": "spark.file.validation",
         "title": "Spark: Make Validation"
+      },
+      {
+        "command": "spark.terminal.migrate",
+        "title": "Spark: Migrate"
+      },
+      {
+        "command": "spark.terminal.migrate.refresh",
+        "title": "Spark: Migrate Refresh"
+      },
+      {
+        "command": "spark.terminal.migrate.rollback",
+        "title": "Spark: Migrate Rollback"
       }
     ]
   },

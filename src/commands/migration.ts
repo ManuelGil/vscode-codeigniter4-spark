@@ -21,19 +21,18 @@ class {className} extends Migration
 
 `;
 
-let value: string = '';
 let name: string = '';
 let format: string = '';
 let filename: string = '';
 let body: string = '';
 
 const migration = async (vscode: any, fs: any, path: any) => {
-  value = await vscode.window.showInputBox({
+  name = await vscode.window.showInputBox({
     prompt: 'Migration class name',
-    placeHolder: 'Migration class name',
+    placeHolder: 'E.g. InitMigration, UserMigration...',
     validateInput: (text: string) => {
-      if (!/^[a-zA-Z]\w+$/.test(text)) {
-        return 'Invalid format!';
+      if (!/^[A-Z][A-Za-z]{2,}$/.test(text)) {
+        return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1)';
       }
     },
   });
@@ -49,9 +48,12 @@ const migration = async (vscode: any, fs: any, path: any) => {
     hour12: false,
   });
 
+  if (name.length === 0) {
+    return;
+  }
+
   format = format.replace(/\//g, '-').replace(/,/g, '-').replace(/\s/g, '').replace(/\:/g, '');
 
-  name = value.charAt(0).toUpperCase() + value.replace(/\s/g, '').slice(1);
   filename = '/app/Database/Migrations/' + format + '_' + name + '.php';
   console.log(filename);
 

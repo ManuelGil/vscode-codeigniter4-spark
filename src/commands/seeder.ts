@@ -16,23 +16,25 @@ class {className} extends Seeder
 
 `;
 
-let value: string = '';
 let name: string = '';
 let filename: string = '';
 let body: string = '';
 
 const seeder = async (vscode: any, fs: any, path: any) => {
-  value = await vscode.window.showInputBox({
+  name = await vscode.window.showInputBox({
     prompt: 'Seeder class name',
-    placeHolder: 'Seeder class name',
+    placeHolder: 'E.g. UserSeeder, GroupSeeder...',
     validateInput: (text: string) => {
-      if (!/^[a-zA-Z]\w+$/.test(text)) {
-        return 'Invalid format!';
+      if (!/^[A-Z][A-Za-z]{2,}$/.test(text)) {
+        return 'Invalid format! 3 or more characters (only letters)';
       }
     },
   });
 
-  name = value.charAt(0).toUpperCase() + value.replace(/\s/g, '').slice(1);
+  if (name.length === 0) {
+    return;
+  }
+
   filename = '/app/Database/Seeds/' + name + '.php';
 
   body = content.replace('{className}', name);

@@ -44,27 +44,29 @@ class {className} extends Model
 
 `;
 
-let value: string = '';
 let name: string = '';
 let filename: string = '';
 let table: string = '';
 let body: string = '';
 
 const model = async (vscode: any, fs: any, path: any) => {
-  value = await vscode.window.showInputBox({
+  name = await vscode.window.showInputBox({
     prompt: 'Model class name',
-    placeHolder: 'Model class name',
+    placeHolder: 'E.g. UserModel, GroupModel...',
     validateInput: (text: string) => {
-      if (!/^[a-zA-Z]\w+$/.test(text)) {
-        return 'Invalid format!';
+      if (!/^[A-Z][A-Za-z]{2,}$/.test(text)) {
+        return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1)';
       }
     },
   });
 
-  name = value.charAt(0).toUpperCase() + value.replace(/\s/g, '').slice(1);
+  if (name.length === 0) {
+    return;
+  }
+
   filename = '/app/Models/' + name + '.php';
 
-  table = value.replace(/\s/g, '_').toLowerCase();
+  table = name.toLowerCase();
   table = table.endsWith('y') ? table.slice(0, -1) + 'ies' : table;
   table = table.endsWith('s') ? table : table + 's';
 
