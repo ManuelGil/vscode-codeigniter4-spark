@@ -2,18 +2,22 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import { cacheClear, cacheInfo } from './commands/cache';
 import command from './commands/command';
 import config from './commands/config';
 import controller from './commands/controller';
 import entity from './commands/entity';
 import filter from './commands/filter';
 import helper from './commands/helper';
+import key from './commands/key';
 import language from './commands/language';
 import { migrate, migrateRefresh, migrateRollback } from './commands/migrate';
 import migration from './commands/migration';
 import model from './commands/model';
 import resource from './commands/resource';
+import routes from './commands/routes';
 import seeder from './commands/seeder';
+import serve from './commands/serve';
 import validation from './commands/validation';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -62,6 +66,21 @@ export function activate(context: vscode.ExtensionContext) {
   const sparkTerminalMigrateRollback = vscode.commands.registerCommand('spark.terminal.migrate.rollback', () => {
     migrateRollback(vscode);
   });
+  const sparkTerminalServe = vscode.commands.registerCommand('spark.terminal.serve', () => {
+    serve(vscode);
+  });
+  const sparkTerminalKey = vscode.commands.registerCommand('spark.terminal.key', () => {
+    key(vscode);
+  });
+  const sparkTerminalCacheClear = vscode.commands.registerCommand('spark.terminal.cache.clear', () => {
+    cacheClear(vscode);
+  });
+  const sparkTerminalCacheInfo = vscode.commands.registerCommand('spark.terminal.cache.info', () => {
+    cacheInfo(vscode);
+  });
+  const sparkTerminalRoutes = vscode.commands.registerCommand('spark.terminal.routes', () => {
+    routes(vscode);
+  });
 
   context.subscriptions.push(sparkFileCommand);
   context.subscriptions.push(sparkFileConfig);
@@ -78,6 +97,11 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(sparkTerminalMigrate);
   context.subscriptions.push(sparkTerminalMigrateRefresh);
   context.subscriptions.push(sparkTerminalMigrateRollback);
+  context.subscriptions.push(sparkTerminalServe);
+  context.subscriptions.push(sparkTerminalKey);
+  context.subscriptions.push(sparkTerminalCacheClear);
+  context.subscriptions.push(sparkTerminalCacheInfo);
+  context.subscriptions.push(sparkTerminalRoutes);
 }
 
 export function deactivate() {}

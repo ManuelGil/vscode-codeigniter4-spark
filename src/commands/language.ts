@@ -1,4 +1,4 @@
-import save from './functions';
+import { save } from './functions';
 
 const content = `<?php
 

@@ -38,4 +38,14 @@ const save = (vscode: any, fs: any, path: any, filename: string, content: string
   });
 };
 
-export default save;
+const execute = (vscode: any, name: string, command: string, show: boolean = true) => {
+  const terminal = vscode.window.createTerminal({ name: name, hideFromUser: !show });
+  terminal.sendText(command);
+  vscode.window.showInformationMessage(`Running: ${command}`);
+
+  if (show) {
+    terminal.show();
+  }
+};
+
+export { save, execute };

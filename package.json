@@ -2,7 +2,7 @@
   "name": "vscode-codeigniter4-spark",
   "displayName": "Codeigniter 4 Spark",
   "description": "CodeIgniter4 Spark for Visual Studio Code",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
@@ -43,7 +43,15 @@
     "onCommand:spark.file.model",
     "onCommand:spark.file.resource",
     "onCommand:spark.file.seeder",
-    "onCommand:spark.file.validation"
+    "onCommand:spark.file.validation",
+    "onCommand:spark.terminal.migrate",
+    "onCommand:spark.terminal.migrate.refresh",
+    "onCommand:spark.terminal.migrate.rollback",
+    "onCommand:spark.terminal.serve",
+    "onCommand:spark.terminal.key",
+    "onCommand:spark.terminal.cache.clear",
+    "onCommand:spark.terminal.cache.info",
+    "onCommand:spark.terminal.routes"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -107,6 +115,26 @@
       {
         "command": "spark.terminal.migrate.rollback",
         "title": "Spark: Migrate Rollback"
+      },
+      {
+        "command": "spark.terminal.serve",
+        "title": "Spark: Start Server"
+      },
+      {
+        "command": "spark.terminal.key",
+        "title": "Spark: Generate Key"
+      },
+      {
+        "command": "spark.terminal.cache.clear",
+        "title": "Spark: Clear Cache"
+      },
+      {
+        "command": "spark.terminal.cache.info",
+        "title": "Spark: Cache Info"
+      },
+      {
+        "command": "spark.terminal.routes",
+        "title": "Spark: Routes"
       }
     ]
   },

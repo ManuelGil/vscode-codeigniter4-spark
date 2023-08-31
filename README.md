@@ -31,6 +31,11 @@ CodeIgniter 4 Spark for VSCode editor.
 | Spark: Migrate | spark.terminal.migrate | Locates and runs all new migrations against the database. |
 | Spark: Migrate Refresh | spark.terminal.migrate.refresh | Refreshes the database state by first rolling back all migrations, and then migrating all |
 | Spark: Migrate Rollback | spark.terminal.migrate.rollback | Run the "down" method for all migrations |
+| Spark: Start Serve | spark.terminal.serve | Launches the CodeIgniter PHP-Development Server |
+| Spark: Generate Key | spark.terminal.key | Generates a new encryption key and writes it in an `.env` file |
+| Spark: Clear Cache | spark.terminal.cache.clear | Clears the current system caches |
+| Spark: Cache Info | spark.terminal.cache.info | Shows file cache information in the current system |
+| Spark: Routes | spark.terminal.routes | Displays all routes |
 
 ## Other Repositories
 
