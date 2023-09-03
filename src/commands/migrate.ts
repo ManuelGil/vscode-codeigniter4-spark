@@ -22,4 +22,8 @@ const migrateRollback = async (vscode: any) => {
   execute(vscode, 'migrate rollback', 'php spark migrate:rollback', true);
 };
 
-export { migrate, migrateRefresh, migrateRollback };
+const migrateStatus = async (vscode: any) => {
+  execute(vscode, 'migrate status', 'php spark migrate:status', true);
+};
+
+export { migrate, migrateRefresh, migrateRollback, migrateStatus };

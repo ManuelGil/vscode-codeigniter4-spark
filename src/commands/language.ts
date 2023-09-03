@@ -16,7 +16,7 @@ const language = async (vscode: any, fs: any, path: any) => {
     prompt: 'Folder name',
     placeHolder: 'Name without path delimeter. E.g. en, fr-CA, zh-cn...',
     validateInput: (text: string) => {
-      if (!/^\w+$/.test(text)) {
+      if (!/^[A-Za-z][\w\s\/-]+$/.test(text)) {
         return 'Invalid format!';
       }
     },

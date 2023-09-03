@@ -10,6 +10,9 @@
     "name": "Manuel Gil",
     "url": "https://github.com/ManuelGil"
   },
+  "sponsor": {
+    "url": "https://github.com/sponsors/manuelgil"
+  },
   "engines": {
     "vscode": "^1.46.0"
   },
@@ -47,11 +50,15 @@
     "onCommand:spark.terminal.migrate",
     "onCommand:spark.terminal.migrate.refresh",
     "onCommand:spark.terminal.migrate.rollback",
+    "onCommand:spark.terminal.migrate.status",
     "onCommand:spark.terminal.serve",
     "onCommand:spark.terminal.key",
     "onCommand:spark.terminal.cache.clear",
     "onCommand:spark.terminal.cache.info",
-    "onCommand:spark.terminal.routes"
+    "onCommand:spark.terminal.routes",
+    "onCommand:spark.terminal.db.create",
+    "onCommand:spark.terminal.db.seed",
+    "onCommand:spark.terminal.db.table"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -117,6 +124,10 @@
         "title": "Spark: Migrate Rollback"
       },
       {
+        "command": "spark.terminal.migrate.status",
+        "title": "Spark: Migrate Status"
+      },
+      {
         "command": "spark.terminal.serve",
         "title": "Spark: Start Server"
       },
@@ -135,6 +146,18 @@
       {
         "command": "spark.terminal.routes",
         "title": "Spark: Routes"
+      },
+      {
+        "command": "spark.terminal.db.create",
+        "title": "Spark: DB Create"
+      },
+      {
+        "command": "spark.terminal.db.seed",
+        "title": "Spark: DB Seed"
+      },
+      {
+        "command": "spark.terminal.db.table",
+        "title": "Spark: DB Table"
       }
     ]
   },
