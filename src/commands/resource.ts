@@ -66,6 +66,15 @@ const helper = async (vscode: any, fs: any, path: any) => {
     },
   });
 
+  if (name.length === 0) {
+    return;
+  }
+
+  if (name === 'Controller' || name === 'BaseController' || name === 'ResourceController') {
+    vscode.window.showErrorMessage('The file has not been created!');
+    return;
+  }
+
   model = await vscode.window.showInputBox({
     prompt: 'Model class name',
     placeHolder: 'E.g. UserModel, GroupModel...',
@@ -76,7 +85,8 @@ const helper = async (vscode: any, fs: any, path: any) => {
     },
   });
 
-  if (name.length === 0) {
+  if (model === 'Model') {
+    vscode.window.showErrorMessage('The file has not been created!');
     return;
   }
 

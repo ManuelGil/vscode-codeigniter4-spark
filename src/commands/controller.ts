@@ -35,6 +35,11 @@ const controller = async (vscode: any, fs: any, path: any) => {
     return;
   }
 
+  if (name === 'Controller' || name === 'BaseController' || name === 'ResourceController') {
+    vscode.window.showErrorMessage('The file has not been created!');
+    return;
+  }
+
   filename = '/app/Controllers/' + name + '.php';
 
   body = content.replace('{className}', name);

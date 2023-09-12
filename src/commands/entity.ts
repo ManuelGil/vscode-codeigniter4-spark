@@ -34,6 +34,11 @@ const entity = async (vscode: any, fs: any, path: any) => {
     return;
   }
 
+  if (name === 'Entity') {
+    vscode.window.showErrorMessage('The file has not been created!');
+    return;
+  }
+
   filename = '/app/Entities/' + name + '.php';
 
   body = content.replace('{className}', name);

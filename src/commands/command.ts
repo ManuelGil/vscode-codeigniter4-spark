@@ -83,6 +83,11 @@ const command = async (vscode: any, fs: any, path: any) => {
     return;
   }
 
+  if (name === 'BaseCommand') {
+    vscode.window.showErrorMessage('The file has not been created!');
+    return;
+  }
+
   filename = '/app/Commands/' + name + '.php';
 
   body = content.replace('{className}', name);

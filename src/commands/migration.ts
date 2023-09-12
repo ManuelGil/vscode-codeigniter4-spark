@@ -52,6 +52,11 @@ const migration = async (vscode: any, fs: any, path: any) => {
     return;
   }
 
+  if (name === 'Migration') {
+    vscode.window.showErrorMessage('The file has not been created!');
+    return;
+  }
+
   format = format.replace(/\//g, '-').replace(/,/g, '-').replace(/\s/g, '').replace(/\:/g, '');
 
   filename = '/app/Database/Migrations/' + format + '_' + name + '.php';

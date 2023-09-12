@@ -1,6 +1,8 @@
 ![icon](https://raw.githubusercontent.com/ManuelGil/vscode-codeigniter4-spark/main/icon.png)
 
-# Codeigniter 4 Spark for VSCode
+# CodeIgniter 4 Spark for VSCode
+
+![demo](https://raw.githubusercontent.com/ManuelGil/vscode-codeigniter4-spark/main/docs/images/demo.gif)
 
 [![Latest Release](https://img.shields.io/visual-studio-marketplace/v/imgildev.vscode-codeigniter4-spark?style=flat&label=VS%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
 [![GitHub license](https://img.shields.io/github/license/ManuelGil/vscode-codeigniter4-spark)]()
@@ -43,8 +45,8 @@ CodeIgniter 4 Spark for VSCode editor.
 
 ## Other Repositories
 
-- [CodeIgniter4 Snippets for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-snippets)
-- [CodeIgniter4 Spark for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
+- [CodeIgniter 4 Snippets for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-snippets)
+- [CodeIgniter 4 Spark for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
 
 ## Community
 
@@ -62,4 +64,4 @@ See also the list of [contributors](https://github.com/ManuelGil/vscode-codeigni
 
 ## License
 
-Codeigniter 4 Spark for VSCode is licensed under the MIT License - see the [MIT License](https://opensource.org/licenses/MIT) for details.
+CodeIgniter 4 Spark for VSCode is licensed under the MIT License - see the [MIT License](https://opensource.org/licenses/MIT) for details.

@@ -35,7 +35,12 @@ const config = async (vscode: any, fs: any, path: any) => {
     return;
   }
 
-  filename = '/app/Configs/' + name + '.php';
+  if (name === 'BaseConfig') {
+    vscode.window.showErrorMessage('The file has not been created!');
+    return;
+  }
+
+  filename = '/app/Config/' + name + '.php';
 
   body = content.replace('{className}', name);
 

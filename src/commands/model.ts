@@ -64,9 +64,15 @@ const model = async (vscode: any, fs: any, path: any) => {
     return;
   }
 
+  if (name === 'Model') {
+    vscode.window.showErrorMessage('The file has not been created!');
+    return;
+  }
+
   filename = '/app/Models/' + name + '.php';
 
   table = name.toLowerCase();
+  table = table.replace('model', '');
   table = table.endsWith('y') ? table.slice(0, -1) + 'ies' : table;
   table = table.endsWith('s') ? table : table + 's';
 
