@@ -2,7 +2,9 @@ import { save } from './functions';
 
 const content = `<?php
 
-return [];
+return [
+  "key" => "",
+];
 
 `;
 

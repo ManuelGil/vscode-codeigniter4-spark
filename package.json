@@ -2,7 +2,7 @@
   "name": "vscode-codeigniter4-spark",
   "displayName": "CodeIgniter 4 Spark",
   "description": "CodeIgniter 4 Spark for Visual Studio Code",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
@@ -20,9 +20,13 @@
     "Other"
   ],
   "keywords": [
+    "ci4",
+    "codeigniter 4",
     "codeigniter",
     "codeigniter4",
     "commands",
+    "file",
+    "generator",
     "php",
     "spark"
   ],

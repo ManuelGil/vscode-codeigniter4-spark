@@ -10,7 +10,9 @@ class {className} extends Seeder
 {
     public function run()
     {
-        //
+        $data = [];
+
+        $this->db->table('table_name')->insertBatch($data);
     }
 }
 

@@ -6,10 +6,10 @@ namespace App\\Validation;
 
 class {className}
 {
-    // public function custom_rule(): bool
-    // {
-    //     return true;
-    // }
+    public function custom_rule(string $string, string $fields, array $data): bool
+    {
+        return true;
+    }
 }
 
 `;

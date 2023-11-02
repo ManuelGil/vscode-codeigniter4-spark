@@ -2,6 +2,11 @@ import { save } from './functions';
 
 const content = `<?php
 
+function custom_function()
+{
+    //
+}
+
 `;
 
 let name: string = '';

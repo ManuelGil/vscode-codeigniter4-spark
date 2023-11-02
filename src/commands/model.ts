@@ -71,7 +71,10 @@ const model = async (vscode: any, fs: any, path: any) => {
 
   filename = '/app/Models/' + name + '.php';
 
-  table = name.toLowerCase();
+  table = name
+    .replace(/[A-Z]/g, (letter) => `_${letter}`)
+    .slice(1)
+    .toLowerCase();
   table = table.replace('model', '');
   table = table.endsWith('y') ? table.slice(0, -1) + 'ies' : table;
   table = table.endsWith('s') ? table : table + 's';
