@@ -3,9 +3,8 @@ import { save } from './functions';
 const content = `<?php
 
 return [
-  "key" => "",
+    //
 ];
-
 `;
 
 let folder: string = '';

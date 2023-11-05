@@ -11,7 +11,6 @@ class {className}
         return true;
     }
 }
-
 `;
 
 let name: string = '';

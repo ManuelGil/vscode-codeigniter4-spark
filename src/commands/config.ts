@@ -13,7 +13,6 @@ class {className} extends BaseConfig
         //
     }
 }
-
 `;
 
 let name: string = '';

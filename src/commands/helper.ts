@@ -6,7 +6,6 @@ function custom_function()
 {
     //
 }
-
 `;
 
 let name: string = '';

@@ -47,7 +47,6 @@ class {className} extends ResourceController
         //
     }
 }
-
 `;
 
 let model: string = '';

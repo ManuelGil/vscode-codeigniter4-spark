@@ -61,7 +61,6 @@ class {className} extends BaseCommand
         //
     }
 }
-
 `;
 
 let name: string = '';

@@ -41,7 +41,6 @@ class {className} extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 }
-
 `;
 
 let name: string = '';

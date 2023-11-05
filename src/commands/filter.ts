@@ -47,7 +47,6 @@ class {className} implements FilterInterface
         //
     }
 }
-
 `;
 
 let name: string = '';

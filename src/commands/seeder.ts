@@ -15,7 +15,6 @@ class {className} extends Seeder
         $this->db->table('table_name')->insertBatch($data);
     }
 }
-
 `;
 
 let name: string = '';

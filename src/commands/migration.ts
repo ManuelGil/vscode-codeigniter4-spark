@@ -26,7 +26,6 @@ class {className} extends Migration
         $this->forge->dropTable('table_name');
     }
 }
-
 `;
 
 let name: string = '';

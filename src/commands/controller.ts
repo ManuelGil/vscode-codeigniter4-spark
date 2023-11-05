@@ -13,7 +13,6 @@ class {className} extends BaseController
         //
     }
 }
-
 `;
 
 let name: string = '';
