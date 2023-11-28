@@ -20,6 +20,7 @@ import routes from './commands/routes';
 import seeder from './commands/seeder';
 import serve from './commands/serve';
 import validation from './commands/validation';
+import filterCheck from './commands/filter-check';
 
 export function activate(context: vscode.ExtensionContext) {
   const sparkFileCommand = vscode.commands.registerCommand('spark.file.command', () => {
@@ -94,6 +95,9 @@ export function activate(context: vscode.ExtensionContext) {
   const sparkTerminalDbTable = vscode.commands.registerCommand('spark.terminal.db.table', () => {
     dbTable(vscode);
   });
+  const sparkTerminalFilterCheck = vscode.commands.registerCommand('spark.terminal.filter.check', () => {
+    filterCheck(vscode);
+  });
 
   context.subscriptions.push(sparkFileCommand);
   context.subscriptions.push(sparkFileConfig);
@@ -119,6 +123,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(sparkTerminalDbCreate);
   context.subscriptions.push(sparkTerminalDbSeed);
   context.subscriptions.push(sparkTerminalDbTable);
+  context.subscriptions.push(sparkTerminalFilterCheck);
 }
 
 export function deactivate() {}

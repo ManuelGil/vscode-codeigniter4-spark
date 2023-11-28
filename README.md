@@ -42,10 +42,11 @@ CodeIgniter 4 Spark for VSCode editor.
 | Spark: DB Create | spark.terminal.db.create | Create a new database schema |
 | Spark: DB Seed | spark.terminal.db.seed | Runs the specified seeder to populate known data into the database |
 | Spark: DB Table | spark.terminal.db.table | Retrieves information on the selected table |
+| Spark: Filter Check | "spark.terminal.filter.check | Check filters for a route |
 
 ## Other Repositories
 
-- [CodeIgniter 4 Snippets for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-snippets)
+- [CodeIgniter 4 Essential Extension Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-pack)
 - [CodeIgniter 4 Spark for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
 
 ## Community

@@ -2,7 +2,7 @@
   "name": "vscode-codeigniter4-spark",
   "displayName": "CodeIgniter 4 Spark",
   "description": "CodeIgniter 4 Spark for Visual Studio Code",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
@@ -20,15 +20,32 @@
     "Other"
   ],
   "keywords": [
+    "artisan",
+    "ci 4 spark",
+    "ci 4",
+    "ci",
+    "ci4 spark",
     "ci4",
+    "codeigniter 4 spark",
     "codeigniter 4",
+    "codeigniter spark",
     "codeigniter",
+    "codeigniter4 spark",
     "codeigniter4",
     "commands",
     "file",
+    "framework",
     "generator",
+    "keybindings",
+    "php framework",
+    "php generator",
+    "php spark",
     "php",
-    "spark"
+    "snippets",
+    "spark",
+    "terminal",
+    "vscode",
+    "vscode extension"
   ],
   "homepage": "https://github.com/ManuelGil/vscode-codeigniter4-spark",
   "repository": {
@@ -38,6 +55,9 @@
   "bugs": {
     "url": "https://github.com/ManuelGil/vscode-codeigniter4-spark/issues"
   },
+  "extensionPack": [
+    "imgildev.vscode-codeigniter4-snippets"
+  ],
   "activationEvents": [
     "onCommand:spark.file.command",
     "onCommand:spark.file.config",
@@ -62,7 +82,8 @@
     "onCommand:spark.terminal.routes",
     "onCommand:spark.terminal.db.create",
     "onCommand:spark.terminal.db.seed",
-    "onCommand:spark.terminal.db.table"
+    "onCommand:spark.terminal.db.table",
+    "onCommand:spark.terminal.filter.check"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -162,6 +183,10 @@
       {
         "command": "spark.terminal.db.table",
         "title": "Spark: DB Table"
+      },
+      {
+        "command": "spark.terminal.filter.check",
+        "title": "Spark: Filter Check"
       }
     ]
   },
