@@ -16,38 +16,71 @@ CodeIgniter 4 Spark for VSCode editor.
 
 ## Features
 
-| Title | Command | Purpose |
-| --- | --- | --- |
-| Spark: Make Command | spark.file.command | Generates a new spark command |
-| Spark: Make Config | spark.file.config | Generates a new config file |
-| Spark: Make Controller | spark.file.controller | Generates a new controller file |
-| Spark: Make Entity | spark.file.entity | Generates a new entity file |
-| Spark: Make Filter | spark.file.filter | Generates a new filter file |
-| Spark: Make Helper | spark.file.helper | Generates a new helper file |
-| Spark: Make Language | spark.file.language | Generates a new language file |
-| Spark: Make Migration | spark.file.migration | Generates a new migration file |
-| Spark: Make Model | spark.file.model | Generates a new model file |
-| Spark: Make Resource | spark.file.resource | Generates a new resource file |
-| Spark: Make Seeder | spark.file.seeder | Generates a new seeder file |
-| Spark: Make Validation | spark.file.validation | Generates a new validation file |
-| Spark: Migrate | spark.terminal.migrate | Locates and runs all new migrations against the database. |
-| Spark: Migrate Refresh | spark.terminal.migrate.refresh | Refreshes the database state by first rolling back all migrations, and then migrating all |
-| Spark: Migrate Rollback | spark.terminal.migrate.rollback | Run the "down" method for all migrations |
-| Spark: Migrate Status | spark.terminal.migrate.status | Displays a list of all migrations and whether they've been run or not. |
-| Spark: Start Serve | spark.terminal.serve | Launches the CodeIgniter PHP-Development Server |
-| Spark: Generate Key | spark.terminal.key | Generates a new encryption key and writes it in an `.env` file |
-| Spark: Clear Cache | spark.terminal.cache.clear | Clears the current system caches |
-| Spark: Cache Info | spark.terminal.cache.info | Shows file cache information in the current system |
-| Spark: Routes | spark.terminal.routes | Displays all routes |
-| Spark: DB Create | spark.terminal.db.create | Create a new database schema |
-| Spark: DB Seed | spark.terminal.db.seed | Runs the specified seeder to populate known data into the database |
-| Spark: DB Table | spark.terminal.db.table | Retrieves information on the selected table |
-| Spark: Filter Check | "spark.terminal.filter.check | Check filters for a route |
+### Cache
+
+| Title | Purpose |
+| --- | --- |
+| Spark: Clear Cache | Clears the current system caches |
+| Spark: Cache Info | Shows file cache information in the current system |
+
+### CodeIgniter
+
+| Title | Purpose |
+| --- | --- |
+| Spark: Filter Check | Check filters for a route |
+| Spark: Namespaces | Verifies your namespaces are setup correctly |
+| Spark: List Routes | Displays all routes |
+| Spark: Start Server | Launches the CodeIgniter PHP-Development Server |
+
+### Database
+
+| Title | Purpose |
+| --- | --- |
+| Spark: DB Create | Create a new database schema |
+| Spark: DB Seed | Runs the specified seeder to populate known data into the database |
+| Spark: DB Table | Retrieves information on the selected table |
+| Spark: Migrate | Locates and runs all new migrations against the database |
+| Spark: Migrate Refresh | Refreshes the database state by first rolling back all migrations, and then migrating all |
+| Spark: Migrate Rollback | Run the "down" method for all migrations |
+| Spark: Migrate Status | Displays a list of all migrations and whether they've been run or not |
+
+### Encryption
+
+| Title | Purpose |
+| --- | --- |
+| Spark: Generate Key | Generates a new encryption key and writes it in an `.env` file |
+
+### Generators
+
+| Title | Purpose |
+| --- | --- |
+| Spark: Make Command | Generates a new spark command |
+| Spark: Make Config | Generates a new config file |
+| Spark: Make Controller | Generates a new controller file |
+| Spark: Make Entity | Generates a new entity file |
+| Spark: Make Filter | Generates a new filter file |
+| Spark: Make Helper | Generates a new helper file |
+| Spark: Make Language | Generates a new language file |
+| Spark: Make Migration | Generates a new migration file |
+| Spark: Make Model | Generates a new model file |
+| Spark: Make Resource | Generates a new resource file |
+| Spark: Make Seeder | Generates a new seeder file |
+| Spark: Make Validation | Generates a new validation file |
+
+### Housekeeping
+
+| Title | Purpose |
+| --- | --- |
+| Spark: Clear Logs | Clears all log files |
 
 ## Other Repositories
 
-- [CodeIgniter 4 Essential Extension Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-pack)
-- [CodeIgniter 4 Spark for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
+- [CodeIgniter 4 Snippets for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-shield-snippets)
+- [CodeIgniter 4 Spark for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-shield-spark)
+- [CodeIgniter 4 Essential Extension Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-shield-pack)
+- [NestJS Snippets for VSCode Editor](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-nestjs-snippets-extension)
+- [Moodle Pack](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-moodle-snippets)
+- [Mustache Template Engine - Snippets & Autocomplete](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-mustache-snippets)
 
 ## Community
 

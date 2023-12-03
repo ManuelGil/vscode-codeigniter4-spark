@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2023-12-03
+
+### Added
+
+- Add Logs Command
+- Add Namespaces Command
+
 ## [1.7.0] - 2023-11-27
 
 ### Added
@@ -84,7 +91,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.7.0...HEAD
+[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.4.0...v1.5.0

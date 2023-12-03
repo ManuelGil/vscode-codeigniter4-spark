@@ -1,4 +1,4 @@
-import { execute } from './functions';
+import { execute } from '../files/functions';
 
 let method: string = '';
 let route: string = '';

@@ -1,4 +1,4 @@
-import { execute } from './functions';
+import { execute } from '../files/functions';
 
 const dbCreate = async (vscode: any) => {
   execute(vscode, 'db create', 'php spark db:create', true);

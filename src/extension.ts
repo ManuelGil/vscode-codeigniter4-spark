@@ -2,25 +2,27 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-import { cacheClear, cacheInfo } from './commands/cache';
-import command from './commands/command';
-import config from './commands/config';
-import controller from './commands/controller';
-import { dbCreate, dbSeed, dbTable } from './commands/db';
-import entity from './commands/entity';
-import filter from './commands/filter';
-import helper from './commands/helper';
-import key from './commands/key';
-import language from './commands/language';
-import { migrate, migrateRefresh, migrateRollback, migrateStatus } from './commands/migrate';
-import migration from './commands/migration';
-import model from './commands/model';
-import resource from './commands/resource';
-import routes from './commands/routes';
-import seeder from './commands/seeder';
-import serve from './commands/serve';
-import validation from './commands/validation';
-import filterCheck from './commands/filter-check';
+import command from './commands/files/command';
+import config from './commands/files/config';
+import controller from './commands/files/controller';
+import entity from './commands/files/entity';
+import filter from './commands/files/filter';
+import helper from './commands/files/helper';
+import language from './commands/files/language';
+import migration from './commands/files/migration';
+import model from './commands/files/model';
+import resource from './commands/files/resource';
+import seeder from './commands/files/seeder';
+import validation from './commands/files/validation';
+import { cacheClear, cacheInfo } from './commands/terminal/cache';
+import { dbCreate, dbSeed, dbTable } from './commands/terminal/db';
+import filterCheck from './commands/terminal/filter';
+import key from './commands/terminal/key';
+import logsClear from './commands/terminal/logs';
+import { migrate, migrateRefresh, migrateRollback, migrateStatus } from './commands/terminal/migrate';
+import namespaces from './commands/terminal/namespaces';
+import routes from './commands/terminal/routes';
+import serve from './commands/terminal/serve';
 
 export function activate(context: vscode.ExtensionContext) {
   const sparkFileCommand = vscode.commands.registerCommand('spark.file.command', () => {
@@ -59,32 +61,11 @@ export function activate(context: vscode.ExtensionContext) {
   const sparkFileValidation = vscode.commands.registerCommand('spark.file.validation', () => {
     validation(vscode, fs, path);
   });
-  const sparkTerminalMigrate = vscode.commands.registerCommand('spark.terminal.migrate', () => {
-    migrate(vscode);
-  });
-  const sparkTerminalMigrateRefresh = vscode.commands.registerCommand('spark.terminal.migrate.refresh', () => {
-    migrateRefresh(vscode);
-  });
-  const sparkTerminalMigrateRollback = vscode.commands.registerCommand('spark.terminal.migrate.rollback', () => {
-    migrateRollback(vscode);
-  });
-  const sparkTerminalMigrateStatus = vscode.commands.registerCommand('spark.terminal.migrate.status', () => {
-    migrateStatus(vscode);
-  });
-  const sparkTerminalServe = vscode.commands.registerCommand('spark.terminal.serve', () => {
-    serve(vscode);
-  });
-  const sparkTerminalKey = vscode.commands.registerCommand('spark.terminal.key', () => {
-    key(vscode);
-  });
   const sparkTerminalCacheClear = vscode.commands.registerCommand('spark.terminal.cache.clear', () => {
     cacheClear(vscode);
   });
   const sparkTerminalCacheInfo = vscode.commands.registerCommand('spark.terminal.cache.info', () => {
     cacheInfo(vscode);
-  });
-  const sparkTerminalRoutes = vscode.commands.registerCommand('spark.terminal.routes', () => {
-    routes(vscode);
   });
   const sparkTerminalDbCreate = vscode.commands.registerCommand('spark.terminal.db.create', () => {
     dbCreate(vscode);
@@ -97,6 +78,33 @@ export function activate(context: vscode.ExtensionContext) {
   });
   const sparkTerminalFilterCheck = vscode.commands.registerCommand('spark.terminal.filter.check', () => {
     filterCheck(vscode);
+  });
+  const sparkTerminalKey = vscode.commands.registerCommand('spark.terminal.key', () => {
+    key(vscode);
+  });
+  const sparkTerminalLogsClear = vscode.commands.registerCommand('spark.terminal.logs.clear', () => {
+    logsClear(vscode);
+  });
+  const sparkTerminalMigrate = vscode.commands.registerCommand('spark.terminal.migrate', () => {
+    migrate(vscode);
+  });
+  const sparkTerminalMigrateRefresh = vscode.commands.registerCommand('spark.terminal.migrate.refresh', () => {
+    migrateRefresh(vscode);
+  });
+  const sparkTerminalMigrateRollback = vscode.commands.registerCommand('spark.terminal.migrate.rollback', () => {
+    migrateRollback(vscode);
+  });
+  const sparkTerminalMigrateStatus = vscode.commands.registerCommand('spark.terminal.migrate.status', () => {
+    migrateStatus(vscode);
+  });
+  const sparkTerminalNamespaces = vscode.commands.registerCommand('spark.terminal.namespaces', () => {
+    namespaces(vscode);
+  });
+  const sparkTerminalRoutes = vscode.commands.registerCommand('spark.terminal.routes', () => {
+    routes(vscode);
+  });
+  const sparkTerminalServe = vscode.commands.registerCommand('spark.terminal.serve', () => {
+    serve(vscode);
   });
 
   context.subscriptions.push(sparkFileCommand);
@@ -111,19 +119,21 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(sparkFileResource);
   context.subscriptions.push(sparkFileSeeder);
   context.subscriptions.push(sparkFileValidation);
-  context.subscriptions.push(sparkTerminalMigrate);
-  context.subscriptions.push(sparkTerminalMigrateRefresh);
-  context.subscriptions.push(sparkTerminalMigrateRollback);
-  context.subscriptions.push(sparkTerminalMigrateStatus);
-  context.subscriptions.push(sparkTerminalServe);
-  context.subscriptions.push(sparkTerminalKey);
   context.subscriptions.push(sparkTerminalCacheClear);
   context.subscriptions.push(sparkTerminalCacheInfo);
-  context.subscriptions.push(sparkTerminalRoutes);
   context.subscriptions.push(sparkTerminalDbCreate);
   context.subscriptions.push(sparkTerminalDbSeed);
   context.subscriptions.push(sparkTerminalDbTable);
   context.subscriptions.push(sparkTerminalFilterCheck);
+  context.subscriptions.push(sparkTerminalKey);
+  context.subscriptions.push(sparkTerminalLogsClear);
+  context.subscriptions.push(sparkTerminalMigrate);
+  context.subscriptions.push(sparkTerminalMigrateRefresh);
+  context.subscriptions.push(sparkTerminalMigrateRollback);
+  context.subscriptions.push(sparkTerminalMigrateStatus);
+  context.subscriptions.push(sparkTerminalNamespaces);
+  context.subscriptions.push(sparkTerminalRoutes);
+  context.subscriptions.push(sparkTerminalServe);
 }
 
 export function deactivate() {}

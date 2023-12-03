@@ -2,7 +2,7 @@
   "name": "vscode-codeigniter4-spark",
   "displayName": "CodeIgniter 4 Spark",
   "description": "CodeIgniter 4 Spark for Visual Studio Code",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
@@ -71,19 +71,21 @@
     "onCommand:spark.file.resource",
     "onCommand:spark.file.seeder",
     "onCommand:spark.file.validation",
-    "onCommand:spark.terminal.migrate",
-    "onCommand:spark.terminal.migrate.refresh",
-    "onCommand:spark.terminal.migrate.rollback",
-    "onCommand:spark.terminal.migrate.status",
-    "onCommand:spark.terminal.serve",
-    "onCommand:spark.terminal.key",
     "onCommand:spark.terminal.cache.clear",
     "onCommand:spark.terminal.cache.info",
-    "onCommand:spark.terminal.routes",
     "onCommand:spark.terminal.db.create",
     "onCommand:spark.terminal.db.seed",
     "onCommand:spark.terminal.db.table",
-    "onCommand:spark.terminal.filter.check"
+    "onCommand:spark.terminal.filter.check",
+    "onCommand:spark.terminal.key",
+    "onCommand:spark.terminal.logs.clear",
+    "onCommand:spark.terminal.migrate.refresh",
+    "onCommand:spark.terminal.migrate.rollback",
+    "onCommand:spark.terminal.migrate.status",
+    "onCommand:spark.terminal.migrate",
+    "onCommand:spark.terminal.namespaces",
+    "onCommand:spark.terminal.routes",
+    "onCommand:spark.terminal.serve"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -125,40 +127,16 @@
         "title": "Spark: Make Model"
       },
       {
-        "command": "spark.file.seeder",
-        "title": "Spark: Make Seeder"
-      },
-      {
         "command": "spark.file.resource",
         "title": "Spark: Make Resource"
       },
       {
+        "command": "spark.file.seeder",
+        "title": "Spark: Make Seeder"
+      },
+      {
         "command": "spark.file.validation",
         "title": "Spark: Make Validation"
-      },
-      {
-        "command": "spark.terminal.migrate",
-        "title": "Spark: Migrate"
-      },
-      {
-        "command": "spark.terminal.migrate.refresh",
-        "title": "Spark: Migrate Refresh"
-      },
-      {
-        "command": "spark.terminal.migrate.rollback",
-        "title": "Spark: Migrate Rollback"
-      },
-      {
-        "command": "spark.terminal.migrate.status",
-        "title": "Spark: Migrate Status"
-      },
-      {
-        "command": "spark.terminal.serve",
-        "title": "Spark: Start Server"
-      },
-      {
-        "command": "spark.terminal.key",
-        "title": "Spark: Generate Key"
       },
       {
         "command": "spark.terminal.cache.clear",
@@ -167,10 +145,6 @@
       {
         "command": "spark.terminal.cache.info",
         "title": "Spark: Cache Info"
-      },
-      {
-        "command": "spark.terminal.routes",
-        "title": "Spark: Routes"
       },
       {
         "command": "spark.terminal.db.create",
@@ -187,6 +161,42 @@
       {
         "command": "spark.terminal.filter.check",
         "title": "Spark: Filter Check"
+      },
+      {
+        "command": "spark.terminal.key",
+        "title": "Spark: Generate Key"
+      },
+      {
+        "command": "spark.terminal.logs.clear",
+        "title": "Spark: Clear Logs"
+      },
+      {
+        "command": "spark.terminal.migrate.refresh",
+        "title": "Spark: Migrate Refresh"
+      },
+      {
+        "command": "spark.terminal.migrate.rollback",
+        "title": "Spark: Migrate Rollback"
+      },
+      {
+        "command": "spark.terminal.migrate.status",
+        "title": "Spark: Migrate Status"
+      },
+      {
+        "command": "spark.terminal.migrate",
+        "title": "Spark: Migrate"
+      },
+      {
+        "command": "spark.terminal.namespaces",
+        "title": "Spark: Namespaces"
+      },
+      {
+        "command": "spark.terminal.routes",
+        "title": "Spark: List Routes"
+      },
+      {
+        "command": "spark.terminal.serve",
+        "title": "Spark: Start Server"
       }
     ]
   },
