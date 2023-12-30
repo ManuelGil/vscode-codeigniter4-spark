@@ -1,8 +1,8 @@
 {
   "name": "vscode-codeigniter4-spark",
   "displayName": "CodeIgniter 4 Spark",
-  "description": "CodeIgniter 4 Spark for Visual Studio Code",
-  "version": "1.8.0",
+  "description": "CodeIgniter 4 Spark is a Visual Studio Code extension that provides a set of useful commands and shortcuts for CodeIgniter 4 framework.",
+  "version": "1.8.1",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
