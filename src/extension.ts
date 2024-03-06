@@ -1,139 +1,361 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import * as vscode from 'vscode';
 
-import command from './commands/files/command';
-import config from './commands/files/config';
-import controller from './commands/files/controller';
-import entity from './commands/files/entity';
-import filter from './commands/files/filter';
-import helper from './commands/files/helper';
-import language from './commands/files/language';
-import migration from './commands/files/migration';
-import model from './commands/files/model';
-import resource from './commands/files/resource';
-import seeder from './commands/files/seeder';
-import validation from './commands/files/validation';
-import { cacheClear, cacheInfo } from './commands/terminal/cache';
-import { dbCreate, dbSeed, dbTable } from './commands/terminal/db';
-import filterCheck from './commands/terminal/filter';
-import key from './commands/terminal/key';
-import logsClear from './commands/terminal/logs';
-import { migrate, migrateRefresh, migrateRollback, migrateStatus } from './commands/terminal/migrate';
-import namespaces from './commands/terminal/namespaces';
-import routes from './commands/terminal/routes';
-import serve from './commands/terminal/serve';
+import { Config, EXTENSION_ID } from './app/configs';
+import {
+  FeedbackController,
+  FileController,
+  ListFilesController,
+  TerminalController,
+} from './app/controllers';
+import {
+  FeedbackProvider,
+  ListFilesProvider,
+  ListRoutesProvider,
+} from './app/providers';
 
 export function activate(context: vscode.ExtensionContext) {
-  const sparkFileCommand = vscode.commands.registerCommand('spark.file.command', () => {
-    command(vscode, fs, path);
+  // The code you place here will be executed every time your command is executed
+  let resource:
+    | vscode.Uri
+    | vscode.TextDocument
+    | vscode.WorkspaceFolder
+    | undefined;
+
+  // Get the resource for the workspace
+  if (vscode.workspace.workspaceFolders) {
+    resource = vscode.workspace.workspaceFolders[0];
+  }
+
+  // -----------------------------------------------------------------
+  // Initialize the extension
+  // -----------------------------------------------------------------
+
+  // Get the configuration for the extension
+  const config = new Config(
+    vscode.workspace.getConfiguration(EXTENSION_ID, resource),
+  );
+
+  // -----------------------------------------------------------------
+  // Register FileController and commands
+  // -----------------------------------------------------------------
+
+  // Create a new FileController
+  const fileController = new FileController(config);
+
+  const disposableFileCommand = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.command`,
+    (args) => {
+      fileController.newCommand(args);
+    },
+  );
+  const disposableFileConfig = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.config`,
+    (args) => {
+      fileController.newConfig(args);
+    },
+  );
+  const disposableFileController = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.controller`,
+    (args) => {
+      fileController.newController(args);
+    },
+  );
+  const disposableFileEntity = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.entity`,
+    (args) => {
+      fileController.newEntity(args);
+    },
+  );
+  const disposableFileFilter = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.filter`,
+    (args) => {
+      fileController.newFilter(args);
+    },
+  );
+  const disposableFileHelper = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.helper`,
+    (args) => {
+      fileController.newHelper(args);
+    },
+  );
+  const disposableFileLanguage = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.language`,
+    (args) => {
+      fileController.newLanguage(args);
+    },
+  );
+  const disposableFileMigration = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.migration`,
+    (args) => {
+      fileController.newMigration(args);
+    },
+  );
+  const disposableFileModel = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.model`,
+    (args) => {
+      fileController.newModel(args);
+    },
+  );
+  const disposableFileResource = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.resource`,
+    (args) => {
+      fileController.newResource(args);
+    },
+  );
+  const disposableFileSeeder = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.seeder`,
+    (args) => {
+      fileController.newSeeder(args);
+    },
+  );
+  const disposableFileValidation = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.validation`,
+    (args) => {
+      fileController.newValidation(args);
+    },
+  );
+
+  // -----------------------------------------------------------------
+  // Register TerminalController and commands
+  // -----------------------------------------------------------------
+
+  // Create a new TerminalController
+  const terminalController = new TerminalController(config);
+
+  const disposableTerminalCacheClear = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.cache.clear`,
+    () => {
+      terminalController.cacheClear();
+    },
+  );
+  const disposableTerminalCacheInfo = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.cache.info`,
+    () => {
+      terminalController.cacheInfo();
+    },
+  );
+  const disposableTerminalDbCreate = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.db.create`,
+    () => {
+      terminalController.dbCreate();
+    },
+  );
+  const disposableTerminalDbSeed = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.db.seed`,
+    () => {
+      terminalController.dbSeed();
+    },
+  );
+  const disposableTerminalDbTable = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.db.table`,
+    () => {
+      terminalController.dbTable();
+    },
+  );
+  const disposableTerminalFilterCheck = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.filter.check`,
+    () => {
+      terminalController.filterCheck();
+    },
+  );
+  const disposableTerminalKey = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.key`,
+    () => {
+      terminalController.key();
+    },
+  );
+  const disposableTerminalLogsClear = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.logs.clear`,
+    () => {
+      terminalController.logsClear();
+    },
+  );
+  const disposableTerminalMigrate = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.migrate`,
+    () => {
+      terminalController.migrate();
+    },
+  );
+  const disposableTerminalMigrateRefresh = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.migrate.refresh`,
+    () => {
+      terminalController.migrateRefresh();
+    },
+  );
+  const disposableTerminalMigrateRollback = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.migrate.rollback`,
+    () => {
+      terminalController.migrateRollback();
+    },
+  );
+  const disposableTerminalMigrateStatus = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.migrate.status`,
+    () => {
+      terminalController.migrateStatus();
+    },
+  );
+  const disposableTerminalNamespaces = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.namespaces`,
+    () => {
+      terminalController.namespaces();
+    },
+  );
+  const disposableTerminalRoutes = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.routes`,
+    () => {
+      terminalController.routes();
+    },
+  );
+  const disposableTerminalServe = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.serve`,
+    () => {
+      terminalController.serve();
+    },
+  );
+
+  // -----------------------------------------------------------------
+  // Register ListFilesController
+  // -----------------------------------------------------------------
+
+  // Create a new ListFilesController
+  const listFilesController = new ListFilesController(config);
+
+  const disposableListOpenFile = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.list.openFile`,
+    (uri) => listFilesController.openFile(uri),
+  );
+
+  const disposableListGotoLine = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.list.gotoLine`,
+    (uri, line) => listFilesController.gotoLine(uri, line),
+  );
+
+  // -----------------------------------------------------------------
+  // Register ListFilesProvider and list commands
+  // -----------------------------------------------------------------
+
+  // Create a new ListFilesProvider
+  const listFilesProvider = new ListFilesProvider(listFilesController);
+
+  // Register the list provider
+  const disposableListFilesTreeView = vscode.window.createTreeView(
+    `${EXTENSION_ID}.listFilesView`,
+    {
+      treeDataProvider: listFilesProvider,
+      showCollapseAll: true,
+    },
+  );
+
+  const disposableRefreshListFiles = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.listFiles.refreshList`,
+    () => listFilesProvider.refresh(),
+  );
+
+  // -----------------------------------------------------------------
+  // Register ListRoutesProvider and list commands
+  // -----------------------------------------------------------------
+
+  // Create a new ListRoutesProvider
+  const listRoutesProvider = new ListRoutesProvider(listFilesController);
+
+  // Register the list provider
+  const disposableListRoutesTreeView = vscode.window.createTreeView(
+    `${EXTENSION_ID}.listRoutesView`,
+    {
+      treeDataProvider: listRoutesProvider,
+      showCollapseAll: true,
+    },
+  );
+
+  const disposableRefreshListRoutes = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.listRoutes.refreshList`,
+    () => listRoutesProvider.refresh(),
+  );
+
+  // -----------------------------------------------------------------
+  // Register ListFilesProvider events
+  // -----------------------------------------------------------------
+
+  vscode.workspace.onDidCreateFiles(() => {
+    listFilesProvider.refresh();
   });
-  const sparkFileConfig = vscode.commands.registerCommand('spark.file.config', () => {
-    config(vscode, fs, path);
-  });
-  const sparkFileController = vscode.commands.registerCommand('spark.file.controller', () => {
-    controller(vscode, fs, path);
-  });
-  const sparkFileEntity = vscode.commands.registerCommand('spark.file.entity', () => {
-    entity(vscode, fs, path);
-  });
-  const sparkFileFilter = vscode.commands.registerCommand('spark.file.filter', () => {
-    filter(vscode, fs, path);
-  });
-  const sparkFileHelper = vscode.commands.registerCommand('spark.file.helper', () => {
-    helper(vscode, fs, path);
-  });
-  const sparkFileLanguage = vscode.commands.registerCommand('spark.file.language', () => {
-    language(vscode, fs, path);
-  });
-  const sparkFileMigration = vscode.commands.registerCommand('spark.file.migration', () => {
-    migration(vscode, fs, path);
-  });
-  const sparkFileModel = vscode.commands.registerCommand('spark.file.model', () => {
-    model(vscode, fs, path);
-  });
-  const sparkFileResource = vscode.commands.registerCommand('spark.file.resource', () => {
-    resource(vscode, fs, path);
-  });
-  const sparkFileSeeder = vscode.commands.registerCommand('spark.file.seeder', () => {
-    seeder(vscode, fs, path);
-  });
-  const sparkFileValidation = vscode.commands.registerCommand('spark.file.validation', () => {
-    validation(vscode, fs, path);
-  });
-  const sparkTerminalCacheClear = vscode.commands.registerCommand('spark.terminal.cache.clear', () => {
-    cacheClear(vscode);
-  });
-  const sparkTerminalCacheInfo = vscode.commands.registerCommand('spark.terminal.cache.info', () => {
-    cacheInfo(vscode);
-  });
-  const sparkTerminalDbCreate = vscode.commands.registerCommand('spark.terminal.db.create', () => {
-    dbCreate(vscode);
-  });
-  const sparkTerminalDbSeed = vscode.commands.registerCommand('spark.terminal.db.seed', () => {
-    dbSeed(vscode);
-  });
-  const sparkTerminalDbTable = vscode.commands.registerCommand('spark.terminal.db.table', () => {
-    dbTable(vscode);
-  });
-  const sparkTerminalFilterCheck = vscode.commands.registerCommand('spark.terminal.filter.check', () => {
-    filterCheck(vscode);
-  });
-  const sparkTerminalKey = vscode.commands.registerCommand('spark.terminal.key', () => {
-    key(vscode);
-  });
-  const sparkTerminalLogsClear = vscode.commands.registerCommand('spark.terminal.logs.clear', () => {
-    logsClear(vscode);
-  });
-  const sparkTerminalMigrate = vscode.commands.registerCommand('spark.terminal.migrate', () => {
-    migrate(vscode);
-  });
-  const sparkTerminalMigrateRefresh = vscode.commands.registerCommand('spark.terminal.migrate.refresh', () => {
-    migrateRefresh(vscode);
-  });
-  const sparkTerminalMigrateRollback = vscode.commands.registerCommand('spark.terminal.migrate.rollback', () => {
-    migrateRollback(vscode);
-  });
-  const sparkTerminalMigrateStatus = vscode.commands.registerCommand('spark.terminal.migrate.status', () => {
-    migrateStatus(vscode);
-  });
-  const sparkTerminalNamespaces = vscode.commands.registerCommand('spark.terminal.namespaces', () => {
-    namespaces(vscode);
-  });
-  const sparkTerminalRoutes = vscode.commands.registerCommand('spark.terminal.routes', () => {
-    routes(vscode);
-  });
-  const sparkTerminalServe = vscode.commands.registerCommand('spark.terminal.serve', () => {
-    serve(vscode);
+  vscode.workspace.onDidSaveTextDocument(() => {
+    listFilesProvider.refresh();
   });
 
-  context.subscriptions.push(sparkFileCommand);
-  context.subscriptions.push(sparkFileConfig);
-  context.subscriptions.push(sparkFileController);
-  context.subscriptions.push(sparkFileEntity);
-  context.subscriptions.push(sparkFileFilter);
-  context.subscriptions.push(sparkFileHelper);
-  context.subscriptions.push(sparkFileLanguage);
-  context.subscriptions.push(sparkFileMigration);
-  context.subscriptions.push(sparkFileModel);
-  context.subscriptions.push(sparkFileResource);
-  context.subscriptions.push(sparkFileSeeder);
-  context.subscriptions.push(sparkFileValidation);
-  context.subscriptions.push(sparkTerminalCacheClear);
-  context.subscriptions.push(sparkTerminalCacheInfo);
-  context.subscriptions.push(sparkTerminalDbCreate);
-  context.subscriptions.push(sparkTerminalDbSeed);
-  context.subscriptions.push(sparkTerminalDbTable);
-  context.subscriptions.push(sparkTerminalFilterCheck);
-  context.subscriptions.push(sparkTerminalKey);
-  context.subscriptions.push(sparkTerminalLogsClear);
-  context.subscriptions.push(sparkTerminalMigrate);
-  context.subscriptions.push(sparkTerminalMigrateRefresh);
-  context.subscriptions.push(sparkTerminalMigrateRollback);
-  context.subscriptions.push(sparkTerminalMigrateStatus);
-  context.subscriptions.push(sparkTerminalNamespaces);
-  context.subscriptions.push(sparkTerminalRoutes);
-  context.subscriptions.push(sparkTerminalServe);
+  // -----------------------------------------------------------------
+  // Register FeedbackProvider and Feedback commands
+  // -----------------------------------------------------------------
+
+  // Create a new FeedbackProvider
+  const feedbackProvider = new FeedbackProvider(new FeedbackController());
+
+  // Register the feedback provider
+  const disposableFeedbackTreeView = vscode.window.createTreeView(
+    `${EXTENSION_ID}.feedbackView`,
+    {
+      treeDataProvider: feedbackProvider,
+    },
+  );
+
+  // Register the commands
+  const disposableFeedbackAboutUs = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.feedback.aboutUs`,
+    () => feedbackProvider.controller.aboutUs(),
+  );
+  const disposableFeedbackReportIssues = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.feedback.reportIssues`,
+    () => feedbackProvider.controller.reportIssues(),
+  );
+  const disposableFeedbackRateUs = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.feedback.rateUs`,
+    () => feedbackProvider.controller.rateUs(),
+  );
+  const disposableFeedbackSupportUs = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.feedback.supportUs`,
+    () => feedbackProvider.controller.supportUs(),
+  );
+
+  context.subscriptions.push(
+    disposableFileCommand,
+    disposableFileConfig,
+    disposableFileController,
+    disposableFileEntity,
+    disposableFileFilter,
+    disposableFileHelper,
+    disposableFileLanguage,
+    disposableFileMigration,
+    disposableFileModel,
+    disposableFileResource,
+    disposableFileSeeder,
+    disposableFileValidation,
+    disposableTerminalCacheClear,
+    disposableTerminalCacheInfo,
+    disposableTerminalDbCreate,
+    disposableTerminalDbSeed,
+    disposableTerminalDbTable,
+    disposableTerminalFilterCheck,
+    disposableTerminalKey,
+    disposableTerminalLogsClear,
+    disposableTerminalMigrate,
+    disposableTerminalMigrateRefresh,
+    disposableTerminalMigrateRollback,
+    disposableTerminalMigrateStatus,
+    disposableTerminalNamespaces,
+    disposableTerminalRoutes,
+    disposableTerminalServe,
+    disposableListOpenFile,
+    disposableListGotoLine,
+    disposableListFilesTreeView,
+    disposableRefreshListFiles,
+    disposableListRoutesTreeView,
+    disposableRefreshListRoutes,
+    disposableFeedbackTreeView,
+    disposableFeedbackAboutUs,
+    disposableFeedbackReportIssues,
+    disposableFeedbackRateUs,
+    disposableFeedbackSupportUs,
+  );
 }
 
 export function deactivate() {}

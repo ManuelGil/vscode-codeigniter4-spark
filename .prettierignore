@@ -1,4 +1,6 @@
-node_modules
-build
-coverage
-.vscode
+/.vscode
+/compodoc
+/coverage
+/docs
+/node_modules
+/out

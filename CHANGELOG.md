@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2024-03-06
+
+### Added
+
+- Add List of Files View
+- Add List of Routes View
+- Add Feedback View
+- Add file includes section to the settings
+- Add file excludes section to the settings
+- Add file to watch section to the settings
+- Add show path of the file in the list of files to watch to the settings
+- Add compodoc dependencies for the documentation generation
+
+### Changed
+
+- Refactor the folder structure of the extension to improve the codebase
+- Improve the generation of the files to use the new folder structure
+- Upgrade dependencies to the latest versions available
+- Update settings to use the new folder structure
+- Improve the documentation of the extension
+
 ## [1.8.1] - 2023-12-30
 
 ### Fixed
@@ -97,7 +118,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.8.1...HEAD
+[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.8.1...v2.0.0
 [1.8.1]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.6.0...v1.7.0

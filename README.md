@@ -2,6 +2,8 @@
 
 [![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/imgildev.vscode-codeigniter4-spark?style=for-the-badge&label=VS%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
 [![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/imgildev.vscode-codeigniter4-spark?style=for-the-badge&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
+[![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/imgildev.vscode-codeigniter4-spark?style=for-the-badge&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
+[![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/imgildev.vscode-codeigniter4-spark?style=for-the-badge&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark&ssr=false#review-details)
 [![GitHub Repo stars](https://img.shields.io/github/stars/ManuelGil/vscode-codeigniter4-spark?style=for-the-badge&logo=github)](https://github.com/ManuelGil/vscode-codeigniter4-spark)
 [![GitHub license](https://img.shields.io/github/license/ManuelGil/vscode-codeigniter4-spark?style=for-the-badge&logo=github)](https://github.com/ManuelGil/vscode-codeigniter4-spark/blob/main/LICENSE)
 
@@ -9,10 +11,65 @@ CodeIgniter 4 Spark is a Visual Studio Code extension that provides a set of use
 
 ![demo](https://raw.githubusercontent.com/ManuelGil/vscode-codeigniter4-spark/main/docs/images/demo.gif)
 
+![preview](https://raw.githubusercontent.com/ManuelGil/vscode-codeigniter4-spark/main/docs/images/preview.png)
+
+## Index
+
+- [CodeIgniter 4 Spark for VSCode](#codeigniter-4-spark-for-vscode)
+  - [Index](#index)
+  - [Requirements](#requirements)
+  - [Project Settings](#project-settings)
+  - [Features](#features)
+    - [Cache](#cache)
+    - [CodeIgniter](#codeigniter)
+    - [Database](#database)
+    - [Encryption](#encryption)
+    - [Generators](#generators)
+    - [Housekeeping](#housekeeping)
+  - [Connect with me](#connect-with-me)
+  - [Other Extensions](#other-extensions)
+  - [Community](#community)
+  - [Changelog](#changelog)
+  - [Authors](#authors)
+  - [License](#license)
+
 ## Requirements
 
 - CodeIgniter 4.3.0 or later
-- VSCode 1.46.0 or later
+- VSCode 1.76.0 or later
+
+## Project Settings
+
+Configure your project by creating or updating a settings.json file at the project's root. If you already have a `.vscode/settings.json` file, skip the first two steps.
+
+1. Open the command palette in VSCode:
+
+   - `CTRL + SHIFT + P` (Windows)
+   - `CMD + SHIFT + P` (Mac OS)
+
+2. Type `Preferences: Open Workspace Settings (JSON)`.
+
+3. In the `.vscode/settings.json` file, copy and paste the following settings:
+
+   ```jsonc
+   {
+     "spark.files.include": [
+         "php"
+     ], // The file extensions to watch for changes. Example: "php"
+     "spark.files.exclude": [
+         "**/vendor/**",
+         "**/.*/**"
+     ], // The files to exclude from watching. Example: "**/vendor/**", "**/.*/**"
+     "spark.files.watch": [
+         "helpers"
+     ], // The types of files to watch for changes. Example: "helpers"
+     "spark.files.showPath": true, // Show the path of the file in the list of files to watch
+   }
+   ```
+
+4. **Restart VS Code**
+
+Your project is now set up to automatically format code upon saving.
 
 ## Features
 
