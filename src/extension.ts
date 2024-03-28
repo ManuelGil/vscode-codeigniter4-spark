@@ -235,7 +235,7 @@ export function activate(context: vscode.ExtensionContext) {
   // -----------------------------------------------------------------
 
   // Create a new ListFilesProvider
-  const listFilesProvider = new ListFilesProvider(listFilesController);
+  const listFilesProvider = new ListFilesProvider();
 
   // Register the list provider
   const disposableListFilesTreeView = vscode.window.createTreeView(
@@ -256,7 +256,7 @@ export function activate(context: vscode.ExtensionContext) {
   // -----------------------------------------------------------------
 
   // Create a new ListRoutesProvider
-  const listRoutesProvider = new ListRoutesProvider(listFilesController);
+  const listRoutesProvider = new ListRoutesProvider();
 
   // Register the list provider
   const disposableListRoutesTreeView = vscode.window.createTreeView(

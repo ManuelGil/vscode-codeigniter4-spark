@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2024-03-27
+
+### Changed
+
+- Update the `getFiles` method in the `ListFilesController` so that it can be used without instantiating the class
+- Update the `ListFilesProvider` and `ListRoutesProvider` to use the new `getFiles` method
+- Upgrade dependencies to the latest versions available
+
 ## [2.0.0] - 2024-03-06
 
 ### Added
@@ -118,7 +126,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.8.1...v2.0.0
 [1.8.1]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.7.0...v1.8.0
