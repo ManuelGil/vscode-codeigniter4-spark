@@ -1,6 +1,6 @@
-import { WorkspaceConfiguration } from 'vscode';
+import { WorkspaceConfiguration } from "vscode";
 
-import { EXCLUDE, INCLUDE, SHOW_PATH, WATCH } from './constants';
+import { EXCLUDE, INCLUDE, SHOW_PATH, WATCH } from "./constants";
 
 /**
  * The Config class.
@@ -78,9 +78,9 @@ export class Config {
    * @memberof Config
    */
   constructor(readonly config: WorkspaceConfiguration) {
-    this.include = config.get<string[]>('files.include') ?? INCLUDE;
-    this.exclude = config.get<string[]>('files.exclude') ?? EXCLUDE;
-    this.watch = config.get<string[]>('files.watch') ?? WATCH;
-    this.showPath = config.get<boolean>('files.showPath') ?? SHOW_PATH;
+    this.include = config.get<string[]>("files.include") ?? INCLUDE;
+    this.exclude = config.get<string[]>("files.exclude") ?? EXCLUDE;
+    this.watch = config.get<string[]>("files.watch") ?? WATCH;
+    this.showPath = config.get<boolean>("files.showPath") ?? SHOW_PATH;
   }
 }

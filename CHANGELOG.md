@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2024-11-19
+
+### Added
+
+- Add `spark optimize` command to the extension to optimize for production
+- Add `spark phpini:check` command to the extension to check the PHP configuration
+- Add `biome` linting and formatting tool to the project
+- Add `biome` configuration file to define the linting and formatting rules
+- Add version extension check to show a message when the extension is outdated
+- Add Spanish language support to the extension
+
+### Changed
+
+- Update `spark serve` command to allow the user to specify the host and port
+- Update the `package.json` file to include the new configuration for the Spanish language support
+- Update messages in the extension to use localization for the Spanish language
+- Update dependencies to the latest versions available
+
+### Removed
+
+- Remove `ESLint` and `Prettier` configurations
+- Remove unused configuration files
+
 ## [2.1.0] - 2024-03-27
 
 ### Changed
@@ -126,7 +149,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.1.0...HEAD
+[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.8.1...v2.0.0
 [1.8.1]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v1.8.0...v1.8.1

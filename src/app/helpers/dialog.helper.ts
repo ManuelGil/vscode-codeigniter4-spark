@@ -1,4 +1,4 @@
-import { window } from 'vscode';
+import { window } from "vscode";
 
 /**
  * Displays a message box with the provided message
@@ -19,7 +19,7 @@ export const getPath = async (
   prompt: string,
   placeHolder: string,
   currentPath: string,
-  validate: (path: string) => string | undefined,
+  validate: (path: string) => string | undefined
 ): Promise<string | undefined> => {
   return await window.showInputBox({
     prompt,
@@ -46,7 +46,7 @@ export const getPath = async (
 export const getName = async (
   prompt: string,
   placeHolder: string,
-  validate: (name: string) => string | undefined,
+  validate: (name: string) => string | undefined
 ): Promise<string | undefined> => {
   return await window.showInputBox({
     prompt,
@@ -67,7 +67,7 @@ export const getName = async (
  */
 export const pickItem = async (
   items: string[],
-  placeHolder: string,
+  placeHolder: string
 ): Promise<string | undefined> => {
   return await window.showQuickPick(items, {
     placeHolder,

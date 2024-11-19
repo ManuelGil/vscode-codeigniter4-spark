@@ -1,17 +1,17 @@
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
-import { Config, EXTENSION_ID } from './app/configs';
+import { Config, EXTENSION_ID, EXTENSION_NAME } from "./app/configs";
 import {
   FeedbackController,
   FileController,
   ListFilesController,
   TerminalController,
-} from './app/controllers';
+} from "./app/controllers";
 import {
   FeedbackProvider,
   ListFilesProvider,
   ListRoutesProvider,
-} from './app/providers';
+} from "./app/providers";
 
 export function activate(context: vscode.ExtensionContext) {
   // The code you place here will be executed every time your command is executed
@@ -32,8 +32,38 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Get the configuration for the extension
   const config = new Config(
-    vscode.workspace.getConfiguration(EXTENSION_ID, resource),
+    vscode.workspace.getConfiguration(EXTENSION_ID, resource)
   );
+
+  // -----------------------------------------------------------------
+  // Get version of the extension
+  // -----------------------------------------------------------------
+
+  // Get the previous version of the extension
+  const previousVersion = context.globalState.get("version");
+  // Get the current version of the extension
+  const currentVersion = context.extension.packageJSON.version;
+
+  // Check if the extension is running for the first time
+  if (!previousVersion) {
+    const message = vscode.l10n.t("Welcome to {0}!", [EXTENSION_NAME]);
+    vscode.window.showInformationMessage(message);
+
+    // Update the version in the global state
+    context.globalState.update("version", currentVersion);
+  }
+
+  // Check if the extension has been updated
+  if (previousVersion && previousVersion !== currentVersion) {
+    const message = vscode.l10n.t(
+      "Looks like {0} has been updated to version {1}!",
+      [EXTENSION_NAME, currentVersion]
+    );
+    vscode.window.showInformationMessage(message);
+
+    // Update the version in the global state
+    context.globalState.update("version", currentVersion);
+  }
 
   // -----------------------------------------------------------------
   // Register FileController and commands
@@ -46,73 +76,73 @@ export function activate(context: vscode.ExtensionContext) {
     `${EXTENSION_ID}.file.command`,
     (args) => {
       fileController.newCommand(args);
-    },
+    }
   );
   const disposableFileConfig = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.config`,
     (args) => {
       fileController.newConfig(args);
-    },
+    }
   );
   const disposableFileController = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.controller`,
     (args) => {
       fileController.newController(args);
-    },
+    }
   );
   const disposableFileEntity = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.entity`,
     (args) => {
       fileController.newEntity(args);
-    },
+    }
   );
   const disposableFileFilter = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.filter`,
     (args) => {
       fileController.newFilter(args);
-    },
+    }
   );
   const disposableFileHelper = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.helper`,
     (args) => {
       fileController.newHelper(args);
-    },
+    }
   );
   const disposableFileLanguage = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.language`,
     (args) => {
       fileController.newLanguage(args);
-    },
+    }
   );
   const disposableFileMigration = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.migration`,
     (args) => {
       fileController.newMigration(args);
-    },
+    }
   );
   const disposableFileModel = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.model`,
     (args) => {
       fileController.newModel(args);
-    },
+    }
   );
   const disposableFileResource = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.resource`,
     (args) => {
       fileController.newResource(args);
-    },
+    }
   );
   const disposableFileSeeder = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.seeder`,
     (args) => {
       fileController.newSeeder(args);
-    },
+    }
   );
   const disposableFileValidation = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.validation`,
     (args) => {
       fileController.newValidation(args);
-    },
+    }
   );
 
   // -----------------------------------------------------------------
@@ -126,91 +156,103 @@ export function activate(context: vscode.ExtensionContext) {
     `${EXTENSION_ID}.terminal.cache.clear`,
     () => {
       terminalController.cacheClear();
-    },
+    }
   );
   const disposableTerminalCacheInfo = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.cache.info`,
     () => {
       terminalController.cacheInfo();
-    },
+    }
   );
   const disposableTerminalDbCreate = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.db.create`,
     () => {
       terminalController.dbCreate();
-    },
+    }
   );
   const disposableTerminalDbSeed = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.db.seed`,
     () => {
       terminalController.dbSeed();
-    },
+    }
   );
   const disposableTerminalDbTable = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.db.table`,
     () => {
       terminalController.dbTable();
-    },
+    }
   );
   const disposableTerminalFilterCheck = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.filter.check`,
     () => {
       terminalController.filterCheck();
-    },
+    }
   );
   const disposableTerminalKey = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.key`,
     () => {
       terminalController.key();
-    },
+    }
   );
   const disposableTerminalLogsClear = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.logs.clear`,
     () => {
       terminalController.logsClear();
-    },
+    }
   );
   const disposableTerminalMigrate = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.migrate`,
     () => {
       terminalController.migrate();
-    },
+    }
   );
   const disposableTerminalMigrateRefresh = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.migrate.refresh`,
     () => {
       terminalController.migrateRefresh();
-    },
+    }
   );
   const disposableTerminalMigrateRollback = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.migrate.rollback`,
     () => {
       terminalController.migrateRollback();
-    },
+    }
   );
   const disposableTerminalMigrateStatus = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.migrate.status`,
     () => {
       terminalController.migrateStatus();
-    },
+    }
   );
   const disposableTerminalNamespaces = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.namespaces`,
     () => {
       terminalController.namespaces();
-    },
+    }
+  );
+  const disposableTerminalOptimize = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.optimize`,
+    () => {
+      terminalController.optimize();
+    }
+  );
+  const disposableTerminalIniCheck = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.terminal.iniCheck`,
+    () => {
+      terminalController.iniCheck();
+    }
   );
   const disposableTerminalRoutes = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.routes`,
     () => {
       terminalController.routes();
-    },
+    }
   );
   const disposableTerminalServe = vscode.commands.registerCommand(
     `${EXTENSION_ID}.terminal.serve`,
     () => {
       terminalController.serve();
-    },
+    }
   );
 
   // -----------------------------------------------------------------
@@ -222,12 +264,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   const disposableListOpenFile = vscode.commands.registerCommand(
     `${EXTENSION_ID}.list.openFile`,
-    (uri) => listFilesController.openFile(uri),
+    (uri) => listFilesController.openFile(uri)
   );
 
   const disposableListGotoLine = vscode.commands.registerCommand(
     `${EXTENSION_ID}.list.gotoLine`,
-    (uri, line) => listFilesController.gotoLine(uri, line),
+    (uri, line) => listFilesController.gotoLine(uri, line)
   );
 
   // -----------------------------------------------------------------
@@ -243,12 +285,12 @@ export function activate(context: vscode.ExtensionContext) {
     {
       treeDataProvider: listFilesProvider,
       showCollapseAll: true,
-    },
+    }
   );
 
   const disposableRefreshListFiles = vscode.commands.registerCommand(
     `${EXTENSION_ID}.listFiles.refreshList`,
-    () => listFilesProvider.refresh(),
+    () => listFilesProvider.refresh()
   );
 
   // -----------------------------------------------------------------
@@ -264,12 +306,12 @@ export function activate(context: vscode.ExtensionContext) {
     {
       treeDataProvider: listRoutesProvider,
       showCollapseAll: true,
-    },
+    }
   );
 
   const disposableRefreshListRoutes = vscode.commands.registerCommand(
     `${EXTENSION_ID}.listRoutes.refreshList`,
-    () => listRoutesProvider.refresh(),
+    () => listRoutesProvider.refresh()
   );
 
   // -----------------------------------------------------------------
@@ -295,25 +337,25 @@ export function activate(context: vscode.ExtensionContext) {
     `${EXTENSION_ID}.feedbackView`,
     {
       treeDataProvider: feedbackProvider,
-    },
+    }
   );
 
   // Register the commands
   const disposableFeedbackAboutUs = vscode.commands.registerCommand(
     `${EXTENSION_ID}.feedback.aboutUs`,
-    () => feedbackProvider.controller.aboutUs(),
+    () => feedbackProvider.controller.aboutUs()
   );
   const disposableFeedbackReportIssues = vscode.commands.registerCommand(
     `${EXTENSION_ID}.feedback.reportIssues`,
-    () => feedbackProvider.controller.reportIssues(),
+    () => feedbackProvider.controller.reportIssues()
   );
   const disposableFeedbackRateUs = vscode.commands.registerCommand(
     `${EXTENSION_ID}.feedback.rateUs`,
-    () => feedbackProvider.controller.rateUs(),
+    () => feedbackProvider.controller.rateUs()
   );
   const disposableFeedbackSupportUs = vscode.commands.registerCommand(
     `${EXTENSION_ID}.feedback.supportUs`,
-    () => feedbackProvider.controller.supportUs(),
+    () => feedbackProvider.controller.supportUs()
   );
 
   context.subscriptions.push(
@@ -342,6 +384,8 @@ export function activate(context: vscode.ExtensionContext) {
     disposableTerminalMigrateRollback,
     disposableTerminalMigrateStatus,
     disposableTerminalNamespaces,
+    disposableTerminalOptimize,
+    disposableTerminalIniCheck,
     disposableTerminalRoutes,
     disposableTerminalServe,
     disposableListOpenFile,
@@ -354,7 +398,7 @@ export function activate(context: vscode.ExtensionContext) {
     disposableFeedbackAboutUs,
     disposableFeedbackReportIssues,
     disposableFeedbackRateUs,
-    disposableFeedbackSupportUs,
+    disposableFeedbackSupportUs
   );
 }
 

@@ -2,7 +2,7 @@
   "name": "vscode-codeigniter4-spark",
   "displayName": "CodeIgniter 4 Spark",
   "description": "CodeIgniter 4 Spark is a Visual Studio Code extension that provides a set of useful commands and shortcuts for CodeIgniter 4 framework.",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
@@ -62,6 +62,7 @@
     "onLanguage:php"
   ],
   "main": "./out/extension.js",
+  "l10n": "./l10n",
   "contributes": {
     "configuration": {
       "title": "CodeIgniter 4 Spark",
@@ -72,7 +73,7 @@
             "php"
           ],
           "scope": "resource",
-          "description": "Glob patterns to include in the package. The default is php."
+          "description": "%spark.files.include%"
         },
         "spark.files.exclude": {
           "type": "array",
@@ -81,7 +82,7 @@
             "**/.*/**"
           ],
           "scope": "resource",
-          "description": "Glob patterns to exclude from the package. The default is vendor, and any hidden files."
+          "description": "%spark.files.exclude%"
         },
         "spark.files.watch": {
           "type": "array",
@@ -90,161 +91,171 @@
             "helpers"
           ],
           "scope": "resource",
-          "description": "The list of directories to watch for changes"
+          "description": "%spark.files.watch%"
         },
         "spark.files.showPath": {
           "type": "boolean",
           "default": true,
           "scope": "resource",
-          "description": "Show the path of the file in the name of the list of generated files"
+          "description": "%spark.files.showPath%"
         }
       }
     },
     "commands": [
       {
         "command": "spark.file.command",
-        "title": "Make Command",
+        "title": "%spark.file.command%",
         "category": "Spark"
       },
       {
         "command": "spark.file.config",
-        "title": "Make Config",
+        "title": "%spark.file.config%",
         "category": "Spark"
       },
       {
         "command": "spark.file.controller",
-        "title": "Make Controller",
+        "title": "%spark.file.controller%",
         "category": "Spark"
       },
       {
         "command": "spark.file.entity",
-        "title": "Make Entity",
+        "title": "%spark.file.entity%",
         "category": "Spark"
       },
       {
         "command": "spark.file.filter",
-        "title": "Make Filter",
+        "title": "%spark.file.filter%",
         "category": "Spark"
       },
       {
         "command": "spark.file.helper",
-        "title": "Make Helper",
+        "title": "%spark.file.helper%",
         "category": "Spark"
       },
       {
         "command": "spark.file.language",
-        "title": "Make Language",
+        "title": "%spark.file.language%",
         "category": "Spark"
       },
       {
         "command": "spark.file.migration",
-        "title": "Make Migration",
+        "title": "%spark.file.migration%",
         "category": "Spark"
       },
       {
         "command": "spark.file.model",
-        "title": "Make Model",
+        "title": "%spark.file.model%",
         "category": "Spark"
       },
       {
         "command": "spark.file.resource",
-        "title": "Make Resource",
+        "title": "%spark.file.resource%",
         "category": "Spark"
       },
       {
         "command": "spark.file.seeder",
-        "title": "Make Seeder",
+        "title": "%spark.file.seeder%",
         "category": "Spark"
       },
       {
         "command": "spark.file.validation",
-        "title": "Make Validation",
+        "title": "%spark.file.validation%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.cache.clear",
-        "title": "Clear Cache",
+        "title": "spark.%terminal.cache.clear%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.cache.info",
-        "title": "Cache Info",
+        "title": "spark.%terminal.cache.info%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.db.create",
-        "title": "DB Create",
+        "title": "spark.%terminal.db.create%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.db.seed",
-        "title": "DB Seed",
+        "title": "spark.%terminal.db.seed%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.db.table",
-        "title": "DB Table",
+        "title": "spark.%terminal.db.table%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.filter.check",
-        "title": "Filter Check",
+        "title": "spark.%terminal.filter.check%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.key",
-        "title": "Generate Key",
+        "title": "%spark.terminal.key%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.logs.clear",
-        "title": "Clear Logs",
+        "title": "spark.%terminal.logs.clear%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.migrate.refresh",
-        "title": "Migrate Refresh",
+        "title": "spark.%terminal.migrate.refresh%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.migrate.rollback",
-        "title": "Migrate Rollback",
+        "title": "spark.%terminal.migrate.rollback%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.migrate.status",
-        "title": "Migrate Status",
+        "title": "spark.%terminal.migrate.status%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.migrate",
-        "title": "Migrate",
+        "title": "%spark.terminal.migrate%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.namespaces",
-        "title": "Namespaces",
+        "title": "%spark.terminal.namespaces%",
+        "category": "Spark"
+      },
+      {
+        "command": "spark.terminal.optimize",
+        "title": "%spark.terminal.optimize%",
+        "category": "Spark"
+      },
+      {
+        "command": "spark.terminal.iniCheck",
+        "title": "%spark.terminal.iniCheck%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.routes",
-        "title": "List Routes",
+        "title": "%spark.terminal.routes%",
         "category": "Spark"
       },
       {
         "command": "spark.terminal.serve",
-        "title": "Start Server",
+        "title": "%spark.terminal.serve%",
         "category": "Spark"
       },
       {
         "command": "spark.listFiles.refreshList",
-        "title": "Refresh List of Files",
+        "title": "%spark.listFiles.refreshList%",
         "category": "Spark",
         "icon": "$(refresh)"
       },
       {
         "command": "spark.listRoutes.refreshList",
-        "title": "Refresh List of Routes",
+        "title": "%spark.listRoutes.refreshList%",
         "category": "Spark",
         "icon": "$(refresh)"
       }
@@ -317,11 +328,11 @@
     "viewsWelcome": [
       {
         "view": "spark.listFilesView",
-        "contents": "To effectively capture files, ensure you include the plural form of the file type within the workspace settings.\n[Open Workspace Setting](command:workbench.action.openWorkspaceSettingsFile)\nTo learn more about how to use CodeIgniter 4 Spark for VS Code [read our docs](https://github.com/ManuelGil/vscode-spark-generator)."
+        "contents": "%spark.listFilesView.welcome%"
       },
       {
         "view": "spark.listRoutesView",
-        "contents": "Sorry, no routes were found. Please ensure that you have a defined router configured.\n[List Routes](command:spark.terminal.routes)\nTo learn more about how to use CodeIgniter 4 Spark for VS Code [read our docs](https://github.com/ManuelGil/vscode-spark-generator)."
+        "contents": "%spark.listRoutesView.welcome%"
       }
     ],
     "viewsContainers": {
@@ -337,17 +348,17 @@
       "spark-explorer": [
         {
           "id": "spark.listFilesView",
-          "name": "List of Files",
+          "name": "%spark.listFilesView%",
           "visibility": "visible"
         },
         {
           "id": "spark.listRoutesView",
-          "name": "List of Routes",
+          "name": "%spark.listRoutesView%",
           "visibility": "visible"
         },
         {
           "id": "spark.feedbackView",
-          "name": "Help and Feedback",
+          "name": "%spark.feedbackView%",
           "visibility": "visible"
         }
       ]
@@ -364,37 +375,32 @@
     "compile": "rimraf out && tsc -p ./ && cpy src/assets/* out/assets",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "format": "prettier --write 'src/**/*.ts'",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "biome format --write src",
+    "lint": "biome lint --write src",
+    "lint:check": "biome check --write src",
     "test": "node ./out/test/runTest.js",
     "compodoc": "npx compodoc -p tsconfig.doc.json -d compodoc --theme readthedocs -s",
     "prepare": "husky"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.2.1",
-    "@commitlint/config-conventional": "^19.1.0",
-    "@compodoc/compodoc": "^1.1.23",
+    "@biomejs/biome": "1.9.4",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@compodoc/compodoc": "^1.1.26",
     "@types/glob": "^8.1.0",
     "@types/minimatch": "^3.0.5",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^20.11.30",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "^22.9.0",
     "@types/vscode": "^1.76.0",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
+    "@vscode/l10n-dev": "^0.0.35",
+    "biome": "^0.2.2",
     "cpy-cli": "^5.0.0",
-    "eslint": "^8.57.0",
-    "eslint-config-standard-with-typescript": "^43.0.1",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.1.1",
-    "glob": "^10.3.10",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "mocha": "^10.4.0",
-    "prettier": "3.2.5",
-    "rimraf": "^5.0.5",
-    "typescript": "^5.4.3",
-    "vscode-test": "^1.5.0"
+    "glob": "^11.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "mocha": "^10.8.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.4.5",
+    "vscode-test": "^1.6.1"
   }
 }

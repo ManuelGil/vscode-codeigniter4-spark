@@ -5,11 +5,12 @@ import {
   ThemeIcon,
   TreeDataProvider,
   TreeItem,
-} from 'vscode';
+  l10n,
+} from "vscode";
 
-import { EXTENSION_ID } from '../configs';
-import { FeedbackController } from '../controllers';
-import { NodeModel } from '../models';
+import { EXTENSION_ID } from "../configs";
+import { FeedbackController } from "../controllers";
+import { NodeModel } from "../models";
 
 /**
  * The FeedbackProvider class
@@ -155,20 +156,20 @@ export class FeedbackProvider implements TreeDataProvider<NodeModel> {
    */
   private getFeedbacks(): NodeModel[] {
     return [
-      new NodeModel('About Us', new ThemeIcon('info'), {
-        title: 'About Us',
+      new NodeModel(l10n.t("About Us"), new ThemeIcon("info"), {
+        title: "About Us",
         command: `${EXTENSION_ID}.feedback.aboutUs`,
       }),
-      new NodeModel('Report Issues', new ThemeIcon('bug'), {
-        title: 'Report Issues',
+      new NodeModel(l10n.t("Report Issues"), new ThemeIcon("bug"), {
+        title: "Report Issues",
         command: `${EXTENSION_ID}.feedback.reportIssues`,
       }),
-      new NodeModel('Rate Us', new ThemeIcon('star'), {
-        title: 'Rate Us',
+      new NodeModel(l10n.t("Rate Us"), new ThemeIcon("star"), {
+        title: "Rate Us",
         command: `${EXTENSION_ID}.feedback.rateUs`,
       }),
-      new NodeModel('Support Us', new ThemeIcon('heart'), {
-        title: 'Support Us',
+      new NodeModel(l10n.t("Support Us"), new ThemeIcon("heart"), {
+        title: "Support Us",
         command: `${EXTENSION_ID}.feedback.supportUs`,
       }),
     ];

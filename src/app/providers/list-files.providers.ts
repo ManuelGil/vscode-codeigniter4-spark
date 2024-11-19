@@ -5,11 +5,11 @@ import {
   ThemeIcon,
   TreeDataProvider,
   TreeItem,
-} from 'vscode';
+} from "vscode";
 
-import { ListFilesController } from '../controllers';
-import { singularize } from '../helpers';
-import { NodeModel } from '../models';
+import { ListFilesController } from "../controllers";
+import { singularize } from "../helpers";
+import { NodeModel } from "../models";
 
 /**
  * The ListFilesProvider class
@@ -168,17 +168,17 @@ export class ListFilesProvider implements TreeDataProvider<NodeModel> {
         file.label
           .toString()
           .toLowerCase()
-          .includes(`${singularize(fileType.toLowerCase())}`),
+          .includes(`${singularize(fileType.toLowerCase())}`)
       );
 
       if (children.length !== 0) {
         const node = new NodeModel(
           `${fileType}: ${children.length}`,
-          new ThemeIcon('folder-opened'),
+          new ThemeIcon("folder-opened"),
           undefined,
           undefined,
           fileType,
-          children,
+          children
         );
 
         nodes.push(node);

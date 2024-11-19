@@ -1,8 +1,8 @@
-import { window } from 'vscode';
+import { l10n, window } from "vscode";
 
 // Import the Config and helper functions
-import { Config } from '../configs';
-import { pickItem, runCommand } from '../helpers';
+import { Config } from "../configs";
+import { getName, pickItem, runCommand } from "../helpers";
 
 /**
  * The TerminalController class.
@@ -47,7 +47,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   cacheClear() {
-    runCommand('cache clear', 'php spark cache:clear');
+    runCommand("cache clear", "php spark cache:clear");
   }
 
   /**
@@ -62,7 +62,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   cacheInfo() {
-    runCommand('cache info', 'php spark cache:info');
+    runCommand("cache info", "php spark cache:info");
   }
 
   /**
@@ -77,7 +77,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   dbCreate() {
-    runCommand('db create', 'php spark db:create');
+    runCommand("db create", "php spark db:create");
   }
 
   /**
@@ -92,7 +92,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   dbSeed() {
-    runCommand('db seed', 'php spark db:seed');
+    runCommand("db seed", "php spark db:seed");
   }
 
   /**
@@ -107,7 +107,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   dbTable() {
-    runCommand('db table', 'php spark db:table');
+    runCommand("db table", "php spark db:table");
   }
 
   /**
@@ -123,24 +123,27 @@ export class TerminalController {
    */
   async filterCheck() {
     const method = await pickItem(
-      ['get', 'post', 'path', 'put', 'delete', 'options'],
-      'HTTP method',
+      ["get", "post", "path", "put", "delete", "options"],
+      "HTTP method"
     );
 
     if (!method) {
       return;
     }
 
+    const prompt = l10n.t("Enter the route for the {0} method", [
+      method.toUpperCase(),
+    ]);
     const route = await window.showInputBox({
-      prompt: 'route',
-      placeHolder: 'E.g. /, products/1, users/1/edit...',
+      prompt,
+      placeHolder: "E.g. /, products/1, users/1/edit...",
     });
 
     if (!route) {
       return;
     }
 
-    runCommand('filter check', `php spark filter:check ${method} ${route}`);
+    runCommand("filter check", `php spark filter:check ${method} ${route}`);
   }
 
   /**
@@ -155,7 +158,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   key() {
-    runCommand('key generate', 'php spark key:generate');
+    runCommand("key generate", "php spark key:generate");
   }
 
   /**
@@ -170,7 +173,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   logsClear() {
-    runCommand('logs clear', 'php spark logs:clear');
+    runCommand("logs clear", "php spark logs:clear");
   }
 
   /**
@@ -185,7 +188,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   async migrate() {
-    runCommand('migrate', 'php spark migrate');
+    runCommand("migrate", "php spark migrate");
   }
 
   /**
@@ -200,7 +203,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   migrateRefresh() {
-    runCommand('migrate refresh', 'php spark migrate:refresh');
+    runCommand("migrate refresh", "php spark migrate:refresh");
   }
 
   /**
@@ -215,7 +218,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   migrateRollback() {
-    runCommand('migrate rollback', 'php spark migrate:rollback');
+    runCommand("migrate rollback", "php spark migrate:rollback");
   }
 
   /**
@@ -230,7 +233,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   migrateStatus() {
-    runCommand('migrate status', 'php spark migrate:status');
+    runCommand("migrate status", "php spark migrate:status");
   }
 
   /**
@@ -245,7 +248,37 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   namespaces() {
-    runCommand('namespaces', 'php spark namespaces');
+    runCommand("namespaces", "php spark namespaces");
+  }
+
+  /**
+   * Optimize the application.
+   *
+   * @function optimize
+   * @public
+   * @memberof TerminalController
+   * @example
+   * await controller.optimize();
+   *
+   * @returns {Promise<void>} - No return value
+   */
+  optimize() {
+    runCommand("optimize", "php spark optimize");
+  }
+
+  /**
+   * Check the PHP configuration.
+   *
+   * @function phpiniCheck
+   * @public
+   * @memberof TerminalController
+   * @example
+   * await controller.phpiniCheck();
+   *
+   * @returns {Promise<void>} - No return value
+   */
+  iniCheck() {
+    runCommand("ini check", "php spark phpini:check");
   }
 
   /**
@@ -260,7 +293,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   routes() {
-    runCommand('routes', 'php spark routes');
+    runCommand("routes", "php spark routes");
   }
 
   /**
@@ -274,7 +307,57 @@ export class TerminalController {
    *
    * @returns {Promise<void>} - No return value
    */
-  serve() {
-    runCommand('server', 'php spark serve');
+  async serve() {
+    const items = [
+      {
+        label: "Host",
+        description: "--host",
+        detail: "Start the server on a specific host",
+      },
+      {
+        label: "Port",
+        description: "--port",
+        detail: "Start the server on a specific port",
+      },
+    ];
+
+    let options: any = [];
+    let extras: any = [];
+
+    const placeHolder = l10n.t("Select the options for the server command (optional)");
+    options = await window.showQuickPick(items, {
+      placeHolder,
+      canPickMany: true,
+    });
+
+    if (options.find((item: any) => item.description === "--host")) {
+      const prompt = l10n.t("Enter the host for the server command");
+      const host = await getName(prompt, "E.g. localhost", (host: string) => {
+        if (!host) {
+          return "The host is required";
+        }
+        return;
+      });
+
+      if (host) {
+        extras.push(`--host ${host}`);
+      }
+    }
+
+    if (options.find((item: any) => item.description === "--port")) {
+      const prompt = l10n.t("Enter the port for the server command");
+      const port = await getName(prompt, "E.g. 8080", (port: string) => {
+        if (!port) {
+          return "The port is required";
+        }
+        return;
+      });
+
+      if (port) {
+        extras.push(`--port ${port}`);
+      }
+    }
+
+    runCommand("server", `php spark serve ${extras.join(" ")}`);
   }
 }

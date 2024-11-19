@@ -1,6 +1,6 @@
-import { access, existsSync, mkdirSync, open, writeFile } from 'fs';
-import { dirname, join } from 'path';
-import { FilePermission, FileStat, Uri, window, workspace } from 'vscode';
+import { access, existsSync, mkdirSync, open, writeFile } from "fs";
+import { dirname, join } from "path";
+import { FilePermission, FileStat, Uri, l10n, window, workspace } from "vscode";
 
 /**
  * Reads the contents of the file specified in the path.
@@ -21,17 +21,17 @@ import { FilePermission, FileStat, Uri, window, workspace } from 'vscode';
  */
 export const directoryMap = async (
   path: string,
-  options?: { extensions?: string[]; ignore?: string[]; maxResults?: number },
+  options?: { extensions?: string[]; ignore?: string[]; maxResults?: number }
 ): Promise<Uri[]> => {
-  let includes = path === '/' ? '**/*' : `${path}/**/*`;
-  let exclude = '';
+  let includes = path === "/" ? "**/*" : `${path}/**/*`;
+  let exclude = "";
 
   if (options && options.extensions && options.extensions.length) {
-    includes += `.{${options.extensions.join(',')}}`;
+    includes += `.{${options.extensions.join(",")}}`;
   }
 
   if (options && options.ignore && options.ignore.length) {
-    exclude = `{${options.ignore.join(',')}}`;
+    exclude = `{${options.ignore.join(",")}}`;
   }
 
   return workspace.findFiles(includes, exclude, options?.maxResults);
@@ -51,14 +51,15 @@ export const directoryMap = async (
 export const saveFile = async (
   path: string,
   filename: string,
-  data: string,
+  data: string
 ): Promise<void> => {
-  let folder: string = '';
+  let folder: string = "";
 
   if (workspace.workspaceFolders) {
     folder = workspace.workspaceFolders[0].uri.fsPath;
   } else {
-    window.showErrorMessage('The file has not been created!');
+    const message = l10n.t("No workspace is open to save the file!");
+    window.showErrorMessage(message);
     return;
   }
 
@@ -70,12 +71,12 @@ export const saveFile = async (
 
   access(file, (err: any) => {
     if (err) {
-      open(file, 'w+', (err: any, fd: any) => {
+      open(file, "w+", (err: any, fd: any) => {
         if (err) {
           throw err;
         }
 
-        writeFile(fd, data, 'utf8', (err: any) => {
+        writeFile(fd, data, "utf8", (err: any) => {
           if (err) {
             throw err;
           }
@@ -88,9 +89,11 @@ export const saveFile = async (
         });
       });
 
-      window.showInformationMessage('Successfully created the file!');
+      const message = l10n.t("Successfully created the file!");
+      window.showInformationMessage(message);
     } else {
-      window.showWarningMessage('Name already exist!');
+      const message = l10n.t("File already exist!");
+      window.showWarningMessage(message);
     }
   });
 };
@@ -109,7 +112,7 @@ export const saveFile = async (
  */
 export const deleteFiles = async (
   path: string,
-  options?: { recursive?: boolean; useTrash?: boolean },
+  options?: { recursive?: boolean; useTrash?: boolean }
 ): Promise<void> => {
   const files = await workspace.findFiles(`${path}/**/*`);
 
@@ -139,7 +142,7 @@ export const deleteFiles = async (
  */
 export const getFilenames = async (
   path: string,
-  options?: { extensions?: string[]; ignore?: string[]; maxResults?: number },
+  options?: { extensions?: string[]; ignore?: string[]; maxResults?: number }
 ): Promise<string[]> => {
   const files = await directoryMap(path, options);
 
@@ -182,7 +185,7 @@ export const getDirFileInfo = async (path: string): Promise<object> => {
  * @returns {Promise<FilePermission | undefined>} - Symbolic permissions
  */
 export const symbolicPermissions = async (
-  path: string,
+  path: string
 ): Promise<FilePermission | undefined> => {
   return await workspace.fs
     .stat(Uri.file(path))
@@ -199,7 +202,7 @@ export const symbolicPermissions = async (
  * @returns {Promise<string | undefined>} - Octal permissions
  */
 export const octalPermissions = async (
-  path: string,
+  path: string
 ): Promise<string | undefined> => {
   const file = await workspace.fs
     .stat(Uri.file(path))
@@ -220,7 +223,7 @@ export const octalPermissions = async (
  */
 export const sameFile = async (
   file1: string,
-  file2: string,
+  file2: string
 ): Promise<boolean> => {
   const file1Info = await getFileInfo(file1);
   const file2Info = await getFileInfo(file2);

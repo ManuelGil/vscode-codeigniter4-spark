@@ -1,4 +1,4 @@
-import { MessageItem, Uri, env, window } from 'vscode';
+import { MessageItem, Uri, env, l10n, window } from "vscode";
 
 import {
   EXTENSION_BUGS_URL,
@@ -7,7 +7,7 @@ import {
   EXTENSION_NAME,
   EXTENSION_PAYPAL_URL,
   EXTENSION_SPONSOR_URL,
-} from '../configs';
+} from "../configs";
 
 /**
  * The FeedbackController class.
@@ -75,7 +75,7 @@ export class FeedbackController {
    */
   rateUs(): void {
     env.openExternal(
-      Uri.parse(`${EXTENSION_MARKETPLACE_URL}&ssr=false#review-details`),
+      Uri.parse(`${EXTENSION_MARKETPLACE_URL}&ssr=false#review-details`)
     );
   }
 
@@ -92,16 +92,16 @@ export class FeedbackController {
   async supportUs(): Promise<void> {
     // Create the actions
     const actions: MessageItem[] = [
-      { title: 'Become a Sponsor' },
-      { title: 'Donate via PayPal' },
+      { title: l10n.t("Become a Sponsor") },
+      { title: l10n.t("Donate via PayPal") },
     ];
 
     // Show the message
-    const option = await window.showInformationMessage(
-      `Although ${EXTENSION_NAME} is offered at no cost, your support is
-        deeply appreciated if you find it beneficial. Thank you for considering!`,
-      ...actions,
+    const message = l10n.t(
+      "Although {0} is offered at no cost, your support is deeply appreciated if you find it beneficial. Thank you for considering!",
+      EXTENSION_NAME
     );
+    const option = await window.showInformationMessage(message, ...actions);
 
     // Handle the actions
     switch (option?.title) {

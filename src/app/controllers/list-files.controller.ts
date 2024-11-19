@@ -7,11 +7,11 @@ import {
   Uri,
   window,
   workspace,
-} from 'vscode';
+} from "vscode";
 
-import { Config, EXTENSION_ID } from '../configs';
-import { directoryMap, getRelativePath } from '../helpers';
-import { NodeModel } from '../models';
+import { Config, EXTENSION_ID } from "../configs";
+import { directoryMap, getRelativePath } from "../helpers";
+import { NodeModel } from "../models";
 
 /**
  * The ListFilesController class.
@@ -75,10 +75,10 @@ export class ListFilesController {
    * @returns {Promise<NodeModel[] | void>} - The list of files
    */
   static async getFiles(
-    maxResults: number = Number.MAX_SAFE_INTEGER,
+    maxResults: number = Number.MAX_SAFE_INTEGER
   ): Promise<NodeModel[] | void> {
     // Get the files in the folder
-    const files = await directoryMap('/', {
+    const files = await directoryMap("/", {
       extensions: this.config.include,
       ignore: this.config.exclude,
       maxResults,
@@ -93,26 +93,26 @@ export class ListFilesController {
         const document = await workspace.openTextDocument(file);
 
         const path = await getRelativePath(document.fileName);
-        let filename = path.split('/').pop();
+        let filename = path.split("/").pop();
 
         if (filename && this.config.showPath) {
-          const folder = path.split('/').slice(0, -1).join('/');
+          const folder = path.split("/").slice(0, -1).join("/");
 
-          filename += folder ? ` (${folder})` : ' (root)';
+          filename += folder ? ` (${folder})` : " (root)";
         }
 
         nodes.push(
           new NodeModel(
-            filename ?? 'Untitled',
-            new ThemeIcon('file'),
+            filename ?? "Untitled",
+            new ThemeIcon("file"),
             {
               command: `${EXTENSION_ID}.list.openFile`,
-              title: 'Open File',
+              title: "Open File",
               arguments: [document.uri],
             },
             document.uri,
-            document.fileName,
-          ),
+            document.fileName
+          )
         );
       }
 
@@ -159,7 +159,7 @@ export class ListFilesController {
         const pos = new Position(line, 0);
         editor.revealRange(
           new Range(pos, pos),
-          TextEditorRevealType.InCenterIfOutsideViewport,
+          TextEditorRevealType.InCenterIfOutsideViewport
         );
         editor.selection = new Selection(pos, pos);
       });

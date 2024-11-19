@@ -28,7 +28,6 @@ CodeIgniter 4 Spark is a Visual Studio Code extension that provides a set of use
     - [Housekeeping](#housekeeping)
   - [Connect with me](#connect-with-me)
   - [Other Extensions](#other-extensions)
-  - [Community](#community)
   - [Changelog](#changelog)
   - [Authors](#authors)
   - [License](#license)
@@ -86,6 +85,8 @@ Your project is now set up to automatically format code upon saving.
 | --- | --- |
 | Spark: Filter Check | Check filters for a route |
 | Spark: Namespaces | Verifies your namespaces are setup correctly |
+| Spark: Optimize | Optimize for production |
+| Spark: PHP INI check | Check your php.ini settings |
 | Spark: List Routes | Displays all routes |
 | Spark: Start Server | Launches the CodeIgniter PHP-Development Server |
 
@@ -137,19 +138,12 @@ Your project is now set up to automatically format code upon saving.
 
 ## Other Extensions
 
-- [NestJS File Generator](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-nestjs-generator)
-- [NestJS Snippets](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-nestjs-snippets-extension)
-- [Angular File Generator](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-angular-generator)
-- [T3 Stack / NextJS / ReactJS File Generator](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-nextjs-generator)
-- [CodeIgniter 4 Snippets](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-snippets)
-- [CodeIgniter 4 Shield Snippets](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-shield-snippets)
 - [CodeIgniter 4 Spark](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
-- [Moodle Pack](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-moodle-snippets)
-- [Mustache Template Engine - Snippets & Autocomplete](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-mustache-snippets)
-
-## Community
-
-- CodeIgniter Hispano [CiHispano](https://www.cihispano.org/)
+- [Auto Barrel](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-auto-barrel)
+- [JSON Flow](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-json-flow)
+- [Angular File Generator](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-angular-generator)
+- [NestJS File Generator](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-nestjs-generator)
+- [T3 Stack / NextJS / ReactJS File Generator](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-nextjs-generator)
 
 ## Changelog
 
