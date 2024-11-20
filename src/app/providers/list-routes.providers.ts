@@ -6,11 +6,11 @@ import {
   TreeDataProvider,
   TreeItem,
   workspace,
-} from "vscode";
+} from 'vscode';
 
-import { EXTENSION_ID } from "../configs";
-import { ListFilesController } from "../controllers";
-import { NodeModel } from "../models";
+import { EXTENSION_ID } from '../configs';
+import { ListFilesController } from '../controllers';
+import { NodeModel } from '../models';
 
 /**
  * The ListRoutesProvider class
@@ -162,12 +162,12 @@ export class ListRoutesProvider implements TreeDataProvider<NodeModel> {
 
     // List of Modules
     const nodes = files.filter((file) =>
-      file.label.toString().toLowerCase().includes("routes")
+      file.label.toString().toLowerCase().includes('routes'),
     );
 
     for (const file of nodes) {
       const document = await workspace.openTextDocument(
-        file.resourceUri?.path ?? ""
+        file.resourceUri?.path ?? '',
       );
 
       const children = Array.from(
@@ -180,40 +180,40 @@ export class ListRoutesProvider implements TreeDataProvider<NodeModel> {
 
           if (
             line.text.match(
-              />(match|head|options|get|post|patch|put|delete|cli)\(/g
+              />(match|head|options|get|post|patch|put|delete|cli)\(/g,
             )
           ) {
             const route = line.text
               .trim()
               .replace(
                 /\$routes\->(match|head|options|get|post|patch|put|delete|cli)\(/g,
-                ""
+                '',
               )
-              .split(",");
+              .split(',');
 
             node = new NodeModel(
-              route[1].replace(/[';\)]+/g, "").replace(/::/g, " -> "),
-              new ThemeIcon("symbol-method"),
+              route[1].replace(/[';\)]+/g, '').replace(/::/g, ' -> '),
+              new ThemeIcon('symbol-method'),
               {
                 command: `${EXTENSION_ID}.list.gotoLine`,
                 title: line.text,
                 arguments: [file.resourceUri, index],
-              }
+              },
             );
           }
 
           if (
             line.text.match(
-              /(match|head|options|get|post|patch|put|delete|cli)/g
+              /(match|head|options|get|post|patch|put|delete|cli)/g,
             )
           ) {
             type = line.text.match(
-              /(match|head|options|get|post|patch|put|delete|cli)/g
+              /(match|head|options|get|post|patch|put|delete|cli)/g,
             )?.[0];
           }
 
           return { node, type };
-        }
+        },
       );
 
       if (children.length === 0) {
@@ -221,19 +221,19 @@ export class ListRoutesProvider implements TreeDataProvider<NodeModel> {
       }
 
       const nodeTypes = [
-        "options",
-        "get",
-        "post",
-        "patch",
-        "put",
-        "delete",
-        "head",
-        "match",
-        "cli",
+        'options',
+        'get',
+        'post',
+        'patch',
+        'put',
+        'delete',
+        'head',
+        'match',
+        'cli',
       ];
 
       const nodes = nodeTypes.map((type) =>
-        this.createNodeModel(type, children)
+        this.createNodeModel(type, children),
       );
 
       file.setChildren(nodes.filter((node) => node.children?.length));
@@ -264,13 +264,13 @@ export class ListRoutesProvider implements TreeDataProvider<NodeModel> {
       `${type.charAt(0).toUpperCase() + type.slice(1)}: ${
         filteredChildren.length
       }`,
-      new ThemeIcon("symbol-folder"),
+      new ThemeIcon('symbol-folder'),
       undefined,
       undefined,
       type,
       filteredChildren.sort((a, b) =>
-        a.label.toString().localeCompare(b.label.toString())
-      )
+        a.label.toString().localeCompare(b.label.toString()),
+      ),
     );
   }
 }

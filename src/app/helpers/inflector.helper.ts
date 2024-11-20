@@ -10,9 +10,9 @@
 export const camelize = (str: string): string => {
   return str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
-      index === 0 ? word.toLowerCase() : word.toUpperCase()
+      index === 0 ? word.toLowerCase() : word.toUpperCase(),
     )
-    .replace(/\s+/g, "");
+    .replace(/\s+/g, '');
 };
 
 /**
@@ -27,7 +27,7 @@ export const camelize = (str: string): string => {
 export const pascalize = (str: string): string => {
   return str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (word) => word.toUpperCase())
-    .replace(/\s+/g, "");
+    .replace(/\s+/g, '');
 };
 
 /**
@@ -42,9 +42,9 @@ export const pascalize = (str: string): string => {
 export const underscore = (str: string): string => {
   return str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
-      index === 0 ? word.toLowerCase() : `_${word.toLowerCase()}`
+      index === 0 ? word.toLowerCase() : `_${word.toLowerCase()}`,
     )
-    .replace(/\s+/g, "_");
+    .replace(/\s+/g, '_');
 };
 
 /**
@@ -59,9 +59,9 @@ export const underscore = (str: string): string => {
 export const decamelize = (str: string): string => {
   return str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
-      index === 0 ? word.toLowerCase() : `_${word.toLowerCase()}`
+      index === 0 ? word.toLowerCase() : `_${word.toLowerCase()}`,
     )
-    .replace(/\s+/g, "_");
+    .replace(/\s+/g, '_');
 };
 
 /**
@@ -76,9 +76,9 @@ export const decamelize = (str: string): string => {
 export const humanize = (str: string): string => {
   return str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
-      index === 0 ? word.toUpperCase() : ` ${word.toLowerCase()}`
+      index === 0 ? word.toUpperCase() : ` ${word.toLowerCase()}`,
     )
-    .replace(/\s+/g, " ");
+    .replace(/\s+/g, ' ');
 };
 
 /**
@@ -91,7 +91,7 @@ export const humanize = (str: string): string => {
  * @returns {boolean} - Whether the string is pluralizable
  */
 export const isPluralizable = (str: string): boolean => {
-  return str.endsWith("s");
+  return str.endsWith('s');
 };
 
 /**
@@ -106,9 +106,9 @@ export const isPluralizable = (str: string): boolean => {
 export const dasherize = (str: string): string => {
   return str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
-      index === 0 ? word.toLowerCase() : `-${word.toLowerCase()}`
+      index === 0 ? word.toLowerCase() : `-${word.toLowerCase()}`,
     )
-    .replace(/\s+/g, "-");
+    .replace(/\s+/g, '-');
 };
 
 /**
@@ -159,13 +159,13 @@ export const ordinalize = (num: number): string => {
  * @returns {string} - The pluralized string
  */
 export const pluralize = (str: string): string => {
-  if (str.endsWith("y")) {
-    return str.slice(0, -1) + "ies";
+  if (str.endsWith('y')) {
+    return str.slice(0, -1) + 'ies';
   }
-  if (str.endsWith("s")) {
+  if (str.endsWith('s')) {
     return str;
   }
-  return str + "s";
+  return str + 's';
 };
 
 /**
@@ -178,10 +178,10 @@ export const pluralize = (str: string): string => {
  * @returns {string} - The singularized string
  */
 export const singularize = (str: string): string => {
-  if (str.endsWith("ies")) {
-    return str.slice(0, -3) + "y";
+  if (str.endsWith('ies')) {
+    return str.slice(0, -3) + 'y';
   }
-  if (str.endsWith("s")) {
+  if (str.endsWith('s')) {
     return str.slice(0, -1);
   }
   return str;
@@ -198,7 +198,7 @@ export const singularize = (str: string): string => {
  */
 export const titleize = (str: string): string => {
   return str
-    .split(" ")
+    .split(' ')
     .map((word) => word[0].toUpperCase() + word.slice(1))
-    .join(" ");
+    .join(' ');
 };

@@ -5,7 +5,7 @@ import {
   TreeItemCollapsibleState,
   TreeItemLabel,
   Uri,
-} from "vscode";
+} from 'vscode';
 
 /**
  * The Node class
@@ -75,13 +75,13 @@ export class NodeModel extends TreeItem {
     readonly command?: Command,
     readonly resourceUri?: Uri,
     readonly contextValue?: string,
-    children?: NodeModel[]
+    children?: NodeModel[],
   ) {
     super(
       label,
       children
         ? TreeItemCollapsibleState.Expanded
-        : TreeItemCollapsibleState.None
+        : TreeItemCollapsibleState.None,
     );
     this.iconPath = iconPath;
     this.resourceUri = resourceUri;

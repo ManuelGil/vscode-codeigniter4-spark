@@ -375,9 +375,9 @@
     "compile": "rimraf out && tsc -p ./ && cpy src/assets/* out/assets",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "format": "biome format --write src",
-    "lint": "biome lint --write src",
-    "lint:check": "biome check --write src",
+    "format": "biome format --write",
+    "lint": "biome lint --write",
+    "lint:check": "biome check --write",
     "test": "node ./out/test/runTest.js",
     "compodoc": "npx compodoc -p tsconfig.doc.json -d compodoc --theme readthedocs -s",
     "prepare": "husky"

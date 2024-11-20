@@ -1,7 +1,7 @@
-import { l10n, Uri } from "vscode";
+import { l10n, Uri } from 'vscode';
 
 // Import the Config and helper functions
-import { Config } from "../configs";
+import { Config } from '../configs';
 import {
   getName,
   getPath,
@@ -9,7 +9,7 @@ import {
   pluralize,
   saveFile,
   underscore,
-} from "../helpers";
+} from '../helpers';
 
 /**
  * The FileController class.
@@ -59,19 +59,19 @@ export class FileController {
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Commands";
+      : 'app/Commands';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Commands...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Commands...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -79,14 +79,14 @@ export class FileController {
     }
 
     const className = await getName(
-      l10n.t("Enter the command class name"),
-      "E.g. CustomCommand, CliCommand...",
+      l10n.t('Enter the command class name'),
+      'E.g. CustomCommand, CliCommand...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!className) {
@@ -178,19 +178,19 @@ class ${className} extends BaseCommand
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Config";
+      : 'app/Config';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Config...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Config...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -198,14 +198,14 @@ class ${className} extends BaseCommand
     }
 
     const className = await getName(
-      l10n.t("Enter the config class name"),
-      "E.g. CustomConfig, UserConfig...",
+      l10n.t('Enter the config class name'),
+      'E.g. CustomConfig, UserConfig...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!className) {
@@ -249,19 +249,19 @@ class ${className} extends BaseConfig
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Controllers";
+      : 'app/Controllers';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Controllers...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Controllers...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -269,14 +269,14 @@ class ${className} extends BaseConfig
     }
 
     const className = await getName(
-      l10n.t("Enter the controller class name"),
-      "E.g. CustomController, UserController...",
+      l10n.t('Enter the controller class name'),
+      'E.g. CustomController, UserController...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!className) {
@@ -307,19 +307,19 @@ class ${className} extends BaseConfig
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Entities";
+      : 'app/Entities';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Entities...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Entities...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -327,14 +327,14 @@ class ${className} extends BaseConfig
     }
 
     const className = await getName(
-      l10n.t("Enter the entity class name"),
-      "E.g. CustomEntity, UserEntity...",
+      l10n.t('Enter the entity class name'),
+      'E.g. CustomEntity, UserEntity...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!className) {
@@ -377,19 +377,19 @@ class ${className} extends Entity
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Filters";
+      : 'app/Filters';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Filters...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Filters...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -397,14 +397,14 @@ class ${className} extends Entity
     }
 
     const className = await getName(
-      l10n.t("Enter the filter class name"),
-      "E.g. CustomFilter, UserFilter...",
+      l10n.t('Enter the filter class name'),
+      'E.g. CustomFilter, UserFilter...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!className) {
@@ -482,19 +482,19 @@ class ${className} implements FilterInterface
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Helpers";
+      : 'app/Helpers';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Helpers...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Helpers...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -502,14 +502,14 @@ class ${className} implements FilterInterface
     }
 
     const name = await getName(
-      l10n.t("Enter the helper name"),
-      "E.g. custom, user...",
+      l10n.t('Enter the helper name'),
+      'E.g. custom, user...',
       (name: string) => {
         if (!/^[a-z][a-z_]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!name) {
@@ -546,19 +546,19 @@ function custom_function()
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Language";
+      : 'app/Language';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Name without path delimeter. E.g. app/Language/en, app/Language/fr-CA, app/Language/zh-cn...",
+      l10n.t('Enter the folder name'),
+      'Name without path delimeter. E.g. app/Language/en, app/Language/fr-CA, app/Language/zh-cn...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -566,14 +566,14 @@ function custom_function()
     }
 
     const name = await getName(
-      l10n.t("Enter the language file name without extension"),
-      "Name without extension. E.g. Validation, Profile...",
+      l10n.t('Enter the language file name without extension'),
+      'Name without extension. E.g. Validation, Profile...',
       (name: string) => {
         if (!/^[A-Za-z]{3,}$/.test(name)) {
-          return "Invalid format! 3 or more characters (only letters).";
+          return 'Invalid format! 3 or more characters (only letters).';
         }
         return;
-      }
+      },
     );
 
     if (!name) {
@@ -609,19 +609,19 @@ return [
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Database/Migrations";
+      : 'app/Database/Migrations';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Database/Migrations...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Database/Migrations...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -629,14 +629,14 @@ return [
     }
 
     const name = await getName(
-      l10n.t("Enter the migration class name"),
-      "E.g. CustomMigration, UserMigration...",
+      l10n.t('Enter the migration class name'),
+      'E.g. CustomMigration, UserMigration...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!name) {
@@ -673,18 +673,18 @@ class ${name} extends Migration
 
     const date = new Date();
     const options = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
       hour12: false,
     } as Intl.DateTimeFormatOptions;
     const format = date
-      .toLocaleDateString("en-CA", options)
-      .replace(/[\/,]/g, "-")
-      .replace(/[\s:]/g, "");
+      .toLocaleDateString('en-CA', options)
+      .replace(/[\/,]/g, '-')
+      .replace(/[\s:]/g, '');
 
     const filename = `${format}_${name}.php`;
 
@@ -708,19 +708,19 @@ class ${name} extends Migration
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Models";
+      : 'app/Models';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Models...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Models...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -728,21 +728,21 @@ class ${name} extends Migration
     }
 
     const className = await getName(
-      l10n.t("Enter the model class name"),
-      "E.g. CustomModel, UserModel...",
+      l10n.t('Enter the model class name'),
+      'E.g. CustomModel, UserModel...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!className) {
       return;
     }
 
-    const tableName = pluralize(underscore(className.replace("Model", "")));
+    const tableName = pluralize(underscore(className.replace('Model', '')));
 
     const content = `<?php
 
@@ -809,19 +809,19 @@ class ${className} extends Model
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Controllers";
+      : 'app/Controllers';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Controllers...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Controllers...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -829,14 +829,14 @@ class ${className} extends Model
     }
 
     const className = await getName(
-      l10n.t("Enter the resource class name"),
-      "E.g. CustomResource, UserResource...",
+      l10n.t('Enter the resource class name'),
+      'E.g. CustomResource, UserResource...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!className) {
@@ -844,14 +844,14 @@ class ${className} extends Model
     }
 
     const modelName = await getName(
-      l10n.t("Enter the model class name"),
-      "E.g. CustomModel, UserModel...",
+      l10n.t('Enter the model class name'),
+      'E.g. CustomModel, UserModel...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!modelName) {
@@ -929,19 +929,19 @@ class ${className} extends ResourceController
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Database/Seeds";
+      : 'app/Database/Seeds';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Database/Seeds...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Database/Seeds...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -949,14 +949,14 @@ class ${className} extends ResourceController
     }
 
     const className = await getName(
-      l10n.t("Enter the seeder class name"),
-      "E.g. CustomSeeder, UserSeeder...",
+      l10n.t('Enter the seeder class name'),
+      'E.g. CustomSeeder, UserSeeder...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!className) {
@@ -1002,19 +1002,19 @@ class ${className} extends Seeder
     // Get the relative path
     const folderPath: string = path
       ? await getRelativePath(path.path)
-      : "app/Validation";
+      : 'app/Validation';
 
     // Get the path to the folder
     const folder = await getPath(
-      l10n.t("Enter the folder name"),
-      "Folder name. E.g. app, app/Validation...",
+      l10n.t('Enter the folder name'),
+      'Folder name. E.g. app, app/Validation...',
       folderPath,
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return "The folder name must be a valid name";
+          return 'The folder name must be a valid name';
         }
         return;
-      }
+      },
     );
 
     if (!folder) {
@@ -1022,14 +1022,14 @@ class ${className} extends Seeder
     }
 
     const className = await getName(
-      l10n.t("Enter the validation class name"),
-      "E.g. CustomValidation, User/Validation...",
+      l10n.t('Enter the validation class name'),
+      'E.g. CustomValidation, User/Validation...',
       (name: string) => {
         if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return "Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).";
+          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
         }
         return;
-      }
+      },
     );
 
     if (!className) {
