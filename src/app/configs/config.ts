@@ -78,9 +78,32 @@ export class Config {
    * @memberof Config
    */
   constructor(readonly config: WorkspaceConfiguration) {
-    this.include = config.get<string[]>('files.include') ?? INCLUDE;
-    this.exclude = config.get<string[]>('files.exclude') ?? EXCLUDE;
-    this.watch = config.get<string[]>('files.watch') ?? WATCH;
-    this.showPath = config.get<boolean>('files.showPath') ?? SHOW_PATH;
+    this.include = config.get<string[]>('files.include', INCLUDE);
+    this.exclude = config.get<string[]>('files.exclude', EXCLUDE);
+    this.watch = config.get<string[]>('files.watch', WATCH);
+    this.showPath = config.get<boolean>('files.showPath', SHOW_PATH);
+  }
+
+  // -----------------------------------------------------------------
+  // Methods
+  // -----------------------------------------------------------------
+
+  // Public methods
+  /**
+   * The update method.
+   *
+   * @function update
+   * @param {WorkspaceConfiguration} config - The workspace configuration
+   * @public
+   * @memberof Config
+   * @example
+   * const config = new Config(workspace.getConfiguration());
+   * config.update(workspace.getConfiguration());
+   */
+  update(config: WorkspaceConfiguration): void {
+    this.include = config.get<string[]>('files.include', INCLUDE);
+    this.exclude = config.get<string[]>('files.exclude', EXCLUDE);
+    this.watch = config.get<string[]>('files.watch', WATCH);
+    this.showPath = config.get<boolean>('files.showPath', SHOW_PATH);
   }
 }

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2025-01-10
+
+### Added
+
+- Add version extension check to show a message when the extension is outdated
+- Add VS Code test configuration and update test scripts
+
+### Changed
+
+- Improve the welcome and update messages in the extension
+- Upgrade dependencies to the latest versions available
+
 ## [2.2.0] - 2024-11-19
 
 ### Added

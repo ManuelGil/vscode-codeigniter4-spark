@@ -1,6 +1,11 @@
 import * as vscode from 'vscode';
 
-import { Config, EXTENSION_ID, EXTENSION_NAME } from './app/configs';
+import {
+  Config,
+  EXTENSION_ID,
+  EXTENSION_NAME,
+  EXTENSION_REPOSITORY_URL,
+} from './app/configs';
 import {
   FeedbackController,
   FileController,
@@ -13,17 +18,36 @@ import {
   ListRoutesProvider,
 } from './app/providers';
 
-export function activate(context: vscode.ExtensionContext) {
+// this method is called when your extension is activated
+// your extension is activated the very first time the command is executed
+export async function activate(context: vscode.ExtensionContext) {
   // The code you place here will be executed every time your command is executed
-  let resource:
-    | vscode.Uri
-    | vscode.TextDocument
-    | vscode.WorkspaceFolder
-    | undefined;
+  let resource: vscode.WorkspaceFolder | undefined;
 
-  // Get the resource for the workspace
-  if (vscode.workspace.workspaceFolders) {
+  // Check if there are workspace folders
+  if (
+    !vscode.workspace.workspaceFolders ||
+    vscode.workspace.workspaceFolders.length === 0
+  ) {
+    const message = vscode.l10n.t(
+      'No workspace folders are open. Please open a workspace folder to use this extension',
+    );
+    vscode.window.showErrorMessage(message);
+    return;
+  }
+
+  // Optionally, prompt the user to select a workspace folder if multiple are available
+  if (vscode.workspace.workspaceFolders.length === 1) {
     resource = vscode.workspace.workspaceFolders[0];
+  } else {
+    const placeHolder = vscode.l10n.t(
+      'Select a workspace folder to use. This folder will be used to load workspace-specific configuration for the extension',
+    );
+    const selectedFolder = await vscode.window.showWorkspaceFolderPick({
+      placeHolder,
+    });
+
+    resource = selectedFolder;
   }
 
   // -----------------------------------------------------------------
@@ -32,8 +56,36 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Get the configuration for the extension
   const config = new Config(
-    vscode.workspace.getConfiguration(EXTENSION_ID, resource),
+    vscode.workspace.getConfiguration(EXTENSION_ID, resource?.uri),
   );
+
+  // Watch for changes in the configuration
+  vscode.workspace.onDidChangeConfiguration((event) => {
+    const workspaceConfig = vscode.workspace.getConfiguration(
+      EXTENSION_ID,
+      resource?.uri,
+    );
+
+    if (event.affectsConfiguration(`${EXTENSION_ID}.enable`, resource?.uri)) {
+      const isEnabled = workspaceConfig.get<boolean>('enable');
+
+      config.update(workspaceConfig);
+
+      if (isEnabled) {
+        const message = vscode.l10n.t('{0} is now enabled and ready to use', [
+          EXTENSION_NAME,
+        ]);
+        vscode.window.showInformationMessage(message);
+      } else {
+        const message = vscode.l10n.t('{0} is now disabled', [EXTENSION_NAME]);
+        vscode.window.showInformationMessage(message);
+      }
+    }
+
+    if (event.affectsConfiguration(EXTENSION_ID, resource?.uri)) {
+      config.update(workspaceConfig);
+    }
+  });
 
   // -----------------------------------------------------------------
   // Get version of the extension
@@ -46,7 +98,10 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Check if the extension is running for the first time
   if (!previousVersion) {
-    const message = vscode.l10n.t('Welcome to {0}!', [EXTENSION_NAME]);
+    const message = vscode.l10n.t(
+      'Welcome to {0} version {1}! The extension is now active',
+      [EXTENSION_NAME, currentVersion],
+    );
     vscode.window.showInformationMessage(message);
 
     // Update the version in the global state
@@ -55,11 +110,38 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Check if the extension has been updated
   if (previousVersion && previousVersion !== currentVersion) {
+    const actions: vscode.MessageItem[] = [
+      {
+        title: vscode.l10n.t('Release Notes'),
+      },
+      {
+        title: vscode.l10n.t('Close'),
+      },
+    ];
+
     const message = vscode.l10n.t(
-      'Looks like {0} has been updated to version {1}!',
+      'New version of {0} is available. Check out the release notes for version {1}',
       [EXTENSION_NAME, currentVersion],
     );
-    vscode.window.showInformationMessage(message);
+    vscode.window.showInformationMessage(message, ...actions).then((option) => {
+      if (!option) {
+        return;
+      }
+
+      // Handle the actions
+      switch (option?.title) {
+        case actions[0].title:
+          vscode.env.openExternal(
+            vscode.Uri.parse(
+              `${EXTENSION_REPOSITORY_URL}/blob/main/CHANGELOG.md`,
+            ),
+          );
+          break;
+
+        default:
+          break;
+      }
+    });
 
     // Update the version in the global state
     context.globalState.update('version', currentVersion);

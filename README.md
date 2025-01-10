@@ -37,7 +37,7 @@ CodeIgniter 4 Spark is a Visual Studio Code extension that provides a set of use
 ## Requirements
 
 - CodeIgniter 4.3.0 or later
-- VSCode 1.76.0 or later
+- VSCode 1.88.0 or later
 
 ## Project Settings
 
