@@ -1,10 +1,15 @@
+// The module 'vscode' contains the VSCode extensibility API
+// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { VSCodeMarketplaceClient } from 'vscode-marketplace-client';
 
+// Import the Configs, Controllers, and Providers
 import {
   Config,
+  EXTENSION_DISPLAY_NAME,
   EXTENSION_ID,
   EXTENSION_NAME,
-  EXTENSION_REPOSITORY_URL,
+  USER_PUBLISHER,
 } from './app/configs';
 import {
   FeedbackController,
@@ -66,22 +71,6 @@ export async function activate(context: vscode.ExtensionContext) {
       resource?.uri,
     );
 
-    if (event.affectsConfiguration(`${EXTENSION_ID}.enable`, resource?.uri)) {
-      const isEnabled = workspaceConfig.get<boolean>('enable');
-
-      config.update(workspaceConfig);
-
-      if (isEnabled) {
-        const message = vscode.l10n.t('{0} is now enabled and ready to use', [
-          EXTENSION_NAME,
-        ]);
-        vscode.window.showInformationMessage(message);
-      } else {
-        const message = vscode.l10n.t('{0} is now disabled', [EXTENSION_NAME]);
-        vscode.window.showInformationMessage(message);
-      }
-    }
-
     if (event.affectsConfiguration(EXTENSION_ID, resource?.uri)) {
       config.update(workspaceConfig);
     }
@@ -100,7 +89,7 @@ export async function activate(context: vscode.ExtensionContext) {
   if (!previousVersion) {
     const message = vscode.l10n.t(
       'Welcome to {0} version {1}! The extension is now active',
-      [EXTENSION_NAME, currentVersion],
+      [EXTENSION_DISPLAY_NAME, currentVersion],
     );
     vscode.window.showInformationMessage(message);
 
@@ -115,13 +104,13 @@ export async function activate(context: vscode.ExtensionContext) {
         title: vscode.l10n.t('Release Notes'),
       },
       {
-        title: vscode.l10n.t('Close'),
+        title: vscode.l10n.t('Dismiss'),
       },
     ];
 
     const message = vscode.l10n.t(
-      'New version of {0} is available. Check out the release notes for version {1}',
-      [EXTENSION_NAME, currentVersion],
+      "The {0} extension has been updated. Check out what's new in version {1}",
+      [EXTENSION_DISPLAY_NAME, currentVersion],
     );
     vscode.window.showInformationMessage(message, ...actions).then((option) => {
       if (!option) {
@@ -133,7 +122,7 @@ export async function activate(context: vscode.ExtensionContext) {
         case actions[0].title:
           vscode.env.openExternal(
             vscode.Uri.parse(
-              `${EXTENSION_REPOSITORY_URL}/blob/main/CHANGELOG.md`,
+              `https://marketplace.visualstudio.com/items/${USER_PUBLISHER}.${EXTENSION_NAME}/changelog`,
             ),
           );
           break;
@@ -145,6 +134,58 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // Update the version in the global state
     context.globalState.update('version', currentVersion);
+  }
+
+  // -----------------------------------------------------------------
+  // Check for updates
+  // -----------------------------------------------------------------
+
+  // Check for updates to the extension
+  try {
+    // Retrieve the latest version
+    VSCodeMarketplaceClient.getLatestVersion(
+      USER_PUBLISHER,
+      EXTENSION_NAME,
+    ).then((latestVersion) => {
+      // Check if the latest version is different from the current version
+      if (latestVersion !== currentVersion) {
+        const actions: vscode.MessageItem[] = [
+          {
+            title: vscode.l10n.t('Update Now'),
+          },
+          {
+            title: vscode.l10n.t('Dismiss'),
+          },
+        ];
+
+        const message = vscode.l10n.t(
+          'A new version of {0} is available. Update to version {1} now',
+          [EXTENSION_DISPLAY_NAME, latestVersion],
+        );
+        vscode.window
+          .showInformationMessage(message, ...actions)
+          .then(async (option) => {
+            if (!option) {
+              return;
+            }
+
+            // Handle the actions
+            switch (option?.title) {
+              case actions[0].title:
+                await vscode.commands.executeCommand(
+                  'workbench.extensions.action.install.anotherVersion',
+                  `${USER_PUBLISHER}.${EXTENSION_NAME}`,
+                );
+                break;
+
+              default:
+                break;
+            }
+          });
+      }
+    });
+  } catch (error) {
+    console.error('Error retrieving extension version:', error);
   }
 
   // -----------------------------------------------------------------

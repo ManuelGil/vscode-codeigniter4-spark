@@ -11,16 +11,52 @@
 export const EXTENSION_ID: string = 'spark';
 
 /**
- * EXTENSION_NAME: The name of the extension.
+ * EXTENSION_NAME: The repository ID of the extension.
  * @type {string}
  * @public
  * @memberof Constants
  * @example
  * console.log(EXTENSION_NAME);
  *
+ * @returns {string} - The repository ID of the extension
+ */
+export const EXTENSION_NAME: string = 'vscode-codeigniter4-spark';
+
+/**
+ * EXTENSION_DISPLAY_NAME: The name of the extension.
+ * @type {string}
+ * @public
+ * @memberof Constants
+ * @example
+ * console.log(EXTENSION_DISPLAY_NAME);
+ *
  * @returns {string} - The name of the extension
  */
-export const EXTENSION_NAME: string = 'CodeIgniter 4 Spark';
+export const EXTENSION_DISPLAY_NAME: string = 'CodeIgniter 4 Spark';
+
+/**
+ * USER_NAME: The githubUsername of the extension.
+ * @type {string}
+ * @public
+ * @memberof Constants
+ * @example
+ * console.log(USER_NAME);
+ *
+ * @returns {string} - The githubUsername of the extension
+ */
+export const USER_NAME: string = 'ManuelGil';
+
+/**
+ * USER_PUBLISHER: The publisher of the extension.
+ * @type {string}
+ * @public
+ * @memberof Constants
+ * @example
+ * console.log(USER_PUBLISHER);
+ *
+ * @returns {string} - The publisher of the extension
+ */
+export const USER_PUBLISHER: string = 'imgildev';
 
 /**
  * EXTENSION_HOMEPAGE_URL: The homepage URL of the extension.
