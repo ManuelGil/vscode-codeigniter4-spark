@@ -283,7 +283,20 @@ class ${className} extends BaseConfig
       return;
     }
 
-    const content = `<?php`;
+    const content = `<?php
+
+namespace App\\Controllers;
+
+use App\\Controllers\\BaseController;
+
+class {className} extends BaseController
+{
+    public function index()
+    {
+        //
+    }
+}
+`;
 
     const filename = `${className}.php`;
 
