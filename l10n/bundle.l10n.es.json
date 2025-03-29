@@ -31,10 +31,13 @@
   "Enter the entity class name": "Introduce el nombre de la clase de entidad",
   "Enter the filter class name": "Introduce el nombre de la clase de filtro",
   "Enter the helper name": "Introduce el nombre del ayudante",
+  "Enter the interface name": "Introduce el nombre de la interfaz",
   "Enter the language file name without extension": "Introduce el nombre del archivo de idioma sin extensión",
+  "Enter the library name": "Introduce el nombre de la biblioteca",
   "Enter the migration class name": "Introduce el nombre de la clase de migración",
   "Enter the model class name": "Introduce el nombre de la clase de modelo",
   "Enter the resource class name": "Introduce el nombre de la clase de recurso",
   "Enter the seeder class name": "Introduce el nombre de la clase de sembradora",
+  "Enter the trait name": "Introduce el nombre del rasgo",
   "Enter the validation class name": "Introduce el nombre de la clase de validación"
 }

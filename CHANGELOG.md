@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0] - 2025-03-28
+
+### Added
+
+- Add `newInterface` method to the `FileController` class to create a new interface
+- Add `newLibrary` method to the `FileController` class to create a new library
+- Add `newTrait` method to the `FileController` class to create a new trait
+
 ## [2.4.1] - 2025-03-15
 
 ### Fixed
@@ -178,7 +186,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.4.1...HEAD
+[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.4.1...v2.5.0
 [2.4.1]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.2.0...v2.3.0

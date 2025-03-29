@@ -289,7 +289,7 @@ namespace App\\Controllers;
 
 use App\\Controllers\\BaseController;
 
-class {className} extends BaseController
+class ${className} extends BaseController
 {
     public function index()
     {
@@ -543,6 +543,72 @@ function custom_function()
   }
 
   /**
+   * Creates a new interface.
+   *
+   * @function newInterface
+   * @param {Uri} [path] - The path to the folder
+   * @public
+   * @async
+   * @memberof FileController
+   * @example
+   * await controller.newInterface();
+   *
+   * @returns {Promise<void>} - No return value
+   */
+  async newInterface(path?: Uri): Promise<void> {
+    // Get the relative path
+    const folderPath: string = path
+      ? await getRelativePath(path.path)
+      : 'app/Interfaces';
+
+    // Get the path to the folder
+    const folder = await getPath(
+      l10n.t('Enter the folder name'),
+      'Name without path delimeter. E.g. app/Interfaces...',
+      folderPath,
+      (path: string) => {
+        if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
+          return 'The folder name must be a valid name';
+        }
+        return;
+      },
+    );
+
+    if (!folder) {
+      return;
+    }
+
+    const name = await getName(
+      l10n.t('Enter the interface name'),
+      'Name without extension. E.g. Validation, Profile...',
+      (name: string) => {
+        if (!/^[A-Za-z]{3,}$/.test(name)) {
+          return 'Invalid format! 3 or more characters (only letters).';
+        }
+        return;
+      },
+    );
+
+    if (!name) {
+      return;
+    }
+
+    const content = `<?php
+
+namespace App\\Interfaces;
+
+interface ${name}
+{
+    public function interfaceMethod();
+}
+`;
+
+    const filename = `${name}.php`;
+
+    saveFile(folder, filename, content);
+  }
+
+  /**
    * Creates a new language.
    *
    * @function newLanguage
@@ -598,6 +664,75 @@ function custom_function()
 return [
     //
 ];
+`;
+
+    const filename = `${name}.php`;
+
+    saveFile(folder, filename, content);
+  }
+
+  /**
+   * Creates a new library.
+   *
+   * @function newLibrary
+   * @param {Uri} [path] - The path to the folder
+   * @public
+   * @async
+   * @memberof FileController
+   * @example
+   * await controller.newLibrary();
+   *
+   * @returns {Promise<void>} - No return value
+   */
+  async newLibrary(path?: Uri): Promise<void> {
+    // Get the relative path
+    const folderPath: string = path
+      ? await getRelativePath(path.path)
+      : 'app/Libraries';
+
+    // Get the path to the folder
+    const folder = await getPath(
+      l10n.t('Enter the folder name'),
+      'Name without path delimeter. E.g. app/Libraries...',
+      folderPath,
+      (path: string) => {
+        if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
+          return 'The folder name must be a valid name';
+        }
+        return;
+      },
+    );
+
+    if (!folder) {
+      return;
+    }
+
+    const name = await getName(
+      l10n.t('Enter the library name'),
+      'Name without extension. E.g. Validation, Profile...',
+      (name: string) => {
+        if (!/^[A-Za-z]{3,}$/.test(name)) {
+          return 'Invalid format! 3 or more characters (only letters).';
+        }
+        return;
+      },
+    );
+
+    if (!name) {
+      return;
+    }
+
+    const content = `<?php
+
+namespace App\\Libraries;
+
+class ${name}
+{
+    public function __construct()
+    {
+        //
+    }
+}
 `;
 
     const filename = `${name}.php`;
@@ -994,6 +1129,75 @@ class ${className} extends Seeder
 `;
 
     const filename = `${className}.php`;
+
+    saveFile(folder, filename, content);
+  }
+
+  /**
+   * Creates a new trait.
+   *
+   * @function newTrait
+   * @param {Uri} [path] - The path to the folder
+   * @public
+   * @async
+   * @memberof FileController
+   * @example
+   * await controller.newTrait();
+   *
+   * @returns {Promise<void>} - No return value
+   */
+  async newTrait(path?: Uri): Promise<void> {
+    // Get the relative path
+    const folderPath: string = path
+      ? await getRelativePath(path.path)
+      : 'app/Traits';
+
+    // Get the path to the folder
+    const folder = await getPath(
+      l10n.t('Enter the folder name'),
+      'Name without path delimeter. E.g. app/Traits...',
+      folderPath,
+      (path: string) => {
+        if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
+          return 'The folder name must be a valid name';
+        }
+        return;
+      },
+    );
+
+    if (!folder) {
+      return;
+    }
+
+    const name = await getName(
+      l10n.t('Enter the trait name'),
+      'Name without extension. E.g. Validation, Profile...',
+      (name: string) => {
+        if (!/^[A-Za-z]{3,}$/.test(name)) {
+          return 'Invalid format! 3 or more characters (only letters).';
+        }
+        return;
+      },
+    );
+
+    if (!name) {
+      return;
+    }
+
+    const content = `<?php
+
+namespace App\\Traits;
+
+trait ${name}
+{
+    public function traitMethod()
+    {
+        //
+    }
+}
+`;
+
+    const filename = `${name}.php`;
 
     saveFile(folder, filename, content);
   }

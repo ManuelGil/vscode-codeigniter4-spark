@@ -231,10 +231,22 @@ export async function activate(context: vscode.ExtensionContext) {
       fileController.newHelper(args);
     },
   );
+  const disposableFileInterface = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.interface`,
+    (args) => {
+      fileController.newInterface(args);
+    },
+  );
   const disposableFileLanguage = vscode.commands.registerCommand(
     `${EXTENSION_ID}.file.language`,
     (args) => {
       fileController.newLanguage(args);
+    },
+  );
+  const disposableFileLibrary = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.library`,
+    (args) => {
+      fileController.newLibrary(args);
     },
   );
   const disposableFileMigration = vscode.commands.registerCommand(
@@ -259,6 +271,12 @@ export async function activate(context: vscode.ExtensionContext) {
     `${EXTENSION_ID}.file.seeder`,
     (args) => {
       fileController.newSeeder(args);
+    },
+  );
+  const disposableFileTrait = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.file.trait`,
+    (args) => {
+      fileController.newTrait(args);
     },
   );
   const disposableFileValidation = vscode.commands.registerCommand(
@@ -488,11 +506,14 @@ export async function activate(context: vscode.ExtensionContext) {
     disposableFileEntity,
     disposableFileFilter,
     disposableFileHelper,
+    disposableFileInterface,
     disposableFileLanguage,
+    disposableFileLibrary,
     disposableFileMigration,
     disposableFileModel,
     disposableFileResource,
     disposableFileSeeder,
+    disposableFileTrait,
     disposableFileValidation,
     disposableTerminalCacheClear,
     disposableTerminalCacheInfo,
