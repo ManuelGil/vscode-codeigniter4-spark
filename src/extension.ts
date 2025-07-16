@@ -41,10 +41,33 @@ export async function activate(context: vscode.ExtensionContext) {
     return;
   }
 
-  // Optionally, prompt the user to select a workspace folder if multiple are available
+  // Try to load previously selected workspace folder from global state
+  const previousFolderUri = context.globalState.get<string>(
+    'selectedWorkspaceFolder',
+  );
+  let previousFolder: vscode.WorkspaceFolder | undefined;
+
+  if (previousFolderUri) {
+    // Find the workspace folder by URI
+    previousFolder = vscode.workspace.workspaceFolders.find(
+      (folder) => folder.uri.toString() === previousFolderUri,
+    );
+  }
+
   if (vscode.workspace.workspaceFolders.length === 1) {
+    // Determine the workspace folder to use
+    // Only one workspace folder available
     resource = vscode.workspace.workspaceFolders[0];
+  } else if (previousFolder) {
+    // Use previously selected workspace folder if available
+    resource = previousFolder;
+
+    // Notify the user which workspace is being used
+    vscode.window.showInformationMessage(
+      vscode.l10n.t('Using workspace folder: {0}', [resource.name]),
+    );
   } else {
+    // Multiple workspace folders and no previous selection
     const placeHolder = vscode.l10n.t(
       'Select a workspace folder to use. This folder will be used to load workspace-specific configuration for the extension',
     );
@@ -53,6 +76,14 @@ export async function activate(context: vscode.ExtensionContext) {
     });
 
     resource = selectedFolder;
+
+    // Remember the selection for future use
+    if (resource) {
+      context.globalState.update(
+        'selectedWorkspaceFolder',
+        resource.uri.toString(),
+      );
+    }
   }
 
   // -----------------------------------------------------------------
@@ -185,8 +216,43 @@ export async function activate(context: vscode.ExtensionContext) {
       }
     });
   } catch (error) {
-    console.error('Error retrieving extension version:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`Error retrieving extension version: ${errorMessage}`);
   }
+
+  // -----------------------------------------------------------------
+  // Register commands
+  // -----------------------------------------------------------------
+
+  // Register a command to change the selected workspace folder
+  const disposableChangeWorkspace = vscode.commands.registerCommand(
+    `${EXTENSION_ID}.changeWorkspace`,
+    async () => {
+      const placeHolder = vscode.l10n.t('Select a workspace folder to use');
+      const selectedFolder = await vscode.window.showWorkspaceFolderPick({
+        placeHolder,
+      });
+
+      if (selectedFolder) {
+        resource = selectedFolder;
+        context.globalState.update(
+          'selectedWorkspaceFolder',
+          resource.uri.toString(),
+        );
+
+        // Update configuration for the new workspace folder
+        const workspaceConfig = vscode.workspace.getConfiguration(
+          EXTENSION_ID,
+          resource?.uri,
+        );
+        config.update(workspaceConfig);
+
+        vscode.window.showInformationMessage(
+          vscode.l10n.t('Switched to workspace folder: {0}', [resource.name]),
+        );
+      }
+    },
+  );
 
   // -----------------------------------------------------------------
   // Register FileController and commands
@@ -500,6 +566,8 @@ export async function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
+    // Register the commands
+    disposableChangeWorkspace,
     disposableFileCommand,
     disposableFileConfig,
     disposableFileController,

@@ -15,7 +15,7 @@ import {
  * The FileController class.
  *
  * @class
- * @classdesc The class that represents the example controller.
+ * @classdesc The class that manages file generation for CodeIgniter 4 components.
  * @export
  * @public
  * @property {Config} config - The configuration
@@ -23,6 +23,102 @@ import {
  * const controller = new FileController(config);
  */
 export class FileController {
+  // -----------------------------------------------------------------
+  // Validation Constants
+  // -----------------------------------------------------------------
+
+  /**
+   * Regex pattern for validating class names - must be in PascalCase (StudlyCaps)
+   *
+   * @readonly
+   * @type {RegExp}
+   */
+  private readonly CLASS_NAME_PATTERN = /^[A-Z][A-Za-z]{2,}$/;
+
+  /**
+   * Regex pattern for validating folder names
+   *
+   * @readonly
+   * @type {RegExp}
+   */
+  private readonly FOLDER_NAME_PATTERN = /^(?!\/)[^\sÀ-ÿ]+?$/;
+
+  /**
+   * Regex pattern for validating simple names (3+ letters)
+   *
+   * @readonly
+   * @type {RegExp}
+   */
+  private readonly SIMPLE_NAME_PATTERN = /^[A-Za-z]{3,}$/;
+
+  /**
+   * Regex pattern for validating helper names (lowercase with underscores)
+   *
+   * @readonly
+   * @type {RegExp}
+   */
+  private readonly HELPER_NAME_PATTERN = /^[a-z][a-z_]{2,}$/;
+
+  // -----------------------------------------------------------------
+  // Validation Helper Methods
+  // -----------------------------------------------------------------
+
+  /**
+   * Validates if the folder name is valid
+   *
+   * @private
+   * @param {string} path - The path to validate
+   * @returns {string|undefined} - The error message or undefined
+   */
+  private validateFolderName(path: string): string | undefined {
+    if (!this.FOLDER_NAME_PATTERN.test(path)) {
+      return 'The folder name must be a valid name';
+    }
+    return undefined;
+  }
+
+  /**
+   * Validates if the class name follows PascalCase (StudlyCaps)
+   *
+   * @private
+   * @param {string} name - The class name to validate
+   * @returns {string|undefined} - The error message or undefined
+   */
+  private validateClassName(name: string): string | undefined {
+    if (!this.CLASS_NAME_PATTERN.test(name)) {
+      return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
+    }
+    return undefined;
+  }
+
+  /**
+   * Validates if the simple name contains only letters and has at least 3 characters
+   *
+   * @private
+   * @param {string} name - The name to validate
+   * @returns {string|undefined} - The error message or undefined
+   */
+  private validateSimpleName(name: string): string | undefined {
+    if (!this.SIMPLE_NAME_PATTERN.test(name)) {
+      return 'Invalid format! 3 or more characters (only letters).';
+    }
+    return undefined;
+  }
+
+  /**
+   * Validates if the helper name is lowercase with optional underscores
+   *
+   * @private
+   * @param {string} name - The name to validate
+   * @returns {string|undefined} - The error message or undefined
+   */
+  private validateHelperName(name: string): string | undefined {
+    if (!this.HELPER_NAME_PATTERN.test(name)) {
+      return 'Invalid format! Helper names must be lowercase with underscores.';
+    }
+    return undefined;
+  }
+
   // -----------------------------------------------------------------
   // Constructor
   // -----------------------------------------------------------------
@@ -66,12 +162,7 @@ export class FileController {
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Commands...',
       folderPath,
-      (path: string) => {
-        if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return 'The folder name must be a valid name';
-        }
-        return;
-      },
+      this.validateFolderName.bind(this),
     );
 
     if (!folder) {
@@ -81,12 +172,7 @@ export class FileController {
     const className = await getName(
       l10n.t('Enter the command class name'),
       'E.g. CustomCommand, CliCommand...',
-      (name: string) => {
-        if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
-        }
-        return;
-      },
+      this.validateClassName.bind(this),
     );
 
     if (!className) {
@@ -185,12 +271,7 @@ class ${className} extends BaseCommand
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Config...',
       folderPath,
-      (path: string) => {
-        if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
-          return 'The folder name must be a valid name';
-        }
-        return;
-      },
+      this.validateFolderName.bind(this),
     );
 
     if (!folder) {
@@ -200,12 +281,7 @@ class ${className} extends BaseCommand
     const className = await getName(
       l10n.t('Enter the config class name'),
       'E.g. CustomConfig, UserConfig...',
-      (name: string) => {
-        if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
-        }
-        return;
-      },
+      this.validateClassName.bind(this),
     );
 
     if (!className) {
@@ -271,12 +347,7 @@ class ${className} extends BaseConfig
     const className = await getName(
       l10n.t('Enter the controller class name'),
       'E.g. CustomController, UserController...',
-      (name: string) => {
-        if (!/^[A-Z][A-Za-z]{2,}$/.test(name)) {
-          return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
-        }
-        return;
-      },
+      this.validateClassName.bind(this),
     );
 
     if (!className) {

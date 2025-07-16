@@ -63,6 +63,37 @@ export class ListRoutesProvider implements TreeDataProvider<NodeModel> {
     NodeModel | undefined | null | void
   >;
 
+  /**
+   * Indicates whether the provider has been disposed.
+   * @type {boolean}
+   * @private
+   * @memberof ListRoutesProvider
+   * @example
+   * this._isDisposed = false;
+   */
+  private _isDisposed = false;
+
+  /**
+   * The cached nodes.
+   * @type {NodeModel[] | undefined}
+   * @private
+   * @memberof ListRoutesProvider
+   * @example
+   * this._cachedNodes = undefined;
+   */
+  private _cachedNodes: NodeModel[] | undefined = undefined;
+
+  /**
+   * The cache promise.
+   * @type {Promise<NodeModel[] | undefined> | undefined}
+   * @private
+   * @memberof ListRoutesProvider
+   * @example
+   * this._cachePromise = undefined;
+   */
+  private _cachePromise: Promise<NodeModel[] | undefined> | undefined =
+    undefined;
+
   // -----------------------------------------------------------------
   // Constructor
   // -----------------------------------------------------------------
@@ -123,22 +154,62 @@ export class ListRoutesProvider implements TreeDataProvider<NodeModel> {
       return element.children;
     }
 
-    return this.getListRoutes();
+    if (this._cachedNodes) {
+      return this._cachedNodes;
+    }
+
+    if (this._cachePromise) {
+      return this._cachePromise;
+    }
+
+    this._cachePromise = this.getListRoutes().then((nodes) => {
+      this._cachedNodes = nodes;
+      this._cachePromise = undefined;
+      return nodes;
+    });
+
+    return this._cachePromise;
   }
 
   /**
-   * Refreshes the tree data.
+   * Refreshes the tree data by firing the event.
    *
    * @function refresh
    * @public
-   * @memberof FeedbackProvider
+   * @memberof ListRoutesProvider
    * @example
    * provider.refresh();
    *
    * @returns {void} - No return value
    */
   refresh(): void {
+    this._cachedNodes = undefined;
+    this._cachePromise = undefined;
     this._onDidChangeTreeData.fire();
+  }
+
+  /**
+   * Disposes the provider.
+   *
+   * @function dispose
+   * @public
+   * @memberof ListRoutesProvider
+   * @example
+   * provider.dispose();
+   *
+   * @returns {void} - No return value
+   */
+  dispose(): void {
+    this._onDidChangeTreeData.dispose();
+    if (this._isDisposed) {
+      return;
+    }
+
+    this._isDisposed = true;
+
+    if (this._onDidChangeTreeData) {
+      this._onDidChangeTreeData.dispose();
+    }
   }
 
   // Private methods

@@ -8,7 +8,7 @@ import { getName, pickItem, runCommand } from '../helpers';
  * The TerminalController class.
  *
  * @class
- * @classdesc The class that represents the example controller.
+ * @classdesc The class that manages terminal commands for CodeIgniter 4 Spark.
  * @export
  * @public
  * @property {Config} config - The configuration
@@ -269,11 +269,11 @@ export class TerminalController {
   /**
    * Check the PHP configuration.
    *
-   * @function phpiniCheck
+   * @function iniCheck
    * @public
    * @memberof TerminalController
    * @example
-   * await controller.phpiniCheck();
+   * await controller.iniCheck();
    *
    * @returns {Promise<void>} - No return value
    */

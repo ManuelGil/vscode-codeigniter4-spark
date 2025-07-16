@@ -2,10 +2,10 @@ import { MessageItem, Uri, env, l10n, window } from 'vscode';
 
 import {
   EXTENSION_BUGS_URL,
+  EXTENSION_BUY_ME_A_COFFEE_URL,
   EXTENSION_HOMEPAGE_URL,
   EXTENSION_MARKETPLACE_URL,
   EXTENSION_NAME,
-  EXTENSION_PAYPAL_URL,
   EXTENSION_SPONSOR_URL,
 } from '../configs';
 
@@ -93,7 +93,7 @@ export class FeedbackController {
     // Create the actions
     const actions: MessageItem[] = [
       { title: l10n.t('Become a Sponsor') },
-      { title: l10n.t('Donate via PayPal') },
+      { title: l10n.t('Buy Me a Coffee') },
     ];
 
     // Show the message
@@ -110,7 +110,7 @@ export class FeedbackController {
         break;
 
       case actions[1].title:
-        env.openExternal(Uri.parse(EXTENSION_PAYPAL_URL));
+        env.openExternal(Uri.parse(EXTENSION_BUY_ME_A_COFFEE_URL));
         break;
     }
   }
