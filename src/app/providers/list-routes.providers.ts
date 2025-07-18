@@ -1,3 +1,4 @@
+import PromisePool from '@supercharge/promise-pool';
 import {
   Event,
   EventEmitter,
@@ -222,95 +223,96 @@ export class ListRoutesProvider implements TreeDataProvider<NodeModel> {
    * @example
    * const files = provider.getListRoutes();
    *
-   * @returns {Promise<NodeModel[] | undefined>} - The list of files
+   * @returns {Promise<NodeModel[]>} - The list of files
    */
-  private async getListRoutes(): Promise<NodeModel[] | undefined> {
+  private async getListRoutes(): Promise<NodeModel[]> {
     const files = await ListFilesController.getFiles();
 
     if (!files) {
-      return;
+      return [];
     }
 
-    // List of Modules
-    const nodes = files.filter((file) =>
+    const routeFiles = files.filter((file) =>
       file.label.toString().toLowerCase().includes('routes'),
     );
 
-    for (const file of nodes) {
-      const document = await workspace.openTextDocument(
-        file.resourceUri?.path ?? '',
-      );
+    if (routeFiles.length === 0) {
+      return [];
+    }
 
-      const children = Array.from(
-        { length: document.lineCount },
-        (_, index) => {
-          const line = document.lineAt(index);
+    const { results } = await PromisePool.for(routeFiles)
+      .withConcurrency(3)
+      .process(async (file) => {
+        if (!file.resourceUri) {
+          return undefined;
+        }
 
-          let node: NodeModel | undefined;
-          let type: string | undefined;
+        const document = await workspace.openTextDocument(file.resourceUri);
+        const rawEntries: Array<{ node?: NodeModel; type?: string }> = [];
 
-          if (
-            line.text.match(
-              />(match|head|options|get|post|patch|put|delete|cli)\(/g,
-            )
-          ) {
-            const route = line.text
+        for (let i = 0; i < document.lineCount; i++) {
+          const text = document.lineAt(i).text;
+
+          const routeMatch = text.match(
+            />\s*(match|head|options|get|post|patch|put|delete|cli)\(/,
+          );
+
+          if (routeMatch) {
+            const [, method] = routeMatch;
+            const parts = text
               .trim()
               .replace(
-                /\$routes\->(match|head|options|get|post|patch|put|delete|cli)\(/g,
+                /\$routes->(match|head|options|get|post|patch|put|delete|cli)\(/,
                 '',
               )
               .split(',');
+            const routePath =
+              parts[1]?.replace(/[';\)]+/g, '').replace(/::/g, ' → ') || '';
 
-            node = new NodeModel(
-              route[1].replace(/[';\)]+/g, '').replace(/::/g, ' -> '),
+            const node = new NodeModel(
+              routePath,
               new ThemeIcon('symbol-method'),
               {
                 command: `${EXTENSION_ID}.list.gotoLine`,
-                title: line.text,
-                arguments: [file.resourceUri, index],
+                title: text.trim(),
+                arguments: [file.resourceUri, i],
               },
             );
+            rawEntries.push({ node, type: method });
+            continue;
           }
 
-          if (
-            line.text.match(
-              /(match|head|options|get|post|patch|put|delete|cli)/g,
-            )
-          ) {
-            type = line.text.match(
-              /(match|head|options|get|post|patch|put|delete|cli)/g,
-            )?.[0];
+          const typeMatch = text.match(
+            /\b(match|head|options|get|post|patch|put|delete|cli)\b/,
+          );
+
+          if (typeMatch) {
+            rawEntries.push({ type: typeMatch[0] });
           }
+        }
 
-          return { node, type };
-        },
-      );
+        const httpMethods = [
+          'options',
+          'get',
+          'post',
+          'patch',
+          'put',
+          'delete',
+          'head',
+          'match',
+          'cli',
+        ];
 
-      if (children.length === 0) {
-        continue;
-      }
+        const grouped = httpMethods
+          .map((method) => this.createNodeModel(method, rawEntries))
+          .filter((group) => group.children?.length);
 
-      const nodeTypes = [
-        'options',
-        'get',
-        'post',
-        'patch',
-        'put',
-        'delete',
-        'head',
-        'match',
-        'cli',
-      ];
+        file.setChildren(grouped);
 
-      const nodes = nodeTypes.map((type) =>
-        this.createNodeModel(type, children),
-      );
+        return grouped.length ? file : undefined;
+      });
 
-      file.setChildren(nodes.filter((node) => node.children?.length));
-    }
-
-    return nodes.filter((file) => file.children?.length);
+    return results.filter((file): file is NodeModel => file !== undefined);
   }
 
   /**

@@ -18,6 +18,10 @@ CodeIgniter 4 Spark automates frequent framework operations (such as cache manag
 - Inspect routes, clear caches, and generate encryption keys instantly
 - Reduce context switching and maintain focus on application logic
 
+![demo](https://raw.githubusercontent.com/ManuelGil/vscode-codeigniter4-spark/main/docs/images/demo.gif)
+
+![preview](https://raw.githubusercontent.com/ManuelGil/vscode-codeigniter4-spark/main/docs/images/preview.png)
+
 ## Requirements
 
 - CodeIgniter 4.3.0 or later

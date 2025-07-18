@@ -7,18 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.0] - 2025-08-01
+
+### Changed
+
+- Enhance `ListFilesProvider` and `ListRoutesProvider` to use `PromisePool` for concurrent processing of files and routes
+
 ## [2.6.0] - 2025-07-16
 
 ### Changed
 
-- Updated funding details in `.github/FUNDING.yml` to include "Buy Me a Coffee".
-- Improved README.md with clearer descriptions and installation instructions.
-- Refactored constants in `constants.ts` to replace PayPal URL with Buy Me a Coffee URL.
-- Adjusted `feedback.controller.ts` to use the new funding URL.
-- Enhanced `file.controller.ts` with validation methods for naming conventions.
-- Updated `terminal.controller.ts` class description for clarity.
-- Improved caching mechanism in `ListFilesProvider` and `ListRoutesProvider`.
-- Added workspace folder selection persistence in `extension.ts`.
+- Updated funding details in `.github/FUNDING.yml` to include "Buy Me a Coffee"
+- Improved README.md with clearer descriptions and installation instructions
+- Refactored constants in `constants.ts` to replace PayPal URL with Buy Me a Coffee URL
+- Adjusted `feedback.controller.ts` to use the new funding URL
+- Enhanced `file.controller.ts` with validation methods for naming conventions
+- Updated `terminal.controller.ts` class description for clarity
+- Improved caching mechanism in `ListFilesProvider` and `ListRoutesProvider`
+- Added workspace folder selection persistence in `extension.ts`
 
 ## [2.5.0] - 2025-03-28
 
@@ -199,7 +205,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.6.0...HEAD
+[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.4.1...v2.5.0
 [2.4.1]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.4.0...v2.4.1

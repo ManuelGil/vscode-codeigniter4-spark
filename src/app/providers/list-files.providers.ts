@@ -1,3 +1,4 @@
+import PromisePool from '@supercharge/promise-pool';
 import {
   Event,
   EventEmitter,
@@ -221,29 +222,31 @@ export class ListFilesProvider implements TreeDataProvider<NodeModel> {
    * @example
    * const files = provider.getListFiles();
    *
-   * @returns {Promise<NodeModel[] | undefined>} - The list of files
+   * @returns {Promise<NodeModel[]>} - The list of files
    */
-  private async getListFiles(): Promise<NodeModel[] | undefined> {
+  private async getListFiles(): Promise<NodeModel[]> {
     const files = await ListFilesController.getFiles();
 
     if (!files) {
-      return;
+      return [];
     }
-
-    const nodes: NodeModel[] = [];
 
     const fileTypes = ListFilesController.config.watch;
 
-    for (const fileType of fileTypes) {
-      const children = files.filter((file) =>
-        file.label
-          .toString()
-          .toLowerCase()
-          .includes(`${singularize(fileType.toLowerCase())}`),
-      );
+    const { results } = await PromisePool.for(fileTypes)
+      .withConcurrency(3)
+      .process(async (fileType) => {
+        const pattern = singularize(fileType.toLowerCase());
 
-      if (children.length !== 0) {
-        const node = new NodeModel(
+        const children = files.filter((file) =>
+          file.label.toString().toLowerCase().includes(pattern),
+        );
+
+        if (children.length === 0) {
+          return undefined;
+        }
+
+        return new NodeModel(
           `${fileType}: ${children.length}`,
           new ThemeIcon('folder-opened'),
           undefined,
@@ -251,15 +254,8 @@ export class ListFilesProvider implements TreeDataProvider<NodeModel> {
           fileType,
           children,
         );
+      });
 
-        nodes.push(node);
-      }
-    }
-
-    if (nodes.length === 0) {
-      return;
-    }
-
-    return nodes;
+    return results.filter((node): node is NodeModel => node !== undefined);
   }
 }

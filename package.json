@@ -2,7 +2,7 @@
   "name": "vscode-codeigniter4-spark",
   "displayName": "CodeIgniter 4 Spark",
   "description": "CodeIgniter 4 Spark is a Visual Studio Code extension that integrates the CodeIgniter 4 Spark CLI into the editor, allowing developers to run Spark commands, generate files, and manage their CodeIgniter 4 projects directly from VS Code.",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
@@ -468,6 +468,7 @@
     "vscode-test": "^1.6.1"
   },
   "dependencies": {
+    "@supercharge/promise-pool": "^3.2.0",
     "vscode-marketplace-client": "^1.1.0"
   }
 }

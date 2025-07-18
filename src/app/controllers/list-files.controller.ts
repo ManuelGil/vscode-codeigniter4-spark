@@ -90,9 +90,7 @@ export class ListFilesController {
       files.sort((a, b) => a.path.localeCompare(b.path));
 
       for (const file of files) {
-        const document = await workspace.openTextDocument(file);
-
-        const path = await getRelativePath(document.fileName);
+        const path = await getRelativePath(file.fsPath);
         let filename = path.split('/').pop();
 
         if (filename && this.config.showPath) {
@@ -108,10 +106,10 @@ export class ListFilesController {
             {
               command: `${EXTENSION_ID}.list.openFile`,
               title: 'Open File',
-              arguments: [document.uri],
+              arguments: [file],
             },
-            document.uri,
-            document.fileName,
+            file,
+            file.fsPath,
           ),
         );
       }
