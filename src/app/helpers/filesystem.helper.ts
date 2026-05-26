@@ -38,67 +38,6 @@ export const directoryMap = async (
 };
 
 /**
- * Writes data to the file specified in the path. If the file does not exist then the function will create it.
- *
- * @param {string} path - Path to the file
- * @param {string} filename - Name of the file
- * @param {string} data - Data to write to the file
- * @example
- * await saveFile('src', 'file.ts', 'console.log("Hello World")');
- *
- * @returns {Promise<void>} - Confirmation of the write operation
- */
-export const saveFile = async (
-  path: string,
-  filename: string,
-  data: string,
-): Promise<void> => {
-  let folder: string = '';
-
-  if (workspace.workspaceFolders) {
-    folder = workspace.workspaceFolders[0].uri.fsPath;
-  } else {
-    const message = l10n.t('No workspace is open to save the file!');
-    window.showErrorMessage(message);
-    return;
-  }
-
-  const file = join(folder, path, filename);
-
-  if (!existsSync(dirname(file))) {
-    mkdirSync(dirname(file), { recursive: true });
-  }
-
-  access(file, (err: any) => {
-    if (err) {
-      open(file, 'w+', (err: any, fd: any) => {
-        if (err) {
-          throw err;
-        }
-
-        writeFile(fd, data, 'utf8', (err: any) => {
-          if (err) {
-            throw err;
-          }
-
-          const openPath = Uri.file(file);
-
-          workspace.openTextDocument(openPath).then((filename) => {
-            window.showTextDocument(filename);
-          });
-        });
-      });
-
-      const message = l10n.t('Successfully created the file!');
-      window.showInformationMessage(message);
-    } else {
-      const message = l10n.t('File already exist!');
-      window.showWarningMessage(message);
-    }
-  });
-};
-
-/**
  * Deletes ALL files contained in the supplied path.
  *
  * @param {string} path - Path to the directory

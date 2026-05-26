@@ -1,12 +1,12 @@
-import { l10n, Uri } from 'vscode';
+import { Uri, l10n } from 'vscode';
 
 // Import the Config and helper functions
 import { Config } from '../configs';
 import {
   getName,
   getPath,
-  getRelativePath,
   pluralize,
+  relativePath,
   saveFile,
   underscore,
 } from '../helpers';
@@ -33,7 +33,7 @@ export class FileController {
    * @readonly
    * @type {RegExp}
    */
-  private readonly CLASS_NAME_PATTERN = /^[A-Z][A-Za-z]{2,}$/;
+  private readonly classNamePattern = /^[A-Z][A-Za-z]{2,}$/;
 
   /**
    * Regex pattern for validating folder names
@@ -41,7 +41,7 @@ export class FileController {
    * @readonly
    * @type {RegExp}
    */
-  private readonly FOLDER_NAME_PATTERN = /^(?!\/)[^\sÀ-ÿ]+?$/;
+  private readonly folderNamePattern = /^(?!\/)[^\sÀ-ÿ]+?$/;
 
   /**
    * Regex pattern for validating simple names (3+ letters)
@@ -49,7 +49,7 @@ export class FileController {
    * @readonly
    * @type {RegExp}
    */
-  private readonly SIMPLE_NAME_PATTERN = /^[A-Za-z]{3,}$/;
+  private readonly simpleNamePattern = /^[A-Za-z]{3,}$/;
 
   /**
    * Regex pattern for validating helper names (lowercase with underscores)
@@ -57,7 +57,7 @@ export class FileController {
    * @readonly
    * @type {RegExp}
    */
-  private readonly HELPER_NAME_PATTERN = /^[a-z][a-z_]{2,}$/;
+  private readonly helperNamePattern = /^[a-z][a-z_]{2,}$/;
 
   // -----------------------------------------------------------------
   // Validation Helper Methods
@@ -71,7 +71,7 @@ export class FileController {
    * @returns {string|undefined} - The error message or undefined
    */
   private validateFolderName(path: string): string | undefined {
-    if (!this.FOLDER_NAME_PATTERN.test(path)) {
+    if (!this.folderNamePattern.test(path)) {
       return 'The folder name must be a valid name';
     }
     return undefined;
@@ -85,7 +85,7 @@ export class FileController {
    * @returns {string|undefined} - The error message or undefined
    */
   private validateClassName(name: string): string | undefined {
-    if (!this.CLASS_NAME_PATTERN.test(name)) {
+    if (!this.classNamePattern.test(name)) {
       return 'Invalid format! Class names MUST be declared in StudlyCaps / PascalCase (psr-1).';
     }
     return undefined;
@@ -99,7 +99,7 @@ export class FileController {
    * @returns {string|undefined} - The error message or undefined
    */
   private validateSimpleName(name: string): string | undefined {
-    if (!this.SIMPLE_NAME_PATTERN.test(name)) {
+    if (!this.simpleNamePattern.test(name)) {
       return 'Invalid format! 3 or more characters (only letters).';
     }
     return undefined;
@@ -113,7 +113,7 @@ export class FileController {
    * @returns {string|undefined} - The error message or undefined
    */
   private validateHelperName(name: string): string | undefined {
-    if (!this.HELPER_NAME_PATTERN.test(name)) {
+    if (!this.helperNamePattern.test(name)) {
       return 'Invalid format! Helper names must be lowercase with underscores.';
     }
     return undefined;
@@ -137,6 +137,20 @@ export class FileController {
   // Methods
   // -----------------------------------------------------------------
 
+  private resolveFolderPath(path: Uri | undefined, fallback: string): string {
+    if (!path) {
+      return fallback;
+    }
+
+    try {
+      const resolvedPath = relativePath(path, true, this.config);
+      return resolvedPath || fallback;
+    } catch (error) {
+      console.error('Failed to resolve workspace-relative path', error);
+      return fallback;
+    }
+  }
+
   // Public methods
   /**
    * Creates a new command.
@@ -153,15 +167,10 @@ export class FileController {
    */
   async newCommand(path?: Uri): Promise<void> {
     // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Commands';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Commands...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Commands'),
       this.validateFolderName.bind(this),
     );
 
@@ -244,7 +253,7 @@ class ${className} extends BaseCommand
 
     const filename = `${className}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -261,16 +270,10 @@ class ${className} extends BaseCommand
    * @returns {Promise<void>} - No return value
    */
   async newConfig(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Config';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Config...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Config'),
       this.validateFolderName.bind(this),
     );
 
@@ -305,7 +308,7 @@ class ${className} extends BaseConfig
 
     const filename = `${className}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -322,16 +325,10 @@ class ${className} extends BaseConfig
    * @returns {Promise<void>} - No return value
    */
   async newController(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Controllers';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Controllers...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Controllers'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -371,7 +368,7 @@ class ${className} extends BaseController
 
     const filename = `${className}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -388,16 +385,10 @@ class ${className} extends BaseController
    * @returns {Promise<void>} - No return value
    */
   async newEntity(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Entities';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Entities...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Entities'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -441,7 +432,7 @@ class ${className} extends Entity
 
     const filename = `${className}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -458,16 +449,10 @@ class ${className} extends Entity
    * @returns {Promise<void>} - No return value
    */
   async newFilter(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Filters';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Filters...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Filters'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -546,7 +531,7 @@ class ${className} implements FilterInterface
 
     const filename = `${className}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -563,16 +548,10 @@ class ${className} implements FilterInterface
    * @returns {Promise<void>} - No return value
    */
   async newHelper(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Helpers';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Helpers...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Helpers'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -610,7 +589,7 @@ function custom_function()
 
     const filename = `${name}_helper.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -627,16 +606,10 @@ function custom_function()
    * @returns {Promise<void>} - No return value
    */
   async newInterface(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Interfaces';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Name without path delimeter. E.g. app/Interfaces...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Interfaces'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -676,7 +649,7 @@ interface ${name}
 
     const filename = `${name}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -693,16 +666,10 @@ interface ${name}
    * @returns {Promise<void>} - No return value
    */
   async newLanguage(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Language';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Name without path delimeter. E.g. app/Language/en, app/Language/fr-CA, app/Language/zh-cn...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Language'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -739,7 +706,7 @@ return [
 
     const filename = `${name}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -756,16 +723,10 @@ return [
    * @returns {Promise<void>} - No return value
    */
   async newLibrary(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Libraries';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Name without path delimeter. E.g. app/Libraries...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Libraries'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -808,7 +769,7 @@ class ${name}
 
     const filename = `${name}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -825,16 +786,10 @@ class ${name}
    * @returns {Promise<void>} - No return value
    */
   async newMigration(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Database/Migrations';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Database/Migrations...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Database/Migrations'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -907,7 +862,7 @@ class ${name} extends Migration
 
     const filename = `${format}_${name}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -924,16 +879,10 @@ class ${name} extends Migration
    * @returns {Promise<void>} - No return value
    */
   async newModel(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Models';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Models...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Models'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -1008,7 +957,7 @@ class ${className} extends Model
 
     const filename = `${className}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -1025,16 +974,10 @@ class ${className} extends Model
    * @returns {Promise<void>} - No return value
    */
   async newResource(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Controllers';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Controllers...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Controllers'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -1128,7 +1071,7 @@ class ${className} extends ResourceController
 
     const filename = `${className}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -1145,16 +1088,10 @@ class ${className} extends ResourceController
    * @returns {Promise<void>} - No return value
    */
   async newSeeder(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Database/Seeds';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Database/Seeds...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Database/Seeds'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -1201,7 +1138,7 @@ class ${className} extends Seeder
 
     const filename = `${className}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -1218,16 +1155,10 @@ class ${className} extends Seeder
    * @returns {Promise<void>} - No return value
    */
   async newTrait(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Traits';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Name without path delimeter. E.g. app/Traits...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Traits'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -1270,7 +1201,7 @@ trait ${name}
 
     const filename = `${name}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 
   /**
@@ -1287,16 +1218,10 @@ trait ${name}
    * @returns {Promise<void>} - No return value
    */
   async newValidation(path?: Uri): Promise<void> {
-    // Get the relative path
-    const folderPath: string = path
-      ? await getRelativePath(path.path)
-      : 'app/Validation';
-
-    // Get the path to the folder
     const folder = await getPath(
       l10n.t('Enter the folder name'),
       'Folder name. E.g. app, app/Validation...',
-      folderPath,
+      this.resolveFolderPath(path, 'app/Validation'),
       (path: string) => {
         if (!/^(?!\/)[^\sÀ-ÿ]+?$/.test(path)) {
           return 'The folder name must be a valid name';
@@ -1339,6 +1264,6 @@ class ${className}
 
     const filename = `${className}.php`;
 
-    saveFile(folder, filename, content);
+    await saveFile(folder, filename, content, this.config);
   }
 }

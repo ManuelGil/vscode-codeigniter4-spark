@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.1] - 2026-05-25
+
+### Added
+
+- Add workspace-aware helper modules for filesystem operations, path normalization, and workspace root selection to keep generators consistent.
+
+### Changed
+
+- Move activation logic into a dedicated runtime that coordinates configuration sync, enablement gating, command registration, and update notifications.
+- Route file generation commands through the shared helpers so folder prompts honor the selected workspace and saves validate destinations before writing.
+
+### Fixed
+
+- Prevent file creation outside the active workspace by validating resolved directories and surfacing descriptive errors.
+
 ## [2.7.0] - 2025-08-01
 
 ### Changed
