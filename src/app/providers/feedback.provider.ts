@@ -63,6 +63,16 @@ export class FeedbackProvider implements TreeDataProvider<NodeModel> {
     NodeModel | undefined | null | void
   >;
 
+  /**
+   * Indicates whether the provider has been disposed.
+   * @type {boolean}
+   * @private
+   * @memberof FeedbackProvider
+   * @example
+   * this._isDisposed = false;
+   */
+  private _isDisposed = false;
+
   // -----------------------------------------------------------------
   // Constructor
   // -----------------------------------------------------------------
@@ -142,6 +152,30 @@ export class FeedbackProvider implements TreeDataProvider<NodeModel> {
     this._onDidChangeTreeData.fire();
   }
 
+  /**
+   * Disposes the provider.
+   *
+   * @function dispose
+   * @public
+   * @memberof FeedbackProvider
+   * @example
+   * provider.dispose();
+   *
+   * @returns {void} - No return value
+   */
+  dispose(): void {
+    this._onDidChangeTreeData.dispose();
+    if (this._isDisposed) {
+      return;
+    }
+
+    this._isDisposed = true;
+
+    if (this._onDidChangeTreeData) {
+      this._onDidChangeTreeData.dispose();
+    }
+  }
+
   // Private methods
   /**
    * Returns the feedbacks.
@@ -160,8 +194,8 @@ export class FeedbackProvider implements TreeDataProvider<NodeModel> {
         title: 'About Us',
         command: `${EXTENSION_ID}.feedback.aboutUs`,
       }),
-      new NodeModel(l10n.t('Report Issues'), new ThemeIcon('bug'), {
-        title: 'Report Issues',
+      new NodeModel(l10n.t('Report an Issue'), new ThemeIcon('bug'), {
+        title: 'Report an Issue',
         command: `${EXTENSION_ID}.feedback.reportIssues`,
       }),
       new NodeModel(l10n.t('Rate Us'), new ThemeIcon('star'), {

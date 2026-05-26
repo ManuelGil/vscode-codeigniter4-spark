@@ -1,3 +1,3 @@
 export * from './feedback.provider';
-export * from './list-files.providers';
-export * from './list-routes.providers';
+export * from './list-files.provider';
+export * from './list-routes.provider';
