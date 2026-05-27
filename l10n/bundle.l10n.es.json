@@ -1,9 +1,13 @@
 {
-  "No workspace folders are open. Please open a workspace folder to use this extension": "No hay carpetas de espacio de trabajo abiertas. Abre una carpeta de espacio de trabajo para usar esta extensión",
+  "Failed to activate the extension: {0}": "Error al activar la extensión: {0}",
+  "The {0} extension is disabled in settings. Enable it to use its features": "La extensión {0} está deshabilitada en la configuración. Actívala para usar sus funciones",
+  "The {0} extension is now disabled": "La extensión {0} ahora está deshabilitada",
+  "The {0} extension is now enabled and ready to use": "La extensión {0} ahora está habilitada y lista para usarse",
+  "{0}: No workspace folders are open. Please open a workspace folder to use this extension": "{0}: No hay carpetas de espacio de trabajo abiertas. Abre una carpeta para utilizar esta extensión",
+  "{0}: Select a workspace folder to use. This folder will be used to load workspace-specific configuration for the extension": "{0}: Selecciona una carpeta de espacio de trabajo. Se usará para cargar la configuración específica de la extensión",
   "Select a workspace folder to use": "Selecciona una carpeta de espacio de trabajo para usar",
   "Switched to workspace folder: {0}": "Cambiado a la carpeta de espacio de trabajo: {0}",
   "Using workspace folder: {0}": "Usando la carpeta de espacio de trabajo: {0}",
-  "Select a workspace folder to use. This folder will be used to load workspace-specific configuration for the extension": "Selecciona una carpeta de espacio de trabajo. Esta carpeta se usará para cargar la configuración específica de la extensión",
   "Welcome to {0} version {1}! The extension is now active": "¡Bienvenido a {0} versión {1}! La extensión ya está activa",
   "The {0} extension has been updated. Check out what's new in version {1}": "La extensión {0} se ha actualizado. Consulta las novedades de la versión {1}",
   "Release Notes": "Notas de la versión",
@@ -38,10 +42,9 @@
   "Enter the trait name": "Introduce el nombre del rasgo",
   "Enter the validation class name": "Introduce el nombre de la clase de validación",
   "Creating file: {0}": "Creando archivo: {0}",
-  "Error creating file: {0}": "Error al crear el archivo: {0}",
+  "Error creating file: {0}. Please check the path and try again": "Error al crear el archivo: {0}. Verifica la ruta e inténtalo de nuevo",
   "File already exists: {0}": "El archivo ya existe: {0}",
   "File created successfully: {0}": "Archivo creado exitosamente: {0}",
   "Invalid directory path": "Ruta de directorio no válida",
-  "No workspace folder open": "No hay una carpeta de espacio de trabajo abierta",
   "Open File": "Abrir archivo"
 }

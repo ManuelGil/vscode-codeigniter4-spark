@@ -2,7 +2,7 @@ import { l10n, window } from 'vscode';
 
 // Import the Config and helper functions
 import { Config } from '../configs';
-import { getName, pickItem, runCommand } from '../helpers';
+import { getName, getWorkspaceRoot, pickItem, runCommand } from '../helpers';
 
 /**
  * The TerminalController class.
@@ -47,7 +47,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   cacheClear() {
-    runCommand('cache clear', 'php spark cache:clear');
+    this.runSparkCommand('cache clear', 'php spark cache:clear');
   }
 
   /**
@@ -62,7 +62,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   cacheInfo() {
-    runCommand('cache info', 'php spark cache:info');
+    this.runSparkCommand('cache info', 'php spark cache:info');
   }
 
   /**
@@ -77,7 +77,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   dbCreate() {
-    runCommand('db create', 'php spark db:create');
+    this.runSparkCommand('db create', 'php spark db:create');
   }
 
   /**
@@ -92,7 +92,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   dbSeed() {
-    runCommand('db seed', 'php spark db:seed');
+    this.runSparkCommand('db seed', 'php spark db:seed');
   }
 
   /**
@@ -107,7 +107,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   dbTable() {
-    runCommand('db table', 'php spark db:table');
+    this.runSparkCommand('db table', 'php spark db:table');
   }
 
   /**
@@ -131,9 +131,10 @@ export class TerminalController {
       return;
     }
 
-    const prompt = l10n.t('Enter the route for the {0} method', [
+    const prompt = l10n.t(
+      'Enter the route for the {0} method',
       method.toUpperCase(),
-    ]);
+    );
     const route = await window.showInputBox({
       prompt,
       placeHolder: 'E.g. /, products/1, users/1/edit...',
@@ -143,7 +144,10 @@ export class TerminalController {
       return;
     }
 
-    runCommand('filter check', `php spark filter:check ${method} ${route}`);
+    this.runSparkCommand(
+      'filter check',
+      `php spark filter:check ${method} ${route}`,
+    );
   }
 
   /**
@@ -158,7 +162,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   key() {
-    runCommand('key generate', 'php spark key:generate');
+    this.runSparkCommand('key generate', 'php spark key:generate');
   }
 
   /**
@@ -173,7 +177,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   logsClear() {
-    runCommand('logs clear', 'php spark logs:clear');
+    this.runSparkCommand('logs clear', 'php spark logs:clear');
   }
 
   /**
@@ -188,7 +192,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   async migrate() {
-    runCommand('migrate', 'php spark migrate');
+    this.runSparkCommand('migrate', 'php spark migrate');
   }
 
   /**
@@ -203,7 +207,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   migrateRefresh() {
-    runCommand('migrate refresh', 'php spark migrate:refresh');
+    this.runSparkCommand('migrate refresh', 'php spark migrate:refresh');
   }
 
   /**
@@ -218,7 +222,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   migrateRollback() {
-    runCommand('migrate rollback', 'php spark migrate:rollback');
+    this.runSparkCommand('migrate rollback', 'php spark migrate:rollback');
   }
 
   /**
@@ -233,7 +237,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   migrateStatus() {
-    runCommand('migrate status', 'php spark migrate:status');
+    this.runSparkCommand('migrate status', 'php spark migrate:status');
   }
 
   /**
@@ -248,7 +252,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   namespaces() {
-    runCommand('namespaces', 'php spark namespaces');
+    this.runSparkCommand('namespaces', 'php spark namespaces');
   }
 
   /**
@@ -263,7 +267,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   optimize() {
-    runCommand('optimize', 'php spark optimize');
+    this.runSparkCommand('optimize', 'php spark optimize');
   }
 
   /**
@@ -278,7 +282,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   iniCheck() {
-    runCommand('ini check', 'php spark phpini:check');
+    this.runSparkCommand('ini check', 'php spark phpini:check');
   }
 
   /**
@@ -293,7 +297,7 @@ export class TerminalController {
    * @returns {Promise<void>} - No return value
    */
   routes() {
-    runCommand('routes', 'php spark routes');
+    this.runSparkCommand('routes', 'php spark routes');
   }
 
   /**
@@ -360,6 +364,18 @@ export class TerminalController {
       }
     }
 
-    runCommand('server', `php spark serve ${extras.join(' ')}`);
+    this.runSparkCommand('server', `php spark serve ${extras.join(' ')}`);
+  }
+
+  // -----------------------------------------------------------------
+  // Private methods
+  // -----------------------------------------------------------------
+
+  /**
+   * Ensures Spark commands run inside the selected workspace folder.
+   */
+  private runSparkCommand(_title: string, command: string): void {
+    const workspaceRoot = getWorkspaceRoot(this.config);
+    void runCommand(command, workspaceRoot);
   }
 }

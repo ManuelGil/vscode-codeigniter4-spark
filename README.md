@@ -1,9 +1,6 @@
 # CodeIgniter 4 Spark
 
-[![VS Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/imgildev.vscode-codeigniter4-spark?style=for-the-badge&label=VS%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/imgildev.vscode-codeigniter4-spark?style=for-the-badge&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
-[![Downloads](https://img.shields.io/visual-studio-marketplace/d/imgildev.vscode-codeigniter4-spark?style=for-the-badge&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
-[![Rating](https://img.shields.io/visual-studio-marketplace/r/imgildev.vscode-codeigniter4-spark?style=for-the-badge&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark&ssr=false#review-details)
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/ManuelGil/vscode-codeigniter4-spark?style=for-the-badge&logo=github)](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-codeigniter4-spark)
 [![GitHub Stars](https://img.shields.io/github/stars/ManuelGil/vscode-codeigniter4-spark?style=for-the-badge&logo=github)](https://github.com/ManuelGil/vscode-codeigniter4-spark)
 [![License](https://img.shields.io/github/license/ManuelGil/vscode-codeigniter4-spark?style=for-the-badge&logo=github)](https://github.com/ManuelGil/vscode-codeigniter4-spark/blob/main/LICENSE)
 
@@ -16,6 +13,7 @@ CodeIgniter 4 Spark automates frequent framework operations (such as cache manag
 - Execute cache, migration, and configuration commands without leaving the IDE
 - Scaffold controllers, models, entities, filters, and more with a single command
 - Inspect routes, clear caches, and generate encryption keys instantly
+- Keep Spark output centralized in a dedicated workspace terminal so repeated commands never clutter your terminal list
 - Reduce context switching and maintain focus on application logic
 
 ![demo](https://raw.githubusercontent.com/ManuelGil/vscode-codeigniter4-spark/main/docs/images/demo.gif)
@@ -40,13 +38,10 @@ Add or update the following settings in your project's `.vscode/settings.json` t
 
 ```jsonc
 {
-  "spark.files.include": ["php"],          // Extensions to include in the file tree
-  "spark.files.exclude": [
-    "**/vendor/**",
-    "**/.*/**"
-  ],                                         // Paths to exclude
-  "spark.files.watch": ["helpers"],        // Folders to watch for changes
-  "spark.files.showPath": true              // Show the file path
+  "spark.files.include": ["php"], // Extensions to include in the file tree
+  "spark.files.exclude": ["**/vendor/**", "**/.*/**"], // Paths to exclude
+  "spark.files.watch": ["helpers"], // Folders to watch for changes
+  "spark.files.showPath": true, // Show the file path
 }
 ```
 
@@ -82,7 +77,7 @@ Reload the editor to apply configuration changes.
 | **Spark: Make Migration**   | Generates a migration class with timestamp   |
 | **Spark: Make Seeder**      | Generates a database seeder class            |
 | **Spark: Clear Logs**       | Deletes all log files                        |
-| *…and more*                 | See the Command Palette for a full list      |
+| _…and more_                 | See the Command Palette for a full list      |
 
 ## Contributing
 
@@ -106,14 +101,14 @@ For a complete list of updates, see [CHANGELOG.md](https://github.com/ManuelGil/
 
 ## Authors
 
-- **Manuel Gil** - *Owner* - [@ManuelGil](https://github.com/ManuelGil)
+- **Manuel Gil** - _Owner_ - [@ManuelGil](https://github.com/ManuelGil)
 
 For a complete list of contributors, please refer to the [contributors](https://github.com/ManuelGil/vscode-codeigniter4-spark/contributors) page.
 
 ## Follow Me
 
-- **GitHub**: [![GitHub followers](https://img.shields.io/github/followers/ManuelGil?style=for-the-badge\&logo=github)](https://github.com/ManuelGil)
-- **X (formerly Twitter)**: [![X Follow](https://img.shields.io/twitter/follow/imgildev?style=for-the-badge\&logo=x)](https://twitter.com/imgildev)
+- **GitHub**: [![GitHub followers](https://img.shields.io/github/followers/ManuelGil?style=for-the-badge&logo=github)](https://github.com/ManuelGil)
+- **X (formerly Twitter)**: [![X Follow](https://img.shields.io/twitter/follow/imgildev?style=for-the-badge&logo=x)](https://twitter.com/imgildev)
 
 ## Other Extensions
 

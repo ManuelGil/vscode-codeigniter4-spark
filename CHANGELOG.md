@@ -5,22 +5,26 @@ All notable changes to the "CodeIgniter 4 Spark for VSCode" extension will be do
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+<!-- markdownlint-disable MD024 -->
+
 ## [Unreleased]
 
-## [2.7.1] - 2026-05-25
+## [2.8.0] - 2026-05-26
 
 ### Added
 
-- Add workspace-aware helper modules for filesystem operations, path normalization, and workspace root selection to keep generators consistent.
+- Add workspace-aware helper modules for filesystem operations, path normalization, and workspace root resolution to ensure consistent behavior across generators.
 
 ### Changed
 
-- Move activation logic into a dedicated runtime that coordinates configuration sync, enablement gating, command registration, and update notifications.
-- Route file generation commands through the shared helpers so folder prompts honor the selected workspace and saves validate destinations before writing.
+- Refactor activation logic into a dedicated runtime responsible for configuration synchronization, enablement gating, command registration, and update notifications.
+- Update file generation commands to use shared workspace helpers, ensuring folder selection respects the active workspace and destination paths are validated before saving.
+- Ensure all Spark terminal commands execute within the selected workspace folder, eliminating the need to manually change directories in multi-root projects.
+- Reuse a single Spark terminal instance per workspace to prevent spawning unnecessary VSCode terminals during repeated command execution.
 
 ### Fixed
 
-- Prevent file creation outside the active workspace by validating resolved directories and surfacing descriptive errors.
+- Prevent file creation outside the active workspace by validating resolved paths and surfacing clearer error messages.
 
 ## [2.7.0] - 2025-08-01
 
