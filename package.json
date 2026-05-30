@@ -2,7 +2,7 @@
   "name": "vscode-codeigniter4-spark",
   "displayName": "CodeIgniter 4 Spark",
   "description": "Run and manage CodeIgniter 4 Spark from VS Code. Execute Spark commands, generate files (controllers, models, migrations, seeders), manage routes, database and cache, and start the server - all without leaving the editor.",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
@@ -448,7 +448,7 @@
   },
   "scripts": {
     "vscode:prepublish": "pnpm compile",
-    "compile": "rimraf out && esbuild src/extension.ts --bundle --platform=node --target=node22 --format=cjs --external:vscode --outfile=out/extension.js --minify",
+    "compile": "rimraf out && tsc --noEmit && esbuild src/extension.ts --bundle --platform=node --target=node22 --format=cjs --external:vscode --outfile=out/extension.js && cpy \"src/assets/**/*\" out/assets",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm compile && pnpm lint",
     "format": "biome format --write .",

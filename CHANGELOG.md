@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.1] - 2026-05-29
+
+### Fixed
+
+- Include icon assets in build outputs to ensure action bar icons display correctly.
+
 ## [2.8.0] - 2026-05-26
 
 ### Added
@@ -224,7 +230,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.7.0...HEAD
+[unreleased]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.8.1...HEAD
+[2.8.1]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.8.0...v2.8.1
+[2.8.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.7.0...v2.8.0
 [2.7.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/ManuelGil/vscode-codeigniter4-spark/compare/v2.4.1...v2.5.0
