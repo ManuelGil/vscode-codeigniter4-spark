@@ -471,7 +471,7 @@
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
     "cpy-cli": "^5.0.0",
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "glob": "^11.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
@@ -481,7 +481,7 @@
   },
   "dependencies": {
     "@supercharge/promise-pool": "^3.3.0",
-    "vscode-marketplace-client": "^1.2.3"
+    "vscode-marketplace-client": "^1.2.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
