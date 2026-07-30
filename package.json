@@ -481,7 +481,7 @@
   },
   "dependencies": {
     "@supercharge/promise-pool": "^3.3.0",
-    "vscode-marketplace-client": "^1.2.4"
+    "vscode-marketplace-client": "^1.2.5"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
