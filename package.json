@@ -471,7 +471,7 @@
     "@vscode/test-cli": "^0.0.15",
     "@vscode/test-electron": "^2.5.2",
     "cpy-cli": "^5.0.0",
-    "esbuild": "^0.28.1",
+    "esbuild": "^0.28.2",
     "glob": "^11.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
